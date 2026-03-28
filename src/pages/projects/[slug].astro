@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getProjects } from '@lib/storyblok';
+import type { StoryblokStory, Project } from '@lib/storyblok';
+
+export async function getStaticPaths() {
+  try {
+    const projects = await getProjects();
+    return projects.map((story) => ({
+      params: { slug: story.slug },
+      props: { story },
+    }));
+  } catch {
+    // Sin token de Storyblok — retornar vacío en build
+    return [];
+  }
+}
+
+interface Props {
+  story: StoryblokStory<Project>;
+}
+
+const { story } = Astro.props;
+---
+
+<BaseLayout
+  title={`${story.content.title} — Zellety`}
+  description={story.content.summary}
+  ogImage={story.content.cover_image?.filename}
+>
+  <main class="container-site section-padding">
+    <!-- Fase 4: contenido completo del proyecto -->
+    <h1 class="text-h1-style">{story.content.title}</h1>
+  </main>
+</BaseLayout>

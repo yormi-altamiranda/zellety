@@ -1,0 +1,18 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const props = Astro.props;
+---
+
+<BaseLayout {...props}>
+  <main class="container-site py-[var(--space-24)]">
+    <slot />
+  </main>
+</BaseLayout>

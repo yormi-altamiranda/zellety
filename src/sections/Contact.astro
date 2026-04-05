@@ -43,44 +43,58 @@ import ContactForm from '../components/ContactForm.vue';
     </div>
   </div>
 
-  <!-- ── Email marquee gigante ── -->
-  <div class="overflow-hidden border-t border-[var(--z-midnight-800)] py-6">
-    <div class="email-marquee flex whitespace-nowrap">
-      <span
-        class="font-display font-bold shrink-0 pr-16"
-        style="font-size: clamp(4rem, 12vw, 10rem); line-height: 1; color: var(--z-lime-400); letter-spacing: -0.02em;"
-        aria-hidden="true"
-      >
-        HOLA@ZELLETY.COM&nbsp;&nbsp;·&nbsp;&nbsp;
-      </span>
-      <span
-        class="font-display font-bold shrink-0 pr-16"
-        style="font-size: clamp(4rem, 12vw, 10rem); line-height: 1; color: var(--z-lime-400); letter-spacing: -0.02em;"
-      >
-        HOLA@ZELLETY.COM&nbsp;&nbsp;·&nbsp;&nbsp;
-      </span>
-      <span
-        class="font-display font-bold shrink-0 pr-16"
-        style="font-size: clamp(4rem, 12vw, 10rem); line-height: 1; color: var(--z-lime-400); letter-spacing: -0.02em;"
-        aria-hidden="true"
-      >
-        HOLA@ZELLETY.COM&nbsp;&nbsp;·&nbsp;&nbsp;
-      </span>
+  <!-- ── Contact marquee ── -->
+  <div class="overflow-hidden border-t border-[var(--z-midnight-800)] py-5">
+    <div class="contact-marquee flex items-center whitespace-nowrap">
+      {[0, 1, 2].map((_, i) => (
+        <span class="flex items-center shrink-0 gap-10" aria-hidden={i > 0 ? 'true' : undefined}>
+          <a href="mailto:info@zellety.com" class="contact-marquee-item font-display font-bold uppercase" style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;">
+            Email: info@zellety.com
+          </a>
+          <span class="font-display font-bold select-none" style="font-size: 60px; color: var(--z-lime-400); opacity: 0.4;">·</span>
+          <a href="tel:+58000000000" class="contact-marquee-item font-display font-bold uppercase" style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;">
+            Llámanos: +58 000 000 000
+          </a>
+          <span class="font-display font-bold select-none" style="font-size: 60px; color: var(--z-lime-400); opacity: 0.4;">·</span>
+          <a href="https://wa.me/580000000000" target="_blank" rel="noopener noreferrer" class="contact-marquee-item font-display font-bold uppercase" style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;">
+            WhatsApp: +58 000 000 000
+          </a>
+          <span class="font-display font-bold select-none" style="font-size: 60px; color: var(--z-lime-400); opacity: 0.4; padding-right: 2.5rem;">·</span>
+        </span>
+      ))}
     </div>
   </div>
 
 </section>
 
 <style>
-  .email-marquee {
-    animation: email-scroll 12s linear infinite;
+  .contact-marquee {
+    animation: contact-scroll 30s linear infinite;
   }
-  .email-marquee:hover {
+  .contact-marquee:hover {
     animation-play-state: paused;
   }
-  @keyframes email-scroll {
+  @keyframes contact-scroll {
     from { transform: translateX(0); }
     to   { transform: translateX(-33.333%); }
+  }
+
+  .contact-marquee-item {
+    text-decoration: none;
+    position: relative;
+  }
+  .contact-marquee-item::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--z-lime-400);
+    transition: width 0.3s ease;
+  }
+  .contact-marquee-item:hover::after {
+    width: 100%;
   }
 </style>
 

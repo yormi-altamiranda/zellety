@@ -28,7 +28,7 @@ export const mockProjects: MockProject[] = [
     summary: 'Plataforma de comercio electrónico con más de 5,000 SKUs, pagos integrados y panel de administración personalizado.',
     description: 'Desarrollamos una tienda online completa para una marca de moda latinoamericana. La plataforma incluye catálogo avanzado, carrito persistente, integración con MercadoPago y Stripe, panel de admin con métricas en tiempo real y sistema de gestión de inventario.',
     cover_image: {
-      filename: 'https://picsum.photos/seed/proj-ecommerce/600/800',
+      filename: 'https://picsum.photos/seed/proj-ecommerce/800/500',
       alt: 'Tienda E-Commerce',
     },
     services: ['web_app', 'ux_ui'],
@@ -47,7 +47,7 @@ export const mockProjects: MockProject[] = [
     summary: 'Control de hogar inteligente para iOS y Android. Automatización de luces, clima y seguridad desde una sola app.',
     description: 'Aplicación móvil para control de dispositivos IoT del hogar. Incluye paneles de control en tiempo real, automatizaciones programadas, notificaciones push, integración con sensores de temperatura/movimiento y compatibilidad con Alexa y Google Home.',
     cover_image: {
-      filename: 'https://picsum.photos/seed/proj-iot/600/800',
+      filename: 'https://picsum.photos/seed/proj-iot/800/500',
       alt: 'App Domótica',
     },
     services: ['mobile', 'iot'],
@@ -66,7 +66,7 @@ export const mockProjects: MockProject[] = [
     summary: 'Plataforma multi-tenant para gestión de equipos y proyectos con billing integrado y dashboards en tiempo real.',
     description: 'SaaS B2B para equipos de producto. Incluye workspace multi-tenant, gestión de proyectos con kanban, time tracking, reportes avanzados, facturación automática con Stripe y onboarding guiado. Arquitectura serverless con autoscaling.',
     cover_image: {
-      filename: 'https://picsum.photos/seed/proj-saas/600/800',
+      filename: 'https://picsum.photos/seed/proj-saas/800/500',
       alt: 'SaaS de Gestión',
     },
     services: ['saas', 'ux_ui'],
@@ -85,7 +85,7 @@ export const mockProjects: MockProject[] = [
     summary: 'Research, design system y prototipo interactivo completo para startup fintech de pagos en LATAM.',
     description: 'Proyecto de UX/UI end-to-end para una fintech colombiana. Incluye investigación con usuarios, definición de flujos, diseño de componentes, design system documentado en Figma, prototipo interactivo y handoff a desarrollo.',
     cover_image: {
-      filename: 'https://picsum.photos/seed/proj-fintech/600/800',
+      filename: 'https://picsum.photos/seed/proj-fintech/800/500',
       alt: 'Rediseño Fintech',
     },
     services: ['ux_ui'],
@@ -104,7 +104,7 @@ export const mockProjects: MockProject[] = [
     summary: 'Seguimiento de entrenamiento y nutrición para iOS y Android con planes personalizados generados por IA.',
     description: 'Aplicación de fitness con seguimiento de rutinas, contador de calorías, integración con Apple Health y Google Fit, planes de entrenamiento generados con IA, comunidad social y challenges. Flutter con backend en NestJS.',
     cover_image: {
-      filename: 'https://picsum.photos/seed/proj-fitness/600/800',
+      filename: 'https://picsum.photos/seed/proj-fitness/800/500',
       alt: 'App Fitness',
     },
     services: ['mobile', 'ux_ui'],
@@ -123,7 +123,7 @@ export const mockProjects: MockProject[] = [
     summary: 'Sitio web corporativo con CMS headless, blog y landing pages optimizadas para conversión.',
     description: 'Portal web para empresa de consultoría con más de 200 empleados. Incluye home animado, secciones de servicios, blog con CMS (Storyblok), landing pages A/B, formularios con Netlify, integración con HubSpot y métricas de conversión.',
     cover_image: {
-      filename: 'https://picsum.photos/seed/proj-corporate/600/800',
+      filename: 'https://picsum.photos/seed/proj-corporate/800/500',
       alt: 'Portal Corporativo',
     },
     services: ['web_app', 'ux_ui'],

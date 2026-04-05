@@ -1,154 +1,201 @@
 ---
-// Hero — layout: copy izquierda, imágenes derecha
-// Inspirado en la referencia: label + title + desc + CTA | imágenes rotadas con accents
-
-interface Props {
-  heroImage?: string;
-  heroImage2?: string;
-}
-
-const {
-  heroImage  = 'https://picsum.photos/seed/zellety-hero-a/600/750',
-  heroImage2 = 'https://picsum.photos/seed/zellety-hero-b/500/650',
-} = Astro.props;
+const slides = [
+  {
+    image: 'https://picsum.photos/seed/zellety-slide-1/1920/1080',
+    alt:   'Diseño y Desarrollo Zellety — Web Apps',
+  },
+  {
+    image: 'https://picsum.photos/seed/zellety-slide-2/1920/1080',
+    alt:   'Mobile y IoT LATAM',
+  },
+  {
+    image: 'https://picsum.photos/seed/zellety-slide-3/1920/1080',
+    alt:   'UX/UI y SaaS',
+  },
+];
 ---
 
 <section
   id="inicio"
-  class="relative min-h-screen flex items-center bg-[var(--z-midnight-950)] overflow-hidden pt-20"
+  class="relative overflow-hidden"
+  style="height: 100svh; min-height: 600px; background: var(--z-midnight-950);"
 >
-  <div class="container-site relative z-10 py-[var(--space-16)]">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
-      <!-- ── Col izquierda: copy ── -->
-      <div class="flex flex-col gap-6">
-
-        <!-- Subtítulo / label -->
-        <p id="hero-label" class="label-mono opacity-0" style="color: var(--z-lime-400);">
-          DESIGN · DEV · LATAM
-        </p>
-
-        <!-- Título principal -->
-        <h1
-          id="hero-headline"
-          class="font-display font-bold text-[var(--z-white)] opacity-0"
-          style="font-size: clamp(2.6rem, 5.5vw, 5rem); line-height: 1.02; letter-spacing: -0.02em;"
-        >
-          Diseñamos y<br />
-          construimos<br />
-          <span style="color: var(--z-lime-400);">lo que imaginas.</span>
-        </h1>
-
-        <!-- Descripción -->
-        <p
-          id="hero-subline"
-          class="font-body text-[var(--z-slate-300)] max-w-md opacity-0"
-          style="font-size: 1rem; line-height: 1.7;"
-        >
-          Tu partner técnico en LATAM para Web Apps, Mobile, IoT, UX/UI y SaaS.
-          Transformamos ideas en productos digitales que escalan.
-        </p>
-
-        <!-- CTAs -->
-        <div id="hero-ctas" class="flex flex-wrap gap-3 opacity-0">
-          <a href="/#contacto" class="btn-primary">
-            Hablemos <span aria-hidden="true">→</span>
-          </a>
-          <a href="/#works" class="btn-ghost">
-            Ver Trabajos
-          </a>
-        </div>
-
-      </div>
-
-      <!-- ── Col derecha: imágenes ── -->
-      <div id="hero-images" class="relative h-[480px] lg:h-[560px] opacity-0">
-
-        <!-- Accent strip top-right -->
-        <div
-          class="absolute top-0 right-4 w-14 h-40 rounded-sm z-10"
-          style="background: var(--z-lime-400); transform: rotate(12deg); transform-origin: top right; opacity: 0.9;"
-          aria-hidden="true"
-        ></div>
-
-        <!-- Accent strip bottom-left -->
-        <div
-          class="absolute bottom-8 left-8 w-10 h-28 rounded-sm z-10"
-          style="background: var(--z-lime-400); transform: rotate(-15deg); opacity: 0.7;"
-          aria-hidden="true"
-        ></div>
-
-        <!-- Imagen trasera (rotada) -->
-        <div
-          class="absolute top-8 right-12 w-[55%] overflow-hidden rounded-xl shadow-2xl z-20"
-          style="transform: rotate(4deg); aspect-ratio: 4/5;"
-        >
-          <img
-            src={heroImage2}
-            alt="Proyecto Zellety"
-            class="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
-          <!-- overlay border accent -->
-          <div
-            class="absolute inset-0 rounded-xl"
-            style="border: 2px solid var(--z-lime-400); opacity: 0.4;"
-          ></div>
-        </div>
-
-        <!-- Imagen delantera (rotada inversa) -->
-        <div
-          class="absolute bottom-4 left-4 w-[58%] overflow-hidden rounded-xl shadow-2xl z-30"
-          style="transform: rotate(-4deg); aspect-ratio: 3/4;"
-        >
-          <img
-            src={heroImage}
-            alt="Diseño y Desarrollo Zellety"
-            class="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
-          <!-- overlay tinte primary sutil -->
-          <div
-            class="absolute inset-0 rounded-xl"
-            style="background: linear-gradient(135deg, var(--z-lime-400) 0%, transparent 50%); opacity: 0.15;"
-          ></div>
-        </div>
-
-        <!-- Glow de fondo -->
-        <div
-          class="absolute inset-0 rounded-full pointer-events-none"
-          style="background: radial-gradient(ellipse at center, var(--z-lime-400) 0%, transparent 65%); opacity: 0.06;"
-          aria-hidden="true"
-        ></div>
-
-      </div>
-
+  <!-- ── Slides de fondo ── -->
+  {slides.map((slide, i) => (
+    <div
+      class="hero-slide absolute inset-0"
+      data-slide={i}
+      style={`opacity: ${i === 0 ? '1' : '0'}; transition: opacity 1s ease;`}
+    >
+      <img
+        src={slide.image}
+        alt={slide.alt}
+        class="w-full h-full object-cover"
+        loading={i === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+      />
     </div>
+  ))}
+
+  <!-- Overlay oscuro -->
+  <div
+    class="absolute inset-0 z-10 pointer-events-none"
+    style="background: rgba(10,15,30,0.62);"
+  ></div>
+  <!-- Gradiente extra desde abajo para texto -->
+  <div
+    class="absolute inset-0 z-10 pointer-events-none"
+    style="background: linear-gradient(to top, rgba(10,15,30,0.95) 0%, rgba(10,15,30,0.3) 45%, transparent 100%);"
+  ></div>
+
+  <!-- ── Contenido ── -->
+  <div class="absolute inset-0 z-20 flex flex-col justify-end" style="padding-bottom: 80px;">
+
+    <!-- Texto principal + controles bottom -->
+    <div class="container-site">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+
+        <!-- Izquierda: headline + CTAs -->
+        <div class="flex flex-col gap-5">
+          <h1
+            id="hero-headline"
+            class="font-display font-bold opacity-0"
+            style="font-size: clamp(2.8rem, 6.5vw, 5.5rem); line-height: 0.97; letter-spacing: -0.03em; color: #ffffff;"
+          >
+            Diseñamos y<br />
+            construimos<br />
+            <span style="color: var(--z-lime-400);">lo que imaginas.</span>
+          </h1>
+
+          <div id="hero-ctas" class="flex flex-wrap gap-3 opacity-0">
+            <a href="/#contacto" class="btn-primary">
+              Hablemos <span aria-hidden="true">→</span>
+            </a>
+            <a href="/#works" class="btn-ghost">
+              Ver Trabajos
+            </a>
+          </div>
+        </div>
+
+        <!-- Derecha: descripción + dots -->
+        <div class="flex flex-col items-start lg:items-end gap-6 lg:max-w-xs">
+          <p
+            id="hero-subline"
+            class="font-body opacity-0 lg:text-right"
+            style="font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.65);"
+          >
+            Tu partner técnico en LATAM para Web Apps,
+            Mobile, IoT, UX/UI y SaaS.
+            Transformamos ideas en productos que escalan.
+          </p>
+
+          <!-- Slide dots -->
+          <div id="hero-dots" class="flex items-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                class="hero-dot rounded-full transition-all duration-400 cursor-pointer"
+                data-dot={i}
+                style={
+                  i === 0
+                    ? 'width:24px; height:6px; background:var(--z-lime-400);'
+                    : 'width:6px; height:6px; background:rgba(255,255,255,0.3);'
+                }
+                aria-label={`Slide ${i + 1}`}
+              ></button>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-    <span class="label-mono text-[0.6rem] text-[var(--z-slate-500)]">SCROLL</span>
-    <div class="w-px h-10 bg-gradient-to-b from-[var(--z-slate-500)] to-transparent"></div>
+  <!-- ── Flecha scroll ── -->
+  <div
+    id="hero-scroll-arrow"
+    class="absolute z-20 left-1/2 opacity-0"
+    style="bottom: 32px; transform: translateX(-50%);"
+    aria-hidden="true"
+  >
+    <svg
+      width="28" height="28" viewBox="0 0 28 28" fill="none"
+      style="color: var(--z-lime-400);"
+    >
+      <path
+        d="M14 4v20M6 16l8 8 8-8"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   </div>
 
 </section>
+
+<style>
+  @keyframes arrow-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0);   }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+  #hero-scroll-arrow {
+    animation: arrow-bounce 1.6s ease-in-out infinite;
+  }
+</style>
 
 <script>
   import gsap from 'gsap';
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ── Entrada de texto
   if (!prefersReduced) {
-    const tl = gsap.timeline({ delay: 0.15 });
-    tl.to('#hero-label',   { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
-      .to('#hero-headline', { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' }, '-=0.1')
-      .to('#hero-subline',  { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to('#hero-ctas',     { opacity: 1, y: 0, duration: 0.4,  ease: 'power2.out' }, '-=0.2')
-      .to('#hero-images',   { opacity: 1, x: 0, duration: 0.7,  ease: 'power2.out' }, '-=0.5');
+    const tl = gsap.timeline({ delay: 0.2 });
+    tl.to('#hero-headline', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+      .to('#hero-subline',  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      .to('#hero-ctas',     { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+      .to('#hero-scroll-arrow', { opacity: 0.75, duration: 0.4 }, '-=0.1');
   } else {
-    gsap.set(['#hero-label','#hero-headline','#hero-subline','#hero-ctas','#hero-images'], { opacity: 1 });
+    gsap.set(['#hero-headline','#hero-subline','#hero-ctas','#hero-scroll-arrow'], { opacity: 1 });
   }
+
+  // ── Slider auto-advance
+  const SLIDES = document.querySelectorAll<HTMLElement>('.hero-slide');
+  const DOTS   = document.querySelectorAll<HTMLButtonElement>('.hero-dot');
+  let current  = 0;
+  let timer: ReturnType<typeof setInterval>;
+
+  function goTo(index: number) {
+    SLIDES[current].style.opacity = '0';
+    DOTS[current].style.width      = '6px';
+    DOTS[current].style.height     = '6px';
+    DOTS[current].style.background = 'rgba(255,255,255,0.3)';
+
+    current = index;
+
+    SLIDES[current].style.opacity  = '1';
+    DOTS[current].style.width      = '24px';
+    DOTS[current].style.height     = '6px';
+    DOTS[current].style.background = 'var(--z-lime-400)';
+  }
+
+  function next() {
+    goTo((current + 1) % SLIDES.length);
+  }
+
+  function startTimer() {
+    timer = setInterval(next, 4500);
+  }
+
+  startTimer();
+
+  DOTS.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(timer);
+      goTo(i);
+      startTimer();
+    });
+  });
 </script>

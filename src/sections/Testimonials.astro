@@ -1,0 +1,182 @@
+---
+const testimonials = [
+  {
+    avatar:  'https://picsum.photos/seed/t-avatar-1/80/80',
+    name:    'Carlos Mendoza',
+    role:    'CEO',
+    company: 'FinTech Andina',
+    quote:   'Zellety transformó nuestra plataforma por completo. El equipo entendió nuestras necesidades desde el día uno y entregó un producto que superó todas las expectativas. Profesionales de otro nivel.',
+  },
+  {
+    avatar:  'https://picsum.photos/seed/t-avatar-2/80/80',
+    name:    'Valeria Torres',
+    role:    'CPO',
+    company: 'Novatech MX',
+    quote:   'La calidad del diseño UX/UI que nos entregaron fue impresionante. Cada pantalla está pensada con detalle. Nuestros usuarios notaron el cambio de inmediato y el NPS subió 40 puntos.',
+  },
+  {
+    avatar:  'https://picsum.photos/seed/t-avatar-3/80/80',
+    name:    'Diego Ramírez',
+    role:    'CTO',
+    company: 'SmartHome CO',
+    quote:   'Necesitábamos una app de IoT en tiempo récord. Zellety la desarrolló en Flutter con integraciones MQTT y entregó en plazo. El código es limpio y el soporte post-lanzamiento fue excelente.',
+  },
+  {
+    avatar:  'https://picsum.photos/seed/t-avatar-4/80/80',
+    name:    'Sofía Gutiérrez',
+    role:    'Founder',
+    company: 'EduLab AR',
+    quote:   'Trabajar con Zellety fue una experiencia diferente. No solo construyeron lo que pedimos, sino que propusieron mejoras que ni habíamos contemplado. El resultado final es un producto del que estamos muy orgullosos.',
+  },
+  {
+    avatar:  'https://picsum.photos/seed/t-avatar-5/80/80',
+    name:    'Andrés Peña',
+    role:    'Head of Product',
+    company: 'TeamFlow SaaS',
+    quote:   'La arquitectura SaaS que diseñaron para nosotros es robusta, escalable y fácil de mantener. Lanzamos en tiempo y presupuesto. Los recomendaría sin dudarlo a cualquier startup de LATAM.',
+  },
+  {
+    avatar:  'https://picsum.photos/seed/t-avatar-6/80/80',
+    name:    'Mariana López',
+    role:    'Marketing Director',
+    company: 'ModaLatam',
+    quote:   'Nuestra tienda e-commerce pasó de ser un sitio básico a una plataforma de alto rendimiento. Las ventas online aumentaron un 80% en tres meses tras el rediseño. Inversión que valió cada peso.',
+  },
+];
+---
+
+<section id="testimonios" class="bg-[var(--z-midnight-950)] py-[var(--space-24)]">
+
+  <!-- Header -->
+  <div class="container-site text-center mb-16">
+
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+      style="background: rgba(191,255,10,0.08); border: 1px solid rgba(191,255,10,0.2);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="color:var(--z-lime-400);">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="font-mono text-[var(--z-lime-400)]" style="font-size: 0.7rem; letter-spacing: 0.12em;">TESTIMONIOS</span>
+    </div>
+
+    <h2
+      class="testimonials-title font-display font-bold text-[var(--z-white)] mb-5"
+      style="font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.02em;"
+    >
+      Confiado por expertos.
+    </h2>
+
+    <p class="font-body text-[var(--z-slate-300)] max-w-xl mx-auto mb-10" style="font-size: 1rem; line-height: 1.7;">
+      Historias reales de clientes reales. Así es como hemos transformado ideas
+      en productos digitales que impactan.
+    </p>
+
+    <a
+      href="/#contacto"
+      class="inline-flex items-center gap-3 font-body font-semibold text-sm rounded-full transition-colors"
+      style="padding: 0.75rem 1.5rem; background: var(--z-lime-400); color: var(--z-black);"
+      onmouseover="this.style.background='var(--z-lime-500)'"
+      onmouseout="this.style.background='var(--z-lime-400)'"
+    >
+      <span
+        class="flex items-center justify-center rounded-full"
+        style="width:28px;height:28px;background:var(--z-black);"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="color:var(--z-lime-400);">
+          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Trabajemos juntos
+    </a>
+
+  </div>
+
+  <!-- Cards grid -->
+  <div class="container-site">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {testimonials.map((t) => (
+        <div
+          class="testimonial-card flex flex-col justify-between rounded-2xl p-6"
+          style="background: var(--z-midnight-900); border: 1px solid var(--z-midnight-800);"
+        >
+          <!-- Top row: avatar + X icon -->
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <img
+                src={t.avatar}
+                alt={t.name}
+                class="rounded-full object-cover"
+                style="width:44px;height:44px;"
+                loading="lazy"
+                decoding="async"
+              />
+              <!-- X / Twitter icon -->
+              <div
+                class="flex items-center justify-center rounded-full"
+                style="width:32px;height:32px;background:var(--z-midnight-800);"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--z-slate-400);">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Stars -->
+            <div class="flex gap-0.5 mb-4">
+              {[0,1,2,3,4].map(() => (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--z-lime-400);">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+
+            <!-- Quote -->
+            <p class="font-body text-[var(--z-slate-300)] mb-6" style="font-size: 0.9rem; line-height: 1.75;">
+              {t.quote}
+            </p>
+          </div>
+
+          <!-- Bottom: author -->
+          <div style="border-top: 1px solid var(--z-midnight-800); padding-top: 1rem;">
+            <p class="font-display font-semibold text-[var(--z-white)]" style="font-size: 0.95rem;">
+              {t.name}
+              <span class="font-body font-normal text-[var(--z-slate-500)]"> · {t.role}</span>
+            </p>
+            <p class="font-body text-[var(--z-slate-500)]" style="font-size: 0.8rem; margin-top: 2px;">
+              {t.company}
+            </p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+  </div>
+
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.testimonials-title', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 0.8,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.testimonials-title', start: 'top 85%' },
+    });
+
+    gsap.from('.testimonial-card', {
+      opacity: 0,
+      y: 50,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.testimonial-card', start: 'top 85%' },
+    });
+  }
+</script>

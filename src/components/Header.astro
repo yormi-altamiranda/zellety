@@ -19,7 +19,7 @@ const navLinks = [
       <div class="w-8 h-8 bg-[var(--z-lime-400)] rounded-sm flex items-center justify-center">
         <span class="font-display font-bold text-[var(--z-black)] text-sm leading-none">Z</span>
       </div>
-      <span class="font-display font-bold text-[var(--z-white)] text-lg tracking-wide">ZELLETY</span>
+      <span class="font-display font-bold text-lg tracking-wide hdr-text">ZELLETY</span>
     </a>
 
     <!-- Desktop Nav -->
@@ -27,7 +27,7 @@ const navLinks = [
       {navLinks.map(link => (
         <a
           href={link.href}
-          class="font-body text-sm text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors duration-200 focus-ring rounded-sm"
+          class="font-body text-sm hover:opacity-70 transition-opacity duration-200 focus-ring rounded-sm hdr-text"
         >
           {link.label}
         </a>
@@ -35,13 +35,15 @@ const navLinks = [
     </nav>
 
     <!-- Desktop: Theme toggle -->
-    <div class="hidden md:flex items-center">
+    <div class="hidden md:flex items-center hdr-toggle">
       <ThemeToggle client:load />
     </div>
 
     <!-- Mobile: toggle + menu -->
     <div class="flex md:hidden items-center gap-2">
-      <ThemeToggle client:load />
+      <div class="hdr-toggle">
+        <ThemeToggle client:load />
+      </div>
       <NavMobile client:load links={navLinks} />
     </div>
 
@@ -65,15 +67,29 @@ const navLinks = [
 <style>
   #site-header {
     background: transparent;
+    --hdr-color: #ffffff;
   }
+  #site-header .hdr-text {
+    color: var(--hdr-color);
+    transition: color 0.3s ease;
+  }
+  /* Dark theme scrolled — fondo oscuro, texto blanco */
   #site-header.is-scrolled {
     background: rgba(15, 15, 15, 0.96);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid #242424;
+    --hdr-color: #ffffff;
   }
+  /* Light theme scrolled — fondo claro, texto negro */
   :global([data-theme="light"]) #site-header.is-scrolled {
     background: rgba(239, 239, 239, 0.96);
     border-bottom-color: #e0e0e0;
+    --hdr-color: #0A0F1E;
+  }
+  /* ThemeToggle hereda el color */
+  #site-header .hdr-toggle {
+    color: var(--hdr-color) !important;
+    transition: color 0.3s ease;
   }
 </style>

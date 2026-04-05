@@ -20,7 +20,7 @@ function toggle() {
     @click="toggle"
     :aria-label="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
     class="w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-200 focus-ring"
-    style="color: var(--z-white); border: 1px solid var(--z-midnight-700);"
+    style="color: inherit;"
   >
     <!-- Sun (modo claro activo → click = pasar a dark) -->
     <svg v-if="!isDark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

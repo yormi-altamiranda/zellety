@@ -1,82 +1,84 @@
 ---
-import { getFeaturedProjects } from '../lib/mock-data';
+import { getAllProjects } from '../lib/mock-data';
 
-const projects = getFeaturedProjects();
-const total    = 6; // total futuro en Storyblok
+const projects = getAllProjects();
 ---
 
-<section id="works" class="works-section relative bg-[var(--z-midnight-950)]">
+<section id="works" class="works-section relative bg-[var(--z-midnight-950)] overflow-hidden">
 
   <!-- Header -->
-  <div class="container-site flex items-center justify-between pt-[var(--space-24)] pb-10">
-    <p class="font-body text-[var(--z-white)] text-base font-medium">Proyectos</p>
-    <a href="/projects" class="label-mono text-[var(--z-slate-500)] hover:text-[var(--z-lime-400)] transition-colors">
-      More +0{total < 10 ? '0' + total : total}
+  <div class="container-site flex items-center justify-between pt-[var(--space-24)] pb-12">
+    <p class="font-body text-[var(--z-white)] text-base font-medium tracking-widest uppercase opacity-60">
+      Proyectos
+    </p>
+    <a
+      href="/projects"
+      class="label-mono text-[var(--z-slate-500)] hover:text-[var(--z-lime-400)] transition-colors text-xs tracking-widest"
+    >
+      Ver todos →
     </a>
   </div>
 
   <!-- ── Desktop: horizontal pin scroll ── -->
   <div class="works-pin-wrapper hidden lg:block">
     <div
-      class="works-cards-track flex items-end pb-[var(--space-16)]"
-      style="padding-left: clamp(1rem,4vw,2rem); gap: 0; width: max-content;"
+      class="works-cards-track flex items-start"
+      style="padding-left: clamp(1rem,4vw,2rem); padding-right: clamp(1rem,4vw,2rem); gap: 2rem; width: max-content; padding-bottom: var(--space-24);"
     >
       {projects.map((project, i) => (
         <a
           href={project.link}
-          class="works-card relative flex-shrink-0 overflow-hidden rounded-2xl block group"
-          style={`
-            width: 280px;
-            height: 400px;
-            margin-left: ${i === 0 ? '0' : '-30px'};
-            margin-bottom: ${[20, 0, 40, 10, 30, 5][i % 6]}px;
-            z-index: ${i + 1};
-            transform-origin: bottom center;
-          `}
+          class="works-card flex-shrink-0 block group"
+          style="width: 560px;"
           aria-label={project.title}
         >
           <!-- Imagen -->
-          <img
-            src={project.cover_image.filename}
-            alt={project.cover_image.alt}
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-            decoding="async"
-          />
-
-          <!-- Overlay -->
           <div
-            class="absolute inset-0 transition-opacity duration-300"
-            style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);"
-          ></div>
+            class="overflow-hidden rounded-2xl"
+            style="width: 560px; height: 360px;"
+          >
+            <img
+              src={project.cover_image.filename}
+              alt={project.cover_image.alt}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
 
-          <!-- Info inferior -->
-          <div class="absolute bottom-0 left-0 right-0 p-5">
-            <p class="font-mono text-[var(--z-slate-400)] mb-1" style="font-size: 0.6rem;">
-              {project.month} {project.year}
-            </p>
+          <!-- Info -->
+          <div class="pt-5 pr-4">
+            <!-- número + tags -->
+            <div class="flex items-center gap-3 mb-3">
+              <span
+                class="font-mono text-[var(--z-lime-400)]"
+                style="font-size: 0.65rem; letter-spacing: 0.12em;"
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              {project.tech_stack.slice(0, 3).map(t => (
+                <span
+                  class="font-mono text-[0.6rem] px-2 py-0.5 rounded-full"
+                  style="background: var(--z-midnight-800); color: var(--z-slate-300); letter-spacing: 0.08em;"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
             <h3
-              class="font-display font-semibold text-[var(--z-white)]"
-              style="font-size: 0.95rem; line-height: 1.2;"
+              class="font-display font-semibold text-[var(--z-white)] group-hover:text-[var(--z-lime-400)] transition-colors mb-2"
+              style="font-size: 1.15rem; line-height: 1.25;"
             >
               {project.title}
             </h3>
+            <p
+              class="font-body text-[var(--z-slate-300)]"
+              style="font-size: 0.875rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"
+            >
+              {project.summary}
+            </p>
           </div>
-
-          <!-- Tag hover -->
-          <div
-            class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          >
-            {project.tech_stack.slice(0, 2).map(t => (
-              <span
-                class="inline-block font-mono text-[0.6rem] px-2 py-0.5 rounded-full mr-1"
-                style="background: var(--z-lime-400); color: var(--z-black);"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
         </a>
       ))}
     </div>
@@ -84,32 +86,44 @@ const total    = 6; // total futuro en Storyblok
 
   <!-- ── Mobile: grid vertical ── -->
   <div class="lg:hidden container-site pb-[var(--space-16)]">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-      {projects.map((project) => (
+    <div class="flex flex-col gap-10">
+      {projects.map((project, i) => (
         <a
           href={project.link}
-          class="relative overflow-hidden rounded-2xl block group"
-          style="height: 360px;"
+          class="block group"
+          aria-label={project.title}
         >
-          <img
-            src={project.cover_image.filename}
-            alt={project.cover_image.alt}
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-            decoding="async"
-          />
-          <div
-            class="absolute inset-0"
-            style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);"
-          ></div>
-          <div class="absolute bottom-0 left-0 right-0 p-5">
-            <p class="font-mono text-[var(--z-slate-400)] mb-1" style="font-size: 0.6rem;">
-              {project.month} {project.year}
-            </p>
-            <h3 class="font-display font-semibold text-[var(--z-white)]" style="font-size: 0.95rem;">
-              {project.title}
-            </h3>
+          <div class="overflow-hidden rounded-2xl mb-4" style="height: 260px;">
+            <img
+              src={project.cover_image.filename}
+              alt={project.cover_image.alt}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="font-mono text-[var(--z-lime-400)]" style="font-size: 0.65rem; letter-spacing: 0.12em;">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            {project.tech_stack.slice(0, 2).map(t => (
+              <span
+                class="font-mono text-[0.6rem] px-2 py-0.5 rounded-full"
+                style="background: var(--z-midnight-800); color: var(--z-slate-300);"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          <h3
+            class="font-display font-semibold text-[var(--z-white)] mb-1"
+            style="font-size: 1.05rem;"
+          >
+            {project.title}
+          </h3>
+          <p class="font-body text-[var(--z-slate-300)]" style="font-size: 0.875rem; line-height: 1.55;">
+            {project.summary}
+          </p>
         </a>
       ))}
     </div>
@@ -131,15 +145,13 @@ const total    = 6; // total futuro en Storyblok
     const track   = document.querySelector<HTMLElement>('.works-cards-track');
     if (!section || !track) return;
 
-    // — Entrada inicial de cards con stagger (escala + fade)
-    // immediateRender: false → no esconde las cards antes de que el trigger dispare
+    // Entrada de cards en stagger
     gsap.from('.works-card', {
       opacity: 0,
-      scale: 0.88,
       y: 40,
-      stagger: 0.12,
-      duration: 0.65,
-      ease: 'power3.out',
+      stagger: 0.1,
+      duration: 0.6,
+      ease: 'power2.out',
       immediateRender: false,
       scrollTrigger: {
         trigger: section,
@@ -148,9 +160,9 @@ const total    = 6; // total futuro en Storyblok
       },
     });
 
-    // — Pin + horizontal scroll
+    // Pin + horizontal scroll
     const getScrollDist = () =>
-      track.scrollWidth - (window.innerWidth - track.getBoundingClientRect().left);
+      track.scrollWidth - window.innerWidth + parseFloat(getComputedStyle(track).paddingRight || '0');
 
     gsap.to(track, {
       x: () => -getScrollDist(),
@@ -158,26 +170,11 @@ const total    = 6; // total futuro en Storyblok
       scrollTrigger: {
         trigger: '.works-pin-wrapper',
         pin: true,
-        scrub: 1.2,
+        scrub: 1,
         invalidateOnRefresh: true,
         end: () => '+=' + getScrollDist(),
         anticipatePin: 1,
       },
-    });
-
-    // — Cada card gana z-index al entrar al centro (efecto spotlight)
-    gsap.utils.toArray<HTMLElement>('.works-card').forEach((card, i) => {
-      gsap.to(card, {
-        scale: 1.04,
-        zIndex: 20,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.works-pin-wrapper',
-          scrub: true,
-          start: `top+=${i * 80} top`,
-          end: `top+=${i * 80 + 120} top`,
-        },
-      });
     });
 
     ScrollTrigger.refresh();

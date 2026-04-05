@@ -23,6 +23,12 @@ import storybookUrl         from '../assets/icons/storybook.svg?url'
 import affinityDesignerUrl  from '../assets/icons/affinity_designer.svg?url'
 import affinityPhotoUrl     from '../assets/icons/affinity_photo.svg?url'
 import affinityPublisherUrl from '../assets/icons/affinity_publisher.svg?url'
+import azureUrl             from '../assets/icons/azure.svg?url'
+import firebaseUrl          from '../assets/icons/firebase.svg?url'
+import flutterUrl           from '../assets/icons/flutter.svg?url'
+import postgresqlUrl        from '../assets/icons/postgresql.svg?url'
+import supabaseUrl          from '../assets/icons/supabase.svg?url'
+import webflowUrl           from '../assets/icons/webflow.svg?url'
 
 type SvgTool  = { name: string; kind: 'svg';  src: string }
 type IconTool = { name: string; kind: 'icon'; icon: string }
@@ -48,15 +54,17 @@ const tools: Tool[] = [
   { name: 'Affinity Designer',  kind: 'svg',  src: affinityDesignerUrl },
   { name: 'Affinity Photo',     kind: 'svg',  src: affinityPhotoUrl },
   { name: 'Affinity Publisher', kind: 'svg',  src: affinityPublisherUrl },
+  { name: 'Azure',              kind: 'svg',  src: azureUrl },
+  { name: 'Firebase',           kind: 'svg',  src: firebaseUrl },
+  { name: 'Flutter',            kind: 'svg',  src: flutterUrl },
+  { name: 'PostgreSQL',         kind: 'svg',  src: postgresqlUrl },
+  { name: 'Supabase',           kind: 'svg',  src: supabaseUrl },
+  { name: 'Webflow',            kind: 'svg',  src: webflowUrl },
   { name: 'WooCommerce',        kind: 'icon', icon: 'simple-icons:woocommerce' },
-  { name: 'Webflow',            kind: 'icon', icon: 'simple-icons:webflow' },
   { name: 'Vue.js',             kind: 'icon', icon: 'simple-icons:vuedotjs' },
   { name: 'React',              kind: 'icon', icon: 'simple-icons:react' },
   { name: 'NestJS',             kind: 'icon', icon: 'simple-icons:nestjs' },
-  { name: 'Supabase',           kind: 'icon', icon: 'simple-icons:supabase' },
-  { name: 'PostgreSQL',         kind: 'icon', icon: 'simple-icons:postgresql' },
   { name: 'Vercel',             kind: 'icon', icon: 'simple-icons:vercel' },
-  { name: 'Flutter',            kind: 'icon', icon: 'simple-icons:flutter' },
 ]
 </script>
 

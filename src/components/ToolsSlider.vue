@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
+import { Icon } from '@iconify/vue'
 import 'swiper/css'
 
 // Iconify icons de simple-icons para cada herramienta
@@ -30,7 +31,7 @@ const tools: { name: string; icon: string }[] = [
 <template>
   <section class="py-[var(--space-12)] bg-[var(--z-midnight-900)] border-y border-[var(--z-midnight-800)] overflow-hidden">
 
-    <p class="label-mono text-center mb-8 text-[var(--z-slate-500)]">TECNOLOGÍAS QUE USAMOS</p>
+    <p class="label-mono text-center mb-8" style="color: var(--z-lime-400); font-size: 1rem; letter-spacing: 0.22em;">TECNOLOGÍAS QUE USAMOS</p>
 
     <Swiper
       :modules="[Autoplay]"
@@ -48,17 +49,11 @@ const tools: { name: string; icon: string }[] = [
         class="!w-auto"
       >
         <div class="flex items-center gap-3 px-4 py-2 group">
-          <!-- Icon placeholder — sustituir por SVG de svgl.app -->
           <span
-            class="w-7 h-7 flex items-center justify-center text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-colors duration-300"
+            class="flex items-center justify-center text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-colors duration-300"
             aria-hidden="true"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="12" r="10" opacity="0.3"/>
-              <text x="12" y="16" text-anchor="middle" font-size="10" fill="currentColor" font-family="monospace">
-                {{ tool.name.slice(0,2).toUpperCase() }}
-              </text>
-            </svg>
+            <Icon :icon="tool.icon" width="22" height="22" />
           </span>
           <span
             class="font-mono text-sm text-[var(--z-slate-500)] group-hover:text-[var(--z-white)] transition-colors duration-300 whitespace-nowrap"

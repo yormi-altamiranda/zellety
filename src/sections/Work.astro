@@ -29,13 +29,13 @@ const projects = getAllProjects();
         <a
           href={project.link}
           class="works-card flex-shrink-0 block group"
-          style="width: 560px;"
+          style="width: 720px;"
           aria-label={project.title}
         >
           <!-- Imagen -->
           <div
             class="overflow-hidden rounded-2xl"
-            style="width: 560px; height: 360px;"
+            style="width: 720px; height: 460px;"
           >
             <img
               src={project.cover_image.filename}
@@ -172,8 +172,10 @@ const projects = getAllProjects();
         pin: true,
         scrub: 1,
         invalidateOnRefresh: true,
+        start: 'top 80px',
         end: () => '+=' + getScrollDist(),
         anticipatePin: 1,
+        pinnedContainer: '.works-pin-wrapper',
       },
     });
 

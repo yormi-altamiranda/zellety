@@ -18,6 +18,7 @@ export default defineConfig({
     sitemap(),
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
+      bridge: false,
       components: {
         // Registrar componentes Storyblok aquí cuando se creen
         // project: 'components/storyblok/ProjectPage',

@@ -4,42 +4,50 @@ import { Autoplay } from 'swiper/modules'
 import { Icon } from '@iconify/vue'
 import 'swiper/css'
 
-// Iconify icons de simple-icons para cada herramienta
-// Reemplazar por SVGs descargados de svgl.app cuando estén disponibles
-const tools: { name: string; icon: string }[] = [
-  { name: 'WordPress',    icon: 'simple-icons:wordpress' },
-  { name: 'WooCommerce',  icon: 'simple-icons:woocommerce' },
-  { name: 'Elementor',    icon: 'simple-icons:elementor' },
-  { name: 'Webflow',      icon: 'simple-icons:webflow' },
-  { name: 'AstroJS',      icon: 'simple-icons:astro' },
-  { name: 'Vue.js',       icon: 'simple-icons:vuedotjs' },
-  { name: 'React',        icon: 'simple-icons:react' },
-  { name: 'Next.js',      icon: 'simple-icons:nextdotjs' },
-  { name: 'Nuxt.js',      icon: 'simple-icons:nuxtdotjs' },
-  { name: 'NestJS',       icon: 'simple-icons:nestjs' },
-  { name: 'Supabase',     icon: 'simple-icons:supabase' },
-  { name: 'PostgreSQL',   icon: 'simple-icons:postgresql' },
-  { name: 'Netlify',      icon: 'simple-icons:netlify' },
-  { name: 'Vercel',       icon: 'simple-icons:vercel' },
-  { name: 'Cloudflare',   icon: 'simple-icons:cloudflare' },
-  { name: 'Google Cloud', icon: 'simple-icons:googlecloud' },
-  { name: 'Figma',        icon: 'simple-icons:figma' },
-  { name: 'Flutter',      icon: 'simple-icons:flutter' },
+import astroUrl    from '../assets/icons/astro-icon-dark.svg?url'
+import figmaUrl    from '../assets/icons/figma.svg?url'
+import nextjsUrl   from '../assets/icons/nextjs_icon_dark.svg?url'
+import nuxtUrl     from '../assets/icons/nuxt.svg?url'
+import vscodeUrl   from '../assets/icons/vscode.svg?url'
+import wordpressUrl from '../assets/icons/wordpress.svg?url'
+
+type SvgTool  = { name: string; kind: 'svg';  src: string }
+type IconTool = { name: string; kind: 'icon'; icon: string }
+type Tool = SvgTool | IconTool
+
+const tools: Tool[] = [
+  { name: 'WordPress',    kind: 'svg',  src: wordpressUrl },
+  { name: 'AstroJS',      kind: 'svg',  src: astroUrl },
+  { name: 'Next.js',      kind: 'svg',  src: nextjsUrl },
+  { name: 'Nuxt.js',      kind: 'svg',  src: nuxtUrl },
+  { name: 'Figma',        kind: 'svg',  src: figmaUrl },
+  { name: 'VS Code',      kind: 'svg',  src: vscodeUrl },
+  { name: 'WooCommerce',  kind: 'icon', icon: 'simple-icons:woocommerce' },
+  { name: 'Elementor',    kind: 'icon', icon: 'simple-icons:elementor' },
+  { name: 'Webflow',      kind: 'icon', icon: 'simple-icons:webflow' },
+  { name: 'Vue.js',       kind: 'icon', icon: 'simple-icons:vuedotjs' },
+  { name: 'React',        kind: 'icon', icon: 'simple-icons:react' },
+  { name: 'NestJS',       kind: 'icon', icon: 'simple-icons:nestjs' },
+  { name: 'Supabase',     kind: 'icon', icon: 'simple-icons:supabase' },
+  { name: 'PostgreSQL',   kind: 'icon', icon: 'simple-icons:postgresql' },
+  { name: 'Netlify',      kind: 'icon', icon: 'simple-icons:netlify' },
+  { name: 'Vercel',       kind: 'icon', icon: 'simple-icons:vercel' },
+  { name: 'Cloudflare',   kind: 'icon', icon: 'simple-icons:cloudflare' },
+  { name: 'Google Cloud', kind: 'icon', icon: 'simple-icons:googlecloud' },
+  { name: 'Flutter',      kind: 'icon', icon: 'simple-icons:flutter' },
 ]
 </script>
 
 <template>
   <section class="py-[var(--space-12)] bg-[var(--z-midnight-900)] border-y border-[var(--z-midnight-800)] overflow-hidden">
 
-    <p class="label-mono text-center mb-8" style="color: var(--z-lime-400); font-size: 1rem; letter-spacing: 0.22em;">TECNOLOGÍAS QUE USAMOS</p>
-
     <Swiper
       :modules="[Autoplay]"
       :slides-per-view="'auto'"
-      :space-between="48"
+      :space-between="52"
       :loop="true"
-      :autoplay="{ delay: 0, disableOnInteraction: false, reverseDirection: false }"
-      :speed="4000"
+      :autoplay="{ delay: 0, disableOnInteraction: false }"
+      :speed="5000"
       :allow-touch-move="false"
       class="tools-swiper"
     >
@@ -48,17 +56,20 @@ const tools: { name: string; icon: string }[] = [
         :key="tool.name"
         class="!w-auto"
       >
-        <div class="flex items-center gap-3 px-4 py-2 group">
-          <span
-            class="flex items-center justify-center text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-colors duration-300"
-            aria-hidden="true"
-          >
-            <Icon :icon="tool.icon" width="22" height="22" />
-          </span>
-          <span
-            class="font-mono text-sm text-[var(--z-slate-500)] group-hover:text-[var(--z-white)] transition-colors duration-300 whitespace-nowrap"
-          >
-            {{ tool.name }}
+        <div class="tool-item flex items-center justify-center px-3 py-1" :aria-label="tool.name">
+          <!-- SVG local -->
+          <img
+            v-if="tool.kind === 'svg'"
+            :src="tool.src"
+            :alt="tool.name"
+            width="36"
+            height="36"
+            class="tool-img block object-contain"
+            style="width:36px; height:36px;"
+          />
+          <!-- Iconify -->
+          <span v-else class="tool-icon-wrap flex items-center justify-center" aria-hidden="true">
+            <Icon :icon="tool.icon" width="34" height="34" />
           </span>
         </div>
       </SwiperSlide>
@@ -73,8 +84,25 @@ const tools: { name: string; icon: string }[] = [
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-/* Override swiper transition to linear for continuous scroll */
 :deep(.swiper-wrapper) {
   transition-timing-function: linear !important;
+}
+
+/* Hover: opacidad para SVGs locales */
+.tool-img {
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+.tool-item:hover .tool-img {
+  opacity: 1;
+}
+
+/* Hover: color lime para Iconify */
+.tool-icon-wrap {
+  color: var(--z-slate-500);
+  transition: color 0.3s ease;
+}
+.tool-item:hover .tool-icon-wrap {
+  color: var(--z-lime-400);
 }
 </style>

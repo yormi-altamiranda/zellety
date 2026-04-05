@@ -132,16 +132,18 @@ const total    = 6; // total futuro en Storyblok
     if (!section || !track) return;
 
     // — Entrada inicial de cards con stagger (escala + fade)
+    // immediateRender: false → no esconde las cards antes de que el trigger dispare
     gsap.from('.works-card', {
       opacity: 0,
-      scale: 0.85,
-      y: 60,
-      stagger: 0.1,
-      duration: 0.7,
+      scale: 0.88,
+      y: 40,
+      stagger: 0.12,
+      duration: 0.65,
       ease: 'power3.out',
+      immediateRender: false,
       scrollTrigger: {
         trigger: section,
-        start: 'top 80%',
+        start: 'top 75%',
         toggleActions: 'play none none none',
       },
     });

@@ -29,6 +29,16 @@ html {
   color-scheme: dark;
 }
 
+/* ── Scroll offset para header fijo (h-16 = 64px, md:h-20 = 80px) ── */
+section[id] {
+  scroll-margin-top: 64px;
+}
+@media (min-width: 768px) {
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+}
+
 /* ── Body ────────────────────────────────────────────────── */
 body {
   font-family: var(--font-body);

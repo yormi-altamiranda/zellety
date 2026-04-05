@@ -164,7 +164,7 @@ ol {
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 /* ── Marquee (sección 9.6 del CLAUDE.md) ────────────────── */

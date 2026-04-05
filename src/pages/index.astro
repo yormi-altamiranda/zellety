@@ -1,12 +1,20 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../sections/Hero.astro';
+import ToolsSlider from '../components/ToolsSlider.vue';
+import About from '../sections/About.astro';
+import Services from '../sections/Services.astro';
+import Work from '../sections/Work.astro';
+import Team from '../sections/Team.astro';
+import Contact from '../sections/Contact.astro';
 ---
 
-<BaseLayout title="Zellety — Diseño y desarrollo tech en LATAM">
-  <main>
-    <!-- Fase 3: Hero, About, Services, Work, Team, Contact -->
-    <section class="container-site section-padding flex items-center justify-center min-h-screen">
-      <p class="label-mono">Zellety — En construcción</p>
-    </section>
-  </main>
+<BaseLayout title="Zellety — Diseño y Desarrollo Tech en LATAM">
+  <Hero />
+  <ToolsSlider client:visible />
+  <About />
+  <Services />
+  <Work />
+  <Team />
+  <Contact />
 </BaseLayout>

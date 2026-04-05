@@ -1,0 +1,93 @@
+---
+// Hero — sección principal del Home
+// Animación de entrada orquestada con GSAP (ver CLAUDE.md §9.3)
+---
+
+<section
+  id="inicio"
+  class="relative min-h-screen flex items-center bg-[var(--z-midnight-950)] overflow-hidden pt-20"
+>
+
+  <!-- Glow decorativo -->
+  <div
+    class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.06]"
+    style="background: radial-gradient(circle, var(--z-lime-400) 0%, transparent 70%);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Grid de fondo sutil -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.03]"
+    style="background-image: linear-gradient(var(--z-midnight-700) 1px, transparent 1px), linear-gradient(90deg, var(--z-midnight-700) 1px, transparent 1px); background-size: 60px 60px;"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container-site relative z-10 py-[var(--space-32)]">
+    <div class="max-w-4xl">
+
+      <!-- Label -->
+      <p id="hero-label" class="label-mono mb-6 opacity-0">
+        DESIGN · DEV · LATAM
+      </p>
+
+      <!-- Headline -->
+      <h1 id="hero-headline" class="font-display font-bold text-[var(--z-white)] mb-6 opacity-0"
+        style="font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.02;">
+        Diseñamos y<br />
+        <span class="text-[var(--z-lime-400)]">construimos</span><br />
+        lo que imaginas.
+      </h1>
+
+      <!-- Subline -->
+      <p id="hero-subline" class="font-body text-[var(--z-slate-300)] mb-10 max-w-xl opacity-0"
+        style="font-size: clamp(1rem, 1.5vw, 1.125rem); line-height: 1.7;">
+        Tu partner técnico en LATAM para Web Apps, Mobile, IoT, UX/UI y SaaS.
+        Transformamos ideas en productos digitales que escalan.
+      </p>
+
+      <!-- CTAs -->
+      <div id="hero-ctas" class="flex flex-wrap gap-4 opacity-0">
+        <a href="/#contacto" class="btn-primary">
+          Hablemos <span aria-hidden="true">→</span>
+        </a>
+        <a href="/#works" class="btn-ghost">
+          Ver Trabajos
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Número decorativo -->
+    <div
+      class="hidden lg:block absolute right-0 bottom-16 label-mono text-[8rem] leading-none text-[var(--z-midnight-800)] select-none pointer-events-none"
+      aria-hidden="true"
+    >
+      01
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+    <span class="label-mono text-[0.6rem] text-[var(--z-slate-500)]">SCROLL</span>
+    <div class="w-px h-12 bg-gradient-to-b from-[var(--z-slate-500)] to-transparent"></div>
+  </div>
+
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    tl.to('#hero-label', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
+      .to('#hero-headline', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.1')
+      .to('#hero-subline',  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      .to('#hero-ctas',     { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2');
+  } else {
+    gsap.set(['#hero-label','#hero-headline','#hero-subline','#hero-ctas'], { opacity: 1 });
+  }
+</script>

@@ -1,0 +1,72 @@
+---
+import ContactForm from '../components/ContactForm.vue';
+---
+
+<section id="contacto" class="section-padding bg-[var(--z-midnight-950)]">
+  <div class="container-site">
+
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-16">
+      <span class="label-mono text-[var(--z-slate-500)]">04 / CONTACTO</span>
+      <div class="flex-1 divider"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+      <!-- Left: copy -->
+      <div>
+        <h2
+          class="contact-title font-display font-bold text-[var(--z-white)] mb-6"
+          style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05;"
+        >
+          Hablemos.
+        </h2>
+        <p class="font-body text-[var(--z-slate-300)] mb-8 max-w-md" style="line-height: 1.7;">
+          ¿Tienes un proyecto en mente? Cuéntanos qué necesitas y te respondemos en menos de 24 horas.
+        </p>
+
+        <!-- Contact details -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <span class="label-mono text-[var(--z-lime-400)]">EMAIL</span>
+            <a
+              href="mailto:hola@zellety.com"
+              class="font-body text-sm text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors"
+            >
+              hola@zellety.com
+            </a>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="label-mono text-[var(--z-lime-400)]">LATAM</span>
+            <span class="font-body text-sm text-[var(--z-slate-300)]">
+              Disponibles en zona horaria UTC-3 a UTC-6
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div>
+        <ContactForm client:visible />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.contact-title', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 0.8,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.contact-title', start: 'top 85%' },
+    });
+  }
+</script>

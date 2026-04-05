@@ -1,0 +1,140 @@
+---
+// Team — El equipo de Zellety
+// Mock data hasta tener Storyblok token
+
+const team = [
+  {
+    name: 'Nombre Apellido',
+    role: 'Co-founder & CEO',
+    bio: 'Liderando la visión de Zellety para conectar talento tech de LATAM con founders que construyen productos que importan.',
+    initials: 'NA',
+  },
+  {
+    name: 'Nombre Apellido',
+    role: 'Co-founder & CTO',
+    bio: 'Arquitecto de soluciones con más de 8 años construyendo plataformas web, mobile e IoT para startups y empresas LATAM.',
+    initials: 'NA',
+    featured: true,
+  },
+  {
+    name: 'Nombre Apellido',
+    role: 'Lead UX/UI Designer',
+    bio: 'Diseñando experiencias que convierten. Research, prototipos y design systems que hablan el idioma del usuario.',
+    initials: 'NA',
+  },
+];
+---
+
+<section id="equipo" class="section-padding bg-[var(--z-midnight-900)]">
+  <div class="container-site">
+
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-16">
+      <span class="label-mono text-[var(--z-slate-500)]">03 / EQUIPO</span>
+      <div class="flex-1 divider"></div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8 items-start md:items-end mb-16">
+      <h2
+        class="team-title font-display font-bold text-[var(--z-white)]"
+        style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; flex: 1;"
+      >
+        Las personas<br />detrás del código.
+      </h2>
+      <p class="font-body text-[var(--z-slate-300)] text-sm max-w-xs" style="line-height: 1.7;">
+        Un equipo pequeño, comprometido y distribuido por LATAM.
+      </p>
+    </div>
+
+    <!-- Team cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {team.map((member) => (
+        <article
+          class:list={[
+            'team-card flex flex-col rounded-[var(--border-radius-lg)] overflow-hidden transition-transform duration-300 hover:-translate-y-1',
+            member.featured
+              ? 'bg-[var(--z-lime-400)] text-[var(--z-black)]'
+              : 'card-dark',
+          ]}
+        >
+          <!-- Avatar placeholder -->
+          <div
+            class:list={[
+              'h-64 flex items-center justify-center',
+              member.featured ? 'bg-[var(--z-lime-500)]' : 'bg-[var(--z-midnight-800)]',
+            ]}
+          >
+            <span
+              class:list={[
+                'font-display font-bold text-6xl select-none opacity-20',
+                member.featured ? 'text-[var(--z-black)]' : 'text-[var(--z-lime-400)]',
+              ]}
+              aria-hidden="true"
+            >
+              {member.initials}
+            </span>
+          </div>
+
+          <!-- Info -->
+          <div class="p-6 flex flex-col gap-3">
+            <div>
+              <h3
+                class:list={[
+                  'font-display font-semibold',
+                  member.featured ? 'text-[var(--z-black)]' : 'text-[var(--z-white)]',
+                ]}
+                style="font-size: 1.1rem;"
+              >
+                {member.name}
+              </h3>
+              <p
+                class:list={[
+                  'font-mono text-xs mt-1',
+                  member.featured ? 'text-[var(--z-midnight-800)]' : 'text-[var(--z-lime-400)]',
+                ]}
+              >
+                {member.role}
+              </p>
+            </div>
+            <p
+              class:list={[
+                'font-body text-sm',
+                member.featured ? 'text-[var(--z-midnight-700)]' : 'text-[var(--z-slate-300)]',
+              ]}
+              style="line-height: 1.6;"
+            >
+              {member.bio}
+            </p>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.team-title', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 0.8,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.team-title', start: 'top 85%' },
+    });
+
+    gsap.from('.team-card', {
+      opacity: 0,
+      y: 60,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.team-card', start: 'top 90%' },
+    });
+  }
+</script>

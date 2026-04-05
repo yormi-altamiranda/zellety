@@ -1,0 +1,117 @@
+---
+// Services — Servicios de Zellety
+// Hardcoded (no depende de Storyblok aún)
+
+const services = [
+  {
+    number: '01',
+    title: 'Web App',
+    description: 'Sites corporativos, e-commerce y plataformas con Nuxt, Next y AstroJS. Rápidos, accesibles y optimizados para conversión.',
+    tags: ['Nuxt', 'Next.js', 'AstroJS', 'Webflow'],
+  },
+  {
+    number: '02',
+    title: 'App Móvil',
+    description: 'Aplicaciones nativas para iOS y Android desde un solo codebase con Flutter. Del prototipo al store.',
+    tags: ['Flutter', 'iOS', 'Android'],
+  },
+  {
+    number: '03',
+    title: 'IoT & Domótica',
+    description: 'Automatización de hogares y oficinas inteligentes. Sensores, dashboards y control remoto.',
+    tags: ['IoT', 'MQTT', 'Home Automation'],
+  },
+  {
+    number: '04',
+    title: 'UX/UI Design',
+    description: 'Research, wireframes, prototipos y design systems en Figma. Diseño que comunica y convierte.',
+    tags: ['Figma', 'Design System', 'Prototyping'],
+  },
+  {
+    number: '05',
+    title: 'SaaS',
+    description: 'Plataformas multi-tenant con billing, autenticación y dashboards. Del MVP al producto que escala.',
+    tags: ['Supabase', 'Stripe', 'Multi-tenant'],
+  },
+];
+---
+
+<section id="servicios" class="section-padding bg-[var(--z-midnight-900)]">
+  <div class="container-site">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+      <div>
+        <p class="label-mono text-[var(--z-slate-500)] mb-3">(srvs)</p>
+        <h2
+          class="services-title font-display font-bold text-[var(--z-white)]"
+          style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1;"
+        >
+          LO QUE<br />HACEMOS
+        </h2>
+      </div>
+      <p class="font-body text-[var(--z-slate-300)] text-sm max-w-xs" style="line-height: 1.7;">
+        Soluciones end-to-end para founders y equipos que buscan un partner técnico de confianza.
+      </p>
+    </div>
+
+    <!-- Services list -->
+    <div class="flex flex-col">
+      {services.map((service, i) => (
+        <div
+          class="service-item group border-t border-[var(--z-midnight-800)] last:border-b py-6 grid grid-cols-[3rem_1fr_auto] md:grid-cols-[4rem_1fr_1fr_auto] gap-4 md:gap-8 items-center cursor-default hover:bg-[var(--z-midnight-950)] transition-colors duration-200 px-2 rounded-sm"
+        >
+          <!-- Number -->
+          <span class="label-mono text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-colors duration-200">
+            {service.number}
+          </span>
+
+          <!-- Title -->
+          <h3 class="font-display font-semibold text-[var(--z-white)] group-hover:text-[var(--z-lime-400)] transition-colors duration-200"
+            style="font-size: clamp(1.1rem, 2vw, 1.5rem);">
+            {service.title}
+          </h3>
+
+          <!-- Description (hidden on mobile) -->
+          <p class="hidden md:block font-body text-[var(--z-slate-500)] text-sm leading-relaxed group-hover:text-[var(--z-slate-300)] transition-colors duration-200">
+            {service.description}
+          </p>
+
+          <!-- Arrow -->
+          <span
+            class="font-mono text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-all duration-200 group-hover:translate-x-1"
+            aria-hidden="true"
+          >
+            ↗
+          </span>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.services-title', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 0.8,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.services-title', start: 'top 85%' },
+    });
+
+    gsap.from('.service-item', {
+      opacity: 0,
+      y: 20,
+      stagger: 0.08,
+      duration: 0.5,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.service-item', start: 'top 90%' },
+    });
+  }
+</script>

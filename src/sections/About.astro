@@ -1,0 +1,112 @@
+---
+// About — Quiénes somos
+// Counters animados con GSAP (ver CLAUDE.md §9.9)
+
+const stats = [
+  { value: 5,   suffix: '+', label: 'Años de experiencia' },
+  { value: 30,  suffix: '+', label: 'Proyectos entregados' },
+  { value: 20,  suffix: '+', label: 'Clientes satisfechos' },
+];
+---
+
+<section id="nosotros" class="section-padding bg-[var(--z-midnight-950)]">
+  <div class="container-site">
+
+    <!-- Top label + divider -->
+    <div class="flex items-center gap-4 mb-16">
+      <span class="label-mono">01 / NOSOTROS</span>
+      <div class="flex-1 divider"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Text col -->
+      <div>
+        <h2
+          class="about-title font-display font-bold text-[var(--z-white)] mb-6"
+          style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.08;"
+        >
+          Expertos en<br />
+          <span class="text-[var(--z-lime-400)]">lo que importa.</span>
+        </h2>
+
+        <p class="font-body text-[var(--z-slate-300)] mb-6 max-w-lg" style="line-height: 1.7;">
+          Somos un equipo de diseñadores y desarrolladores en LATAM apasionados por construir
+          productos digitales que resuelven problemas reales. Trabajamos como una extensión
+          de tu equipo, desde el concepto hasta el deployment.
+        </p>
+        <p class="font-body text-[var(--z-slate-300)] mb-10 max-w-lg" style="line-height: 1.7;">
+          No solo escribimos código; entendemos tu negocio, tu audiencia y tus objetivos
+          para construir soluciones que escalan.
+        </p>
+
+        <a href="/#contacto" class="btn-primary">
+          Trabajemos juntos <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <!-- Stats col -->
+      <div class="flex flex-col gap-8">
+        {stats.map((stat, i) => (
+          <div class="flex items-center gap-6 group">
+            <div class="flex-shrink-0">
+              <span
+                class="counter font-display font-bold text-[var(--z-lime-400)]"
+                data-target={stat.value}
+                style="font-size: clamp(3rem, 6vw, 5rem); line-height: 1;"
+              >
+                0
+              </span>
+              <span
+                class="font-display font-bold text-[var(--z-lime-400)]"
+                style="font-size: clamp(3rem, 6vw, 5rem); line-height: 1;"
+              >
+                {stat.suffix}
+              </span>
+            </div>
+            <div class="divider-v w-px h-12 bg-[var(--z-midnight-800)]"></div>
+            <p class="font-body text-[var(--z-slate-300)] text-sm leading-snug max-w-[140px]">
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    // Counters
+    document.querySelectorAll<HTMLElement>('.counter').forEach(el => {
+      const target = Number(el.dataset.target ?? 0);
+      gsap.to(el, {
+        textContent: target,
+        duration: 2,
+        ease: 'power1.out',
+        snap: { textContent: 1 },
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      });
+    });
+
+    // Section title reveal
+    gsap.from('.about-title', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 0.8,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.about-title', start: 'top 85%' },
+    });
+  }
+</script>

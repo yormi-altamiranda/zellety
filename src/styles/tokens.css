@@ -4,25 +4,7 @@
  * Referenciar siempre como var(--z-*) en estilos y clases UnoCSS.
  */
 
-@font-face {
-  font-family: 'Stack Sans Notch';
-  src:
-    url('../assets/fonts/StackSansNotch-Bold.woff2') format('woff2'),
-    url('../assets/fonts/StackSansNotch-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Stack Sans Notch';
-  src:
-    url('../assets/fonts/StackSansNotch-SemiBold.woff2') format('woff2'),
-    url('../assets/fonts/StackSansNotch-SemiBold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Stack+Sans+Notch:wght@200..700&display=swap');
 
 :root {
   /* ── Colores ─────────────────────────────────────────── */
@@ -58,8 +40,8 @@
   /* ── Tipografía ──────────────────────────────────────── */
 
   --font-display: 'Stack Sans Notch', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: 'Geist Mono', monospace;
+  --font-mono: 'Geist Mono', monospace;
 
   /* Escala tipográfica (clamp: mobile → desktop) */
   --text-hero-size: clamp(2.5rem, 5vw, 4.5rem);

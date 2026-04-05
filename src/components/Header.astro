@@ -1,0 +1,65 @@
+---
+import NavMobile from './NavMobile.vue';
+
+const navLinks = [
+  { href: '/#inicio',    label: 'Home' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#works',     label: 'Works' },
+  { href: '/#equipo',    label: 'Equipo' },
+  { href: '/#contacto',  label: 'Contacto' },
+];
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="container-site flex items-center justify-between h-16 md:h-20">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 focus-ring rounded-sm" aria-label="Zellety — inicio">
+      <div class="w-8 h-8 bg-[var(--z-lime-400)] rounded-sm flex items-center justify-center">
+        <span class="font-display font-bold text-[var(--z-black)] text-sm leading-none">Z</span>
+      </div>
+      <span class="font-display font-bold text-[var(--z-white)] text-lg tracking-wide">ZELLETY</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Navegación principal">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class="font-body text-sm text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors duration-200 focus-ring rounded-sm"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Desktop CTA -->
+    <a href="/#contacto" class="btn-primary hidden md:inline-flex text-sm focus-ring">
+      Hablemos <span aria-hidden="true">→</span>
+    </a>
+
+    <!-- Mobile menu -->
+    <NavMobile client:load links={navLinks} />
+
+  </div>
+</header>
+
+<!-- Header background on scroll -->
+<script>
+  const header = document.getElementById('site-header');
+  const onScroll = () => {
+    if (window.scrollY > 20) {
+      header?.classList.add('bg-[var(--z-midnight-950)]/95', 'backdrop-blur-md', 'border-b', 'border-[var(--z-midnight-800)]');
+    } else {
+      header?.classList.remove('bg-[var(--z-midnight-950)]/95', 'backdrop-blur-md', 'border-b', 'border-[var(--z-midnight-800)]');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style>
+  #site-header {
+    background: transparent;
+  }
+</style>

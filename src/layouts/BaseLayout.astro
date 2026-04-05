@@ -1,6 +1,9 @@
 ---
 import '../styles/tokens.css';
 import '../styles/base.css';
+import 'virtual:uno.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -52,6 +55,8 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
+    <Header />
     <slot />
+    <Footer />
   </body>
 </html>

@@ -1,0 +1,124 @@
+---
+// Work — Proyectos destacados
+// Mock data hasta tener Storyblok token
+
+const projects = [
+  {
+    title: 'Plataforma E-Commerce',
+    summary: 'Tienda online con más de 5,000 SKUs, integración de pagos y panel de administración personalizado.',
+    services: ['Web App', 'UX/UI'],
+    tech: ['Next.js', 'Supabase', 'Stripe'],
+    color: 'var(--z-lime-400)',
+  },
+  {
+    title: 'App de Domótica',
+    summary: 'Control de hogar inteligente para iOS y Android. Automatización de luces, clima y seguridad.',
+    services: ['App Móvil', 'IoT'],
+    tech: ['Flutter', 'MQTT', 'Node.js'],
+    color: 'var(--z-lime-400)',
+  },
+  {
+    title: 'SaaS de Gestión',
+    summary: 'Plataforma multi-tenant para gestión de equipos y proyectos con billing integrado.',
+    services: ['SaaS', 'UX/UI'],
+    tech: ['Nuxt.js', 'Supabase', 'Stripe'],
+    color: 'var(--z-lime-400)',
+  },
+];
+---
+
+<section id="works" class="section-padding bg-[var(--z-midnight-950)]">
+  <div class="container-site">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between gap-8 mb-16 flex-wrap">
+      <div class="flex items-center gap-4">
+        <span class="label-mono text-[var(--z-slate-500)]">02 / TRABAJOS</span>
+        <div class="w-24 divider"></div>
+      </div>
+      <h2
+        class="work-title font-display font-bold text-[var(--z-white)] w-full md:w-auto"
+        style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1;"
+      >
+        Proyectos recientes
+      </h2>
+    </div>
+
+    <!-- Projects grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project, i) => (
+        <article class="project-card card-dark flex flex-col">
+
+          <!-- Image placeholder -->
+          <div
+            class="relative h-52 bg-[var(--z-midnight-800)] overflow-hidden flex items-center justify-center"
+          >
+            <span
+              class="font-display font-bold text-[6rem] leading-none select-none opacity-10 text-[var(--z-lime-400)]"
+              aria-hidden="true"
+            >
+              0{i + 1}
+            </span>
+            <!-- Service tags overlay -->
+            <div class="absolute bottom-3 left-3 flex flex-wrap gap-2">
+              {project.services.map(s => (
+                <span class="badge-lime text-[0.65rem]">{s}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6 flex flex-col flex-1 gap-4">
+            <h3 class="font-display font-semibold text-[var(--z-white)]" style="font-size: 1.125rem;">
+              {project.title}
+            </h3>
+            <p class="font-body text-[var(--z-slate-300)] text-sm flex-1" style="line-height: 1.65;">
+              {project.summary}
+            </p>
+
+            <!-- Tech stack -->
+            <div class="flex flex-wrap gap-2">
+              {project.tech.map(t => (
+                <span class="badge">{t}</span>
+              ))}
+            </div>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12 text-center">
+      <a href="/projects" class="btn-ghost">
+        Ver todos los proyectos <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.work-title', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 0.8,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.work-title', start: 'top 85%' },
+    });
+
+    gsap.from('.project-card', {
+      opacity: 0,
+      y: 60,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.project-card', start: 'top 90%' },
+    });
+  }
+</script>

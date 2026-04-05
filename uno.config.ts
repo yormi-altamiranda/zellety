@@ -1,34 +1,17 @@
-import { defineConfig, presetUno, presetWebFonts } from 'unocss';
+import { defineConfig, presetUno } from 'unocss';
 
 export default defineConfig({
   presets: [
     presetUno(),
-    presetWebFonts({
-      provider: 'google',
-      fonts: {
-        body: [
-          {
-            name: 'Inter',
-            weights: ['400', '500', '600', '700'],
-          },
-        ],
-        mono: [
-          {
-            name: 'JetBrains Mono',
-            weights: ['400', '500'],
-          },
-        ],
-      },
-    }),
   ],
 
   // Tema — referencia a CSS custom properties de tokens.css
   // Los colores no se definen aquí, van en tokens.css como custom properties
   theme: {
     fontFamily: {
-      display: 'var(--font-display)',
-      body: 'var(--font-body)',
-      mono: 'var(--font-mono)',
+      display: "'Stack Sans Notch', sans-serif",
+      body:    "'Geist Mono', monospace",
+      mono:    "'Geist Mono', monospace",
     },
     breakpoints: {
       sm: '640px',

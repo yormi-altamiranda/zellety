@@ -23,7 +23,11 @@ import storybookUrl         from '../assets/icons/storybook.svg?url'
 import affinityDesignerUrl  from '../assets/icons/affinity_designer.svg?url'
 import affinityPhotoUrl     from '../assets/icons/affinity_photo.svg?url'
 import affinityPublisherUrl from '../assets/icons/affinity_publisher.svg?url'
+import awsUrl               from '../assets/icons/aws_dark.svg?url'
 import azureUrl             from '../assets/icons/azure.svg?url'
+import framerUrl            from '../assets/icons/framer_dark.svg?url'
+import githubUrl            from '../assets/icons/github_dark.svg?url'
+import vercelUrl            from '../assets/icons/vercel_dark.svg?url'
 import firebaseUrl          from '../assets/icons/firebase.svg?url'
 import flutterUrl           from '../assets/icons/flutter.svg?url'
 import postgresqlUrl        from '../assets/icons/postgresql.svg?url'
@@ -60,11 +64,14 @@ const tools: Tool[] = [
   { name: 'PostgreSQL',         kind: 'svg',  src: postgresqlUrl },
   { name: 'Supabase',           kind: 'svg',  src: supabaseUrl },
   { name: 'Webflow',            kind: 'svg',  src: webflowUrl },
+  { name: 'AWS',                kind: 'svg',  src: awsUrl },
+  { name: 'Framer',             kind: 'svg',  src: framerUrl },
+  { name: 'GitHub',             kind: 'svg',  src: githubUrl },
+  { name: 'Vercel',             kind: 'svg',  src: vercelUrl },
   { name: 'WooCommerce',        kind: 'icon', icon: 'simple-icons:woocommerce' },
   { name: 'Vue.js',             kind: 'icon', icon: 'simple-icons:vuedotjs' },
   { name: 'React',              kind: 'icon', icon: 'simple-icons:react' },
   { name: 'NestJS',             kind: 'icon', icon: 'simple-icons:nestjs' },
-  { name: 'Vercel',             kind: 'icon', icon: 'simple-icons:vercel' },
 ]
 </script>
 

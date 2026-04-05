@@ -162,10 +162,9 @@ ol {
   white-space: nowrap;
   border-width: 0;
 }
-
-.hidden {
-  display: none;
-}
+/* NOTE: .hidden is provided by UnoCSS — do NOT redefine here,
+   as base.css loads after UnoCSS and would override responsive
+   variants like lg:block and md:flex via cascade order. */
 
 /* ── Marquee (sección 9.6 del CLAUDE.md) ────────────────── */
 .marquee-track {

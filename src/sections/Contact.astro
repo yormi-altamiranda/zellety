@@ -2,45 +2,35 @@
 import ContactForm from '../components/ContactForm.vue';
 ---
 
-<section id="contacto" class="section-padding bg-[var(--z-midnight-950)]">
-  <div class="container-site">
+<section id="contacto" class="bg-[var(--z-midnight-950)] pt-[var(--space-24)]">
 
-    <!-- Header -->
-    <div class="flex items-center gap-4 mb-16">
-      <span class="label-mono text-[var(--z-slate-500)]">04 / CONTACTO</span>
-      <div class="flex-1 divider"></div>
-    </div>
+  <!-- Form area -->
+  <div class="container-site pb-[var(--space-24)]">
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
       <!-- Left: copy -->
       <div>
+        <p class="label-mono mb-5" style="color: var(--z-lime-400);">//CONTACTO</p>
         <h2
           class="contact-title font-display font-bold text-[var(--z-white)] mb-6"
-          style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05;"
+          style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.02;"
         >
           Hablemos.
         </h2>
-        <p class="font-body text-[var(--z-slate-300)] mb-8 max-w-md" style="line-height: 1.7;">
-          ¿Tienes un proyecto en mente? Cuéntanos qué necesitas y te respondemos en menos de 24 horas.
+        <p class="font-body text-[var(--z-slate-300)] mb-10 max-w-sm" style="line-height: 1.7;">
+          ¿Tienes un proyecto en mente? Escríbenos y te respondemos en menos de 24 horas.
         </p>
-
-        <!-- Contact details -->
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-3">
           <div class="flex items-center gap-3">
             <span class="label-mono text-[var(--z-lime-400)]">EMAIL</span>
-            <a
-              href="mailto:hola@zellety.com"
-              class="font-body text-sm text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors"
-            >
+            <a href="mailto:hola@zellety.com" class="font-body text-sm text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors">
               hola@zellety.com
             </a>
           </div>
           <div class="flex items-center gap-3">
-            <span class="label-mono text-[var(--z-lime-400)]">LATAM</span>
-            <span class="font-body text-sm text-[var(--z-slate-300)]">
-              Disponibles en zona horaria UTC-3 a UTC-6
-            </span>
+            <span class="label-mono text-[var(--z-lime-400)]">ZONA</span>
+            <span class="font-body text-sm text-[var(--z-slate-300)]">UTC-3 a UTC-6 · LATAM</span>
           </div>
         </div>
       </div>
@@ -51,9 +41,48 @@ import ContactForm from '../components/ContactForm.vue';
       </div>
 
     </div>
-
   </div>
+
+  <!-- ── Email marquee gigante ── -->
+  <div class="overflow-hidden border-t border-[var(--z-midnight-800)] py-6">
+    <div class="email-marquee flex whitespace-nowrap">
+      <span
+        class="font-display font-bold shrink-0 pr-16"
+        style="font-size: clamp(4rem, 12vw, 10rem); line-height: 1; color: var(--z-lime-400); letter-spacing: -0.02em;"
+        aria-hidden="true"
+      >
+        HOLA@ZELLETY.COM&nbsp;&nbsp;·&nbsp;&nbsp;
+      </span>
+      <span
+        class="font-display font-bold shrink-0 pr-16"
+        style="font-size: clamp(4rem, 12vw, 10rem); line-height: 1; color: var(--z-lime-400); letter-spacing: -0.02em;"
+      >
+        HOLA@ZELLETY.COM&nbsp;&nbsp;·&nbsp;&nbsp;
+      </span>
+      <span
+        class="font-display font-bold shrink-0 pr-16"
+        style="font-size: clamp(4rem, 12vw, 10rem); line-height: 1; color: var(--z-lime-400); letter-spacing: -0.02em;"
+        aria-hidden="true"
+      >
+        HOLA@ZELLETY.COM&nbsp;&nbsp;·&nbsp;&nbsp;
+      </span>
+    </div>
+  </div>
+
 </section>
+
+<style>
+  .email-marquee {
+    animation: email-scroll 12s linear infinite;
+  }
+  .email-marquee:hover {
+    animation-play-state: paused;
+  }
+  @keyframes email-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-33.333%); }
+  }
+</style>
 
 <script>
   import gsap from 'gsap';

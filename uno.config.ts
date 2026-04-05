@@ -9,8 +9,8 @@ export default defineConfig({
   // Los colores no se definen aquí, van en tokens.css como custom properties
   theme: {
     fontFamily: {
-      display: "'Stack Sans Notch', sans-serif",
-      body:    "'Geist Mono', monospace",
+      display: "'Clash Display', sans-serif",
+      body:    "'Inter', sans-serif",
       mono:    "'Geist Mono', monospace",
     },
     breakpoints: {

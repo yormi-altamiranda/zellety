@@ -4,44 +4,55 @@
  * Referenciar siempre como var(--z-*) en estilos y clases UnoCSS.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Stack+Sans+Notch:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
 
-:root {
+@font-face {
+  font-family: 'Clash Display';
+  src: url('../assets/fonts/ClashDisplay-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Dark mode (default) ─────────────────────────────────── */
+:root,
+[data-theme="dark"] {
   /* ── Colores ─────────────────────────────────────────── */
 
-  /* Primary — Midnight */
-  --z-midnight-950: #0a0f1e;
-  --z-midnight-900: #141b33;
-  --z-midnight-800: #1e2847;
-  --z-midnight-700: #2a365c;
+  /* Dark background */
+  --z-midnight-950: #0f0f0f;   /* fondo principal dark */
+  --z-midnight-900: #1a1a1a;   /* fondo cards dark */
+  --z-midnight-800: #242424;   /* bordes dark */
+  --z-midnight-700: #383838;   /* texto secundario dark */
 
-  /* Accent — Electric Lime */
-  --z-lime-400: #bfff0a;
-  --z-lime-500: #a8e600;
-  --z-lime-600: #8fcc00;
-  --z-lime-700: #6b9900;
+  /* Primary — Rojo */
+  --z-lime-400: #f53a06;       /* primary: CTAs, badges, highlights, subtítulos */
+  --z-lime-500: #e03306;       /* hover sobre primary */
+  --z-lime-600: #c42d05;       /* active/pressed */
+  --z-lime-700: #a02604;       /* texto sobre fondo primary */
 
-  /* Surface — Slate */
-  --z-slate-50: #f7f8fa;
-  --z-slate-100: #e8ebf0;
-  --z-slate-300: #c9ced8;
-  --z-slate-500: #6b7280;
+  /* Light surface */
+  --z-slate-50:  #efefef;      /* fondo claro general */
+  --z-slate-100: #e0e0e0;      /* fondo tarjetas light */
+  --z-slate-300: #a0a0a0;      /* texto muted */
+  --z-slate-500: #6b6b6b;      /* texto secundario */
 
   /* Texto */
-  --z-white: #ffffff;
-  --z-black: #0a0f1e;
+  --z-white: #ffffff;           /* texto sobre fondo dark */
+  --z-black: #0f0f0f;          /* texto sobre fondo light */
 
   /* Semánticos */
   --z-success: #10b981;
   --z-warning: #f59e0b;
-  --z-error: #ef4444;
-  --z-info: #3b82f6;
+  --z-error:   #ef4444;
+  --z-info:    #3b82f6;
 
   /* ── Tipografía ──────────────────────────────────────── */
 
-  --font-display: 'Stack Sans Notch', sans-serif;
-  --font-body: 'Geist Mono', monospace;
-  --font-mono: 'Geist Mono', monospace;
+  --font-display: 'Clash Display', sans-serif;  /* títulos y subtítulos */
+  --font-body: 'Inter', sans-serif;             /* body, botones, links */
+  --font-mono: 'Geist Mono', monospace;         /* labels, counters, metadata */
 
   /* Escala tipográfica (clamp: mobile → desktop) */
   --text-hero-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -96,4 +107,25 @@
   --duration-base: 0.4s;
   --duration-slow: 0.6s;
   --duration-slower: 0.8s;
+}
+
+/* ── Light mode ──────────────────────────────────────────── */
+[data-theme="light"] {
+  /* Fondos */
+  --z-midnight-950: #efefef;   /* fondo principal */
+  --z-midnight-900: #ffffff;   /* fondo tarjetas */
+  --z-midnight-800: #e0e0e0;   /* bordes */
+  --z-midnight-700: #cccccc;   /* bordes secundarios */
+
+  /* Primary se mantiene igual en ambos modos */
+
+  /* Superficies */
+  --z-slate-50:  #0f0f0f;
+  --z-slate-100: #1a1a1a;
+  --z-slate-300: #444444;      /* texto muted */
+  --z-slate-500: #666666;      /* texto secundario */
+
+  /* Texto */
+  --z-white: #0f0f0f;          /* texto principal → oscuro */
+  --z-black: #0f0f0f;          /* texto sobre primary → oscuro */
 }

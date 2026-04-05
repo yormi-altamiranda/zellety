@@ -1,114 +1,107 @@
 ---
-// Team — El equipo de Zellety
-// Mock data hasta tener Storyblok token
-
 const team = [
   {
     name: 'Nombre Apellido',
-    role: 'Co-founder & CEO',
-    bio: 'Liderando la visión de Zellety para conectar talento tech de LATAM con founders que construyen productos que importan.',
-    initials: 'NA',
+    role: 'CEO & Co-founder',
+    bio: 'Nuestro equipo de liderazgo está impulsado por una visión clara y un compromiso inquebrantable con la misión.',
+    img: 'https://picsum.photos/seed/team-ceo/600/700',
+    bg: 'var(--z-lime-400)',
   },
   {
     name: 'Nombre Apellido',
-    role: 'Co-founder & CTO',
-    bio: 'Arquitecto de soluciones con más de 8 años construyendo plataformas web, mobile e IoT para startups y empresas LATAM.',
-    initials: 'NA',
-    featured: true,
+    role: 'CTO & Co-founder',
+    bio: 'Arquitecto de soluciones con más de 8 años construyendo plataformas para startups y empresas en LATAM.',
+    img: 'https://picsum.photos/seed/team-cto/600/700',
+    bg: '#7c3aed',
   },
   {
     name: 'Nombre Apellido',
     role: 'Lead UX/UI Designer',
     bio: 'Diseñando experiencias que convierten. Research, prototipos y design systems que hablan el idioma del usuario.',
-    initials: 'NA',
+    img: 'https://picsum.photos/seed/team-design/600/700',
+    bg: '#0ea5e9',
   },
 ];
 ---
 
-<section id="equipo" class="section-padding bg-[var(--z-midnight-900)]">
+<section id="equipo" class="section-padding bg-[var(--z-midnight-950)] overflow-hidden">
   <div class="container-site">
 
     <!-- Header -->
-    <div class="flex items-center gap-4 mb-16">
-      <span class="label-mono text-[var(--z-slate-500)]">03 / EQUIPO</span>
-      <div class="flex-1 divider"></div>
-    </div>
-
-    <div class="flex flex-col md:flex-row gap-8 items-start md:items-end mb-16">
+    <div class="mb-16">
+      <p class="label-mono mb-4" style="color: var(--z-lime-400);">//Nuestro equipo</p>
       <h2
         class="team-title font-display font-bold text-[var(--z-white)]"
-        style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; flex: 1;"
+        style="font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05;"
       >
-        Las personas<br />detrás del código.
+        Team<br />members
       </h2>
-      <p class="font-body text-[var(--z-slate-300)] text-sm max-w-xs" style="line-height: 1.7;">
-        Un equipo pequeño, comprometido y distribuido por LATAM.
-      </p>
     </div>
 
-    <!-- Team cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {team.map((member) => (
-        <article
-          class:list={[
-            'team-card flex flex-col rounded-[var(--border-radius-lg)] overflow-hidden transition-transform duration-300 hover:-translate-y-1',
-            member.featured
-              ? 'bg-[var(--z-lime-400)] text-[var(--z-black)]'
-              : 'card-dark',
-          ]}
+    <!-- Layout: TEAM watermark + cards -->
+    <div class="relative">
+
+      <!-- Watermark "TEAM" vertical -->
+      <div
+        class="hidden lg:block absolute left-0 top-0 bottom-0 select-none pointer-events-none z-0"
+        aria-hidden="true"
+        style="writing-mode: vertical-rl; text-orientation: mixed;"
+      >
+        <span
+          class="font-display font-bold text-[var(--z-midnight-800)]"
+          style="font-size: clamp(6rem, 14vw, 13rem); line-height: 1; letter-spacing: -0.05em;"
         >
-          <!-- Avatar placeholder -->
-          <div
-            class:list={[
-              'h-64 flex items-center justify-center',
-              member.featured ? 'bg-[var(--z-lime-500)]' : 'bg-[var(--z-midnight-800)]',
-            ]}
-          >
-            <span
-              class:list={[
-                'font-display font-bold text-6xl select-none opacity-20',
-                member.featured ? 'text-[var(--z-black)]' : 'text-[var(--z-lime-400)]',
-              ]}
-              aria-hidden="true"
-            >
-              {member.initials}
-            </span>
-          </div>
+          TEAM
+        </span>
+      </div>
 
-          <!-- Info -->
-          <div class="p-6 flex flex-col gap-3">
-            <div>
-              <h3
-                class:list={[
-                  'font-display font-semibold',
-                  member.featured ? 'text-[var(--z-black)]' : 'text-[var(--z-white)]',
-                ]}
-                style="font-size: 1.1rem;"
+      <!-- Cards stack -->
+      <div class="lg:pl-[22%] flex flex-col">
+        {team.map((member, i) => (
+          <div class="team-member-row">
+
+            <!-- Divider top -->
+            {i > 0 && <div class="divider my-0"></div>}
+
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-8 items-center py-10">
+
+              <!-- Foto -->
+              <div
+                class="relative overflow-hidden rounded-2xl"
+                style={`aspect-ratio: 4/5; background: ${member.bg};`}
               >
-                {member.name}
-              </h3>
-              <p
-                class:list={[
-                  'font-mono text-xs mt-1',
-                  member.featured ? 'text-[var(--z-midnight-800)]' : 'text-[var(--z-lime-400)]',
-                ]}
-              >
-                {member.role}
-              </p>
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  class="w-full h-full object-cover object-top mix-blend-luminosity"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <!-- Info -->
+              <div class="flex flex-col gap-4">
+                <p class="font-body text-[var(--z-slate-300)] text-sm" style="line-height: 1.7;">
+                  {member.bio}
+                </p>
+                <div>
+                  <p class="font-display font-semibold text-[var(--z-white)]" style="font-size: 1.1rem;">
+                    {member.name}
+                  </p>
+                  <p class="font-mono text-xs mt-1" style="color: var(--z-slate-500);">
+                    {member.role}
+                  </p>
+                </div>
+              </div>
+
             </div>
-            <p
-              class:list={[
-                'font-body text-sm',
-                member.featured ? 'text-[var(--z-midnight-700)]' : 'text-[var(--z-slate-300)]',
-              ]}
-              style="line-height: 1.6;"
-            >
-              {member.bio}
-            </p>
-          </div>
 
-        </article>
-      ))}
+            <!-- Divider bottom on last -->
+            {i === team.length - 1 && <div class="divider"></div>}
+          </div>
+        ))}
+      </div>
+
     </div>
 
   </div>
@@ -127,14 +120,13 @@ const team = [
       ease: 'power3.inOut',
       scrollTrigger: { trigger: '.team-title', start: 'top 85%' },
     });
-
-    gsap.from('.team-card', {
+    gsap.from('.team-member-row', {
       opacity: 0,
-      y: 60,
-      stagger: 0.1,
-      duration: 0.6,
+      y: 50,
+      stagger: 0.12,
+      duration: 0.7,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.team-card', start: 'top 90%' },
+      scrollTrigger: { trigger: '.team-member-row', start: 'top 88%' },
     });
   }
 </script>

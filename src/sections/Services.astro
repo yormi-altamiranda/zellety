@@ -1,92 +1,101 @@
 ---
-// Services — Servicios de Zellety
-// Hardcoded (no depende de Storyblok aún)
-
 const services = [
   {
-    number: '01',
+    number: '/01',
     title: 'Web App',
-    description: 'Sites corporativos, e-commerce y plataformas con Nuxt, Next y AstroJS. Rápidos, accesibles y optimizados para conversión.',
-    tags: ['Nuxt', 'Next.js', 'AstroJS', 'Webflow'],
+    subtitle: 'Sites que convierten.',
+    description: 'Corporativos, e-commerce y plataformas con Nuxt, Next y AstroJS. Rápidos, accesibles y optimizados.',
   },
   {
-    number: '02',
+    number: '/02',
     title: 'App Móvil',
-    description: 'Aplicaciones nativas para iOS y Android desde un solo codebase con Flutter. Del prototipo al store.',
-    tags: ['Flutter', 'iOS', 'Android'],
+    subtitle: 'iOS y Android, un solo código.',
+    description: 'Aplicaciones nativas con Flutter. Del prototipo al store en el menor tiempo posible.',
   },
   {
-    number: '03',
-    title: 'IoT & Domótica',
-    description: 'Automatización de hogares y oficinas inteligentes. Sensores, dashboards y control remoto.',
-    tags: ['IoT', 'MQTT', 'Home Automation'],
+    number: '/03',
+    title: 'IoT',
+    subtitle: 'Hogares y oficinas inteligentes.',
+    description: 'Automatización con sensores, dashboards y control remoto. Conectamos el mundo físico al digital.',
   },
   {
-    number: '04',
-    title: 'UX/UI Design',
-    description: 'Research, wireframes, prototipos y design systems en Figma. Diseño que comunica y convierte.',
-    tags: ['Figma', 'Design System', 'Prototyping'],
+    number: '/04',
+    title: 'UX/UI',
+    subtitle: 'Diseño que comunica.',
+    description: 'Research, wireframes, prototipos y design systems en Figma. Cada pixel tiene un propósito.',
   },
   {
-    number: '05',
+    number: '/05',
     title: 'SaaS',
-    description: 'Plataformas multi-tenant con billing, autenticación y dashboards. Del MVP al producto que escala.',
-    tags: ['Supabase', 'Stripe', 'Multi-tenant'],
+    subtitle: 'Plataformas que escalan.',
+    description: 'Multi-tenant con billing, autenticación y dashboards. Del MVP al producto que crece.',
   },
 ];
+
+const rows = [services.slice(0, 3), services.slice(3)];
 ---
 
-<section id="servicios" class="section-padding bg-[var(--z-midnight-900)]">
+<section id="servicios" class="section-padding bg-[var(--z-midnight-950)]">
   <div class="container-site">
 
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+    <div class="mb-16 lg:mb-24">
+      <p class="label-mono mb-5" style="color: var(--z-lime-400);">//SERVICIOS</p>
+      <h2
+        class="services-title font-display font-bold text-[var(--z-white)] max-w-xl"
+        style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.15;"
+      >
+        Combinamos creatividad y conocimiento técnico para hacer realidad tu visión.
+      </h2>
+    </div>
+
+    <!-- Grid de servicios por filas -->
+    {rows.map((row, ri) => (
       <div>
-        <p class="label-mono text-[var(--z-slate-500)] mb-3">(srvs)</p>
-        <h2
-          class="services-title font-display font-bold text-[var(--z-white)]"
-          style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1;"
-        >
-          LO QUE<br />HACEMOS
-        </h2>
-      </div>
-      <p class="font-body text-[var(--z-slate-300)] text-sm max-w-xs" style="line-height: 1.7;">
-        Soluciones end-to-end para founders y equipos que buscan un partner técnico de confianza.
-      </p>
-    </div>
+        <!-- Divider top -->
+        <div class="divider mb-0"></div>
 
-    <!-- Services list -->
-    <div class="flex flex-col">
-      {services.map((service, i) => (
-        <div
-          class="service-item group border-t border-[var(--z-midnight-800)] last:border-b py-6 grid grid-cols-[3rem_1fr_auto] md:grid-cols-[4rem_1fr_1fr_auto] gap-4 md:gap-8 items-center cursor-default hover:bg-[var(--z-midnight-950)] transition-colors duration-200 px-2 rounded-sm"
-        >
-          <!-- Number -->
-          <span class="label-mono text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-colors duration-200">
-            {service.number}
-          </span>
+        <div class:list={[
+          'grid gap-0',
+          row.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+        ]}>
+          {row.map((service, i) => (
+            <div
+              class="service-grid-item group py-10 pr-8 border-b md:border-b-0 md:border-r border-[var(--z-midnight-800)] last:border-0 cursor-default"
+            >
+              <!-- Número -->
+              <p
+                class="font-mono text-sm mb-3 transition-colors duration-200 group-hover:text-[var(--z-lime-400)]"
+                style="color: var(--z-slate-500);"
+              >
+                {service.number}
+              </p>
 
-          <!-- Title -->
-          <h3 class="font-display font-semibold text-[var(--z-white)] group-hover:text-[var(--z-lime-400)] transition-colors duration-200"
-            style="font-size: clamp(1.1rem, 2vw, 1.5rem);">
-            {service.title}
-          </h3>
+              <!-- Título -->
+              <h3
+                class="font-display font-bold text-[var(--z-white)] mb-10"
+                style="font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.1;"
+              >
+                {service.title}
+              </h3>
 
-          <!-- Description (hidden on mobile) -->
-          <p class="hidden md:block font-body text-[var(--z-slate-500)] text-sm leading-relaxed group-hover:text-[var(--z-slate-300)] transition-colors duration-200">
-            {service.description}
-          </p>
-
-          <!-- Arrow -->
-          <span
-            class="font-mono text-[var(--z-slate-500)] group-hover:text-[var(--z-lime-400)] transition-all duration-200 group-hover:translate-x-1"
-            aria-hidden="true"
-          >
-            ↗
-          </span>
+              <!-- Subtítulo + descripción -->
+              <p class="font-body font-semibold text-[var(--z-white)] text-sm mb-2">
+                {service.subtitle}
+              </p>
+              <p class="font-body text-[var(--z-slate-300)] text-sm" style="line-height: 1.65;">
+                {service.description}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+
+        <!-- Divider bottom -->
+        <div class="divider"></div>
+
+        {ri === 0 && <div class="h-12"></div>}
+      </div>
+    ))}
 
   </div>
 </section>
@@ -104,14 +113,13 @@ const services = [
       ease: 'power3.inOut',
       scrollTrigger: { trigger: '.services-title', start: 'top 85%' },
     });
-
-    gsap.from('.service-item', {
+    gsap.from('.service-grid-item', {
       opacity: 0,
-      y: 20,
-      stagger: 0.08,
+      y: 30,
+      stagger: 0.1,
       duration: 0.5,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.service-item', start: 'top 90%' },
+      scrollTrigger: { trigger: '.service-grid-item', start: 'top 88%' },
     });
   }
 </script>

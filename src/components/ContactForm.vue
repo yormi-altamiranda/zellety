@@ -149,10 +149,12 @@ async function handleSubmit(e: Event) {
     <button
       type="submit"
       :disabled="status === 'loading'"
-      class="btn-primary justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+      class="w-full flex items-center justify-between px-6 py-4 font-body font-semibold text-white transition-opacity duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+      style="background: var(--z-lime-400); color: var(--z-black); border-radius: var(--border-radius-md);"
     >
       <span v-if="status === 'loading'">Enviando...</span>
-      <span v-else>Enviar mensaje →</span>
+      <span v-else>Enviar Mensaje</span>
+      <span class="tracking-widest text-sm font-mono opacity-60" aria-hidden="true">||||</span>
     </button>
   </form>
 </template>
@@ -160,13 +162,14 @@ async function handleSubmit(e: Event) {
 <style>
 .contact-input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: var(--z-midnight-950);
-  border: 1px solid var(--z-midnight-800);
-  border-radius: var(--border-radius-md);
+  padding: 0.75rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--z-midnight-700);
+  border-radius: 0;
   color: var(--z-white);
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   transition: border-color 0.2s;
 }
 .contact-input::placeholder {
@@ -174,9 +177,10 @@ async function handleSubmit(e: Event) {
 }
 .contact-input:focus {
   outline: none;
-  border-color: var(--z-lime-400);
+  border-bottom-color: var(--z-lime-400);
 }
 .contact-input option {
   background: var(--z-midnight-900);
+  color: var(--z-white);
 }
 </style>

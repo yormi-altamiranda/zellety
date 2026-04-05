@@ -9,6 +9,9 @@ const env = loadEnv('', process.cwd(), 'STORYBLOK');
 
 export default defineConfig({
   site: 'https://zellety.com',
+  image: {
+    domains: ['picsum.photos', 'fastly.picsum.photos'],
+  },
   integrations: [
     vue(),
     UnoCSS({ injectReset: true }),

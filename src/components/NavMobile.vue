@@ -61,7 +61,7 @@ const close  = () => { isOpen.value = false }
           @click="close"
           class="btn-primary mt-4 justify-center text-sm"
         >
-          Hablemos →
+          Contáctanos
         </a>
       </nav>
     </Transition>

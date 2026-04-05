@@ -1,10 +1,11 @@
 ---
 import NavMobile from './NavMobile.vue';
+import ThemeToggle from './ThemeToggle.vue';
 
 const navLinks = [
-  { href: '/#inicio',    label: 'Home' },
+  { href: '/#nosotros',  label: 'Nosotros' },
   { href: '/#servicios', label: 'Servicios' },
-  { href: '/#works',     label: 'Works' },
+  { href: '/#works',     label: 'Portafolio' },
   { href: '/#equipo',    label: 'Equipo' },
   { href: '/#contacto',  label: 'Contacto' },
 ];
@@ -33,13 +34,16 @@ const navLinks = [
       ))}
     </nav>
 
-    <!-- Desktop CTA -->
-    <a href="/#contacto" class="btn-primary hidden md:inline-flex text-sm focus-ring">
-      Hablemos <span aria-hidden="true">→</span>
-    </a>
+    <!-- Desktop: Theme toggle -->
+    <div class="hidden md:flex items-center">
+      <ThemeToggle client:load />
+    </div>
 
-    <!-- Mobile menu -->
-    <NavMobile client:load links={navLinks} />
+    <!-- Mobile: toggle + menu -->
+    <div class="flex md:hidden items-center gap-2">
+      <ThemeToggle client:load />
+      <NavMobile client:load links={navLinks} />
+    </div>
 
   </div>
 </header>
@@ -49,9 +53,9 @@ const navLinks = [
   const header = document.getElementById('site-header');
   const onScroll = () => {
     if (window.scrollY > 20) {
-      header?.classList.add('bg-[var(--z-midnight-950)]/95', 'backdrop-blur-md', 'border-b', 'border-[var(--z-midnight-800)]');
+      header?.classList.add('is-scrolled');
     } else {
-      header?.classList.remove('bg-[var(--z-midnight-950)]/95', 'backdrop-blur-md', 'border-b', 'border-[var(--z-midnight-800)]');
+      header?.classList.remove('is-scrolled');
     }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -61,5 +65,15 @@ const navLinks = [
 <style>
   #site-header {
     background: transparent;
+  }
+  #site-header.is-scrolled {
+    background: rgba(15, 15, 15, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #242424;
+  }
+  :global([data-theme="light"]) #site-header.is-scrolled {
+    background: rgba(239, 239, 239, 0.96);
+    border-bottom-color: #e0e0e0;
   }
 </style>

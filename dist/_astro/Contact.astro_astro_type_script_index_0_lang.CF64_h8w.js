@@ -1,1 +1,0 @@
-import{g as r}from"./index.CB87Sc6I.js";import{S as t}from"./ScrollTrigger.Cv03IO65.js";r.registerPlugin(t);const e=window.matchMedia("(prefers-reduced-motion: reduce)").matches;e||r.from(".contact-title",{clipPath:"inset(0 100% 0 0)",duration:.8,ease:"power3.inOut",scrollTrigger:{trigger:".contact-title",start:"top 85%"}});

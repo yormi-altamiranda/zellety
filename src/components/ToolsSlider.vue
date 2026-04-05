@@ -4,37 +4,59 @@ import { Autoplay } from 'swiper/modules'
 import { Icon } from '@iconify/vue'
 import 'swiper/css'
 
-import astroUrl    from '../assets/icons/astro-icon-dark.svg?url'
-import figmaUrl    from '../assets/icons/figma.svg?url'
-import nextjsUrl   from '../assets/icons/nextjs_icon_dark.svg?url'
-import nuxtUrl     from '../assets/icons/nuxt.svg?url'
-import vscodeUrl   from '../assets/icons/vscode.svg?url'
-import wordpressUrl from '../assets/icons/wordpress.svg?url'
+import astroUrl             from '../assets/icons/astro-icon-dark.svg?url'
+import figmaUrl             from '../assets/icons/figma.svg?url'
+import nextjsUrl            from '../assets/icons/nextjs_icon_dark.svg?url'
+import nuxtUrl              from '../assets/icons/nuxt.svg?url'
+import vscodeUrl            from '../assets/icons/vscode.svg?url'
+import wordpressUrl         from '../assets/icons/wordpress.svg?url'
+import cloudflareUrl        from '../assets/icons/cloudflare.svg?url'
+import dockerUrl            from '../assets/icons/docker.svg?url'
+import elementorUrl         from '../assets/icons/elementor.svg?url'
+import gitUrl               from '../assets/icons/git.svg?url'
+import gitlabUrl            from '../assets/icons/gitlab.svg?url'
+import googleCloudUrl       from '../assets/icons/google-cloud.svg?url'
+import lovableUrl           from '../assets/icons/lovable.svg?url'
+import n8nUrl               from '../assets/icons/n8n.svg?url'
+import netlifyUrl           from '../assets/icons/netlify.svg?url'
+import storybookUrl         from '../assets/icons/storybook.svg?url'
+import affinityDesignerUrl  from '../assets/icons/affinity_designer.svg?url'
+import affinityPhotoUrl     from '../assets/icons/affinity_photo.svg?url'
+import affinityPublisherUrl from '../assets/icons/affinity_publisher.svg?url'
 
 type SvgTool  = { name: string; kind: 'svg';  src: string }
 type IconTool = { name: string; kind: 'icon'; icon: string }
 type Tool = SvgTool | IconTool
 
 const tools: Tool[] = [
-  { name: 'WordPress',    kind: 'svg',  src: wordpressUrl },
-  { name: 'AstroJS',      kind: 'svg',  src: astroUrl },
-  { name: 'Next.js',      kind: 'svg',  src: nextjsUrl },
-  { name: 'Nuxt.js',      kind: 'svg',  src: nuxtUrl },
-  { name: 'Figma',        kind: 'svg',  src: figmaUrl },
-  { name: 'VS Code',      kind: 'svg',  src: vscodeUrl },
-  { name: 'WooCommerce',  kind: 'icon', icon: 'simple-icons:woocommerce' },
-  { name: 'Elementor',    kind: 'icon', icon: 'simple-icons:elementor' },
-  { name: 'Webflow',      kind: 'icon', icon: 'simple-icons:webflow' },
-  { name: 'Vue.js',       kind: 'icon', icon: 'simple-icons:vuedotjs' },
-  { name: 'React',        kind: 'icon', icon: 'simple-icons:react' },
-  { name: 'NestJS',       kind: 'icon', icon: 'simple-icons:nestjs' },
-  { name: 'Supabase',     kind: 'icon', icon: 'simple-icons:supabase' },
-  { name: 'PostgreSQL',   kind: 'icon', icon: 'simple-icons:postgresql' },
-  { name: 'Netlify',      kind: 'icon', icon: 'simple-icons:netlify' },
-  { name: 'Vercel',       kind: 'icon', icon: 'simple-icons:vercel' },
-  { name: 'Cloudflare',   kind: 'icon', icon: 'simple-icons:cloudflare' },
-  { name: 'Google Cloud', kind: 'icon', icon: 'simple-icons:googlecloud' },
-  { name: 'Flutter',      kind: 'icon', icon: 'simple-icons:flutter' },
+  { name: 'WordPress',          kind: 'svg',  src: wordpressUrl },
+  { name: 'AstroJS',            kind: 'svg',  src: astroUrl },
+  { name: 'Next.js',            kind: 'svg',  src: nextjsUrl },
+  { name: 'Nuxt.js',            kind: 'svg',  src: nuxtUrl },
+  { name: 'Figma',              kind: 'svg',  src: figmaUrl },
+  { name: 'VS Code',            kind: 'svg',  src: vscodeUrl },
+  { name: 'Cloudflare',         kind: 'svg',  src: cloudflareUrl },
+  { name: 'Docker',             kind: 'svg',  src: dockerUrl },
+  { name: 'Elementor',          kind: 'svg',  src: elementorUrl },
+  { name: 'Git',                kind: 'svg',  src: gitUrl },
+  { name: 'GitLab',             kind: 'svg',  src: gitlabUrl },
+  { name: 'Google Cloud',       kind: 'svg',  src: googleCloudUrl },
+  { name: 'Lovable',            kind: 'svg',  src: lovableUrl },
+  { name: 'n8n',                kind: 'svg',  src: n8nUrl },
+  { name: 'Netlify',            kind: 'svg',  src: netlifyUrl },
+  { name: 'Storybook',          kind: 'svg',  src: storybookUrl },
+  { name: 'Affinity Designer',  kind: 'svg',  src: affinityDesignerUrl },
+  { name: 'Affinity Photo',     kind: 'svg',  src: affinityPhotoUrl },
+  { name: 'Affinity Publisher', kind: 'svg',  src: affinityPublisherUrl },
+  { name: 'WooCommerce',        kind: 'icon', icon: 'simple-icons:woocommerce' },
+  { name: 'Webflow',            kind: 'icon', icon: 'simple-icons:webflow' },
+  { name: 'Vue.js',             kind: 'icon', icon: 'simple-icons:vuedotjs' },
+  { name: 'React',              kind: 'icon', icon: 'simple-icons:react' },
+  { name: 'NestJS',             kind: 'icon', icon: 'simple-icons:nestjs' },
+  { name: 'Supabase',           kind: 'icon', icon: 'simple-icons:supabase' },
+  { name: 'PostgreSQL',         kind: 'icon', icon: 'simple-icons:postgresql' },
+  { name: 'Vercel',             kind: 'icon', icon: 'simple-icons:vercel' },
+  { name: 'Flutter',            kind: 'icon', icon: 'simple-icons:flutter' },
 ]
 </script>
 

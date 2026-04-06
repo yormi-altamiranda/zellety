@@ -20,15 +20,15 @@ const close  = () => { isOpen.value = false }
       class="w-10 h-10 flex flex-col items-center justify-center gap-[5px] focus-ring rounded-sm"
     >
       <span
-        class="block w-5 h-[2px] bg-white transition-all duration-300 origin-center"
+        class="block w-5 h-[2px] bg-current transition-all duration-300 origin-center"
         :class="isOpen ? 'rotate-45 translate-y-[7px]' : ''"
       />
       <span
-        class="block w-5 h-[2px] bg-white transition-all duration-300"
+        class="block w-5 h-[2px] bg-current transition-all duration-300"
         :class="isOpen ? 'opacity-0' : ''"
       />
       <span
-        class="block w-5 h-[2px] bg-white transition-all duration-300 origin-center"
+        class="block w-5 h-[2px] bg-current transition-all duration-300 origin-center"
         :class="isOpen ? '-rotate-45 -translate-y-[7px]' : ''"
       />
     </button>

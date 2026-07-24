@@ -6,11 +6,12 @@ import { storyblok } from '@storyblok/astro';
 import { loadEnv } from 'vite';
 
 const env = loadEnv('', process.cwd(), 'STORYBLOK');
+const isDev = process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
   site: 'https://zellety.com',
   image: {
-    domains: ['picsum.photos', 'fastly.picsum.photos'],
+    domains: ['picsum.photos', 'fastly.picsum.photos', 'a.storyblok.com'],
   },
   integrations: [
     vue(),
@@ -18,7 +19,7 @@ export default defineConfig({
     sitemap(),
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
-      bridge: false,
+      bridge: isDev,
       components: {
         // Registrar componentes Storyblok aquí cuando se creen
         // project: 'components/storyblok/ProjectPage',
@@ -26,7 +27,7 @@ export default defineConfig({
         // service: 'components/storyblok/Service',
       },
       apiOptions: {
-        region: 'us',
+        region: 'eu',
       },
     }),
   ],

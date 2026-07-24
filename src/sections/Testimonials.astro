@@ -1,5 +1,45 @@
 ---
 import TestimonialsSlider from '../components/TestimonialsSlider.vue';
+import { getTestimonials } from '../lib/storyblok';
+
+interface TestimonialItem {
+  card_type: 'quote' | 'photo';
+  name: string;
+  role: string;
+  quote?: string;
+  avatar?: string;
+  photo?: string;
+}
+
+const FALLBACK: TestimonialItem[] = [
+  { card_type: 'quote', name: 'Carlos Mendoza',  role: 'CEO · FinTech Andina',          avatar: 'https://picsum.photos/seed/av1/80/80', quote: 'Zellety transformó nuestra plataforma por completo. El equipo entendió nuestras necesidades desde el día uno y entregó un producto que superó todas las expectativas.' },
+  { card_type: 'quote', name: 'Valeria Torres',  role: 'CPO · Novatech MX',             avatar: 'https://picsum.photos/seed/av2/80/80', quote: 'La calidad del diseño UX/UI fue impresionante. Cada pantalla está pensada con detalle. Nuestros usuarios notaron el cambio de inmediato y el NPS subió 40 puntos.' },
+  { card_type: 'photo', name: 'Diego Ramírez',   role: 'CTO · SmartHome CO',            photo:  'https://picsum.photos/seed/ph1/400/520', avatar: 'https://picsum.photos/seed/diego/40/40' },
+  { card_type: 'quote', name: 'Sofía Gutiérrez', role: 'Founder · EduLab AR',           avatar: 'https://picsum.photos/seed/av4/80/80', quote: 'No solo construyeron lo que pedimos, sino que propusieron mejoras que ni habíamos contemplado. El resultado es un producto del que estamos muy orgullosos.' },
+  { card_type: 'photo', name: 'Andrés Peña',     role: 'Head of Product · TeamFlow',    photo:  'https://picsum.photos/seed/ph2/400/520', avatar: 'https://picsum.photos/seed/andres/40/40' },
+  { card_type: 'quote', name: 'Mariana López',   role: 'Marketing Director · ModaLatam',avatar: 'https://picsum.photos/seed/av6/80/80', quote: 'Nuestra tienda e-commerce pasó de ser un sitio básico a una plataforma de alto rendimiento. Las ventas online aumentaron un 80% en tres meses.' },
+  { card_type: 'photo', name: 'Ricardo Silva',   role: 'CEO · Inversa',                 photo:  'https://picsum.photos/seed/ph3/400/520', avatar: 'https://picsum.photos/seed/ricardo/40/40' },
+];
+
+let testimonials: TestimonialItem[];
+
+try {
+  const stories = await getTestimonials();
+  if (stories.length > 0) {
+    testimonials = stories.map(s => ({
+      card_type: s.content.card_type,
+      name:      s.content.name,
+      role:      s.content.role,
+      quote:     s.content.quote,
+      avatar:    s.content.avatar?.filename,
+      photo:     s.content.photo?.filename,
+    }));
+  } else {
+    throw new Error('empty');
+  }
+} catch {
+  testimonials = FALLBACK;
+}
 ---
 
 <section id="testimonios" class="bg-[var(--z-midnight-950)]" style="padding: var(--space-24) 0;">
@@ -15,8 +55,7 @@ import TestimonialsSlider from '../components/TestimonialsSlider.vue';
     </h2>
   </div>
 
-  <!-- Slider 100% width -->
-  <TestimonialsSlider client:visible />
+  <TestimonialsSlider :testimonials="testimonials" client:visible />
 
 </section>
 

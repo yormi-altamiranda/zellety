@@ -89,6 +89,29 @@ export interface StoryblokStory<T> {
   tag_list: string[];
 }
 
+export interface HomeSettings {
+  hero_headline: string;
+  hero_headline_accent: string;
+  hero_subline: string;
+  hero_slides: AssetStoryblok[];
+  hero_cta_1_text: string;
+  hero_cta_1_url: string;
+  hero_cta_2_text: string;
+  hero_cta_2_url: string;
+  component: 'home_settings';
+}
+
+export interface Testimonial {
+  card_type: 'quote' | 'photo';
+  name: string;
+  role: string;
+  quote?: string;
+  avatar?: AssetStoryblok;
+  photo?: AssetStoryblok;
+  order: number;
+  component: 'testimonial';
+}
+
 // ── Funciones de fetching ────────────────────────────────────────────────────
 
 /**
@@ -169,6 +192,35 @@ export async function getProjectSlugs(): Promise<string[]> {
     per_page: 100,
   });
   return (data.stories as StoryblokStory<Project>[]).map((s) => s.slug);
+}
+
+/**
+ * Obtiene la configuración del home (hero, CTAs).
+ */
+export async function getHomeSettings(): Promise<StoryblokStory<HomeSettings> | null> {
+  try {
+    const storyblok = useStoryblokApi();
+    const { data } = await storyblok.get('cdn/stories/home-settings', {
+      version: (import.meta.env.DEV ? 'draft' : 'published') as 'draft' | 'published',
+    });
+    return data.story as StoryblokStory<HomeSettings>;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Obtiene todos los testimonios ordenados por `order`.
+ */
+export async function getTestimonials(): Promise<StoryblokStory<Testimonial>[]> {
+  const storyblok = useStoryblokApi();
+  const { data } = await storyblok.get('cdn/stories', {
+    version: (import.meta.env.DEV ? 'draft' : 'published') as 'draft' | 'published',
+    content_type: 'testimonial',
+    sort_by: 'content.order:asc',
+    per_page: 50,
+  });
+  return data.stories as StoryblokStory<Testimonial>[];
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

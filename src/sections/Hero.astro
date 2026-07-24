@@ -1,18 +1,31 @@
 ---
-const slides = [
-  {
-    image: 'https://picsum.photos/seed/zellety-slide-1/1920/1080',
-    alt:   'Diseño y Desarrollo Zellety — Web Apps',
-  },
-  {
-    image: 'https://picsum.photos/seed/zellety-slide-2/1920/1080',
-    alt:   'Mobile y IoT LATAM',
-  },
-  {
-    image: 'https://picsum.photos/seed/zellety-slide-3/1920/1080',
-    alt:   'UX/UI y SaaS',
-  },
-];
+import { getHomeSettings } from '../lib/storyblok';
+
+const FALLBACK = {
+  hero_headline:        'Diseñamos y construimos',
+  hero_headline_accent: 'lo que imaginas.',
+  hero_subline:         'Tu partner técnico en LATAM para Web Apps, Mobile, IoT, UX/UI y SaaS. Transformamos ideas en productos que escalan.',
+  hero_slides: [
+    { filename: 'https://picsum.photos/seed/zellety-slide-1/1920/1080', alt: 'Diseño y Desarrollo Zellety — Web Apps' },
+    { filename: 'https://picsum.photos/seed/zellety-slide-2/1920/1080', alt: 'Mobile y IoT LATAM' },
+    { filename: 'https://picsum.photos/seed/zellety-slide-3/1920/1080', alt: 'UX/UI y SaaS' },
+  ],
+  hero_cta_1_text: 'Hablemos',
+  hero_cta_1_url:  '/#contacto',
+  hero_cta_2_text: 'Ver Trabajos',
+  hero_cta_2_url:  '/#works',
+};
+
+const story = await getHomeSettings();
+// Merge: story overrides FALLBACK, pero campos vacíos/undefined usan el fallback
+const h = {
+  ...FALLBACK,
+  ...(story?.content ?? {}),
+  // hero_slides necesita tener elementos reales o cae al fallback
+  hero_slides: (story?.content?.hero_slides?.length > 0)
+    ? story.content.hero_slides
+    : FALLBACK.hero_slides,
+};
 ---
 
 <section
@@ -22,15 +35,15 @@ const slides = [
 >
 
   <!-- ── Slides de fondo ── -->
-  {slides.map((slide, i) => (
+  {h.hero_slides.map((slide, i) => (
     <div
       class="hero-slide absolute inset-0"
       data-slide={i}
       style={`opacity: ${i === 0 ? '1' : '0'}; transition: opacity 1s ease;`}
     >
       <img
-        src={slide.image}
-        alt={slide.alt}
+        src={slide.filename}
+        alt={slide.alt ?? ''}
         class="w-full h-full object-cover"
         loading={i === 0 ? 'eager' : 'lazy'}
         decoding="async"
@@ -43,7 +56,6 @@ const slides = [
     class="absolute inset-0 z-10 pointer-events-none"
     style="background: rgba(10,15,30,0.62);"
   ></div>
-  <!-- Gradiente extra desde abajo para texto -->
   <div
     class="absolute inset-0 z-10 pointer-events-none"
     style="background: linear-gradient(to top, rgba(10,15,30,0.95) 0%, rgba(10,15,30,0.3) 45%, transparent 100%);"
@@ -51,8 +63,6 @@ const slides = [
 
   <!-- ── Contenido ── -->
   <div class="absolute inset-0 z-20 flex flex-col justify-end" style="padding-bottom: 80px;">
-
-    <!-- Texto principal + controles bottom -->
     <div class="container-site">
       <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
 
@@ -63,36 +73,33 @@ const slides = [
             class="font-display font-bold opacity-0"
             style="font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.95; letter-spacing: -0.03em; color: #ffffff;"
           >
-            Diseñamos y<br />
-            construimos<br />
-            <span style="color: var(--z-lime-400);">lo que imaginas.</span>
+            {h.hero_headline}<br />
+            <span style="color: var(--z-lime-400);">{h.hero_headline_accent}</span>
           </h1>
 
           <div id="hero-ctas" class="flex flex-wrap gap-3 opacity-0">
-            <a href="/#contacto" class="btn-primary">
-              Hablemos <span aria-hidden="true">→</span>
+            <a href={h.hero_cta_1_url} class="btn-primary">
+              {h.hero_cta_1_text} <span aria-hidden="true">→</span>
             </a>
-            <a href="/#works" class="btn-ghost">
-              Ver Trabajos
+            <a href={h.hero_cta_2_url} class="btn-ghost">
+              {h.hero_cta_2_text}
             </a>
           </div>
         </div>
 
-        <!-- Derecha: descripción + dots -->
+        <!-- Derecha: subline + dots -->
         <div class="flex flex-col items-start lg:items-end gap-6 lg:max-w-xs">
           <p
             id="hero-subline"
             class="font-body opacity-0 lg:text-right"
             style="font-size: 1.25rem; line-height: 1.65; color: rgba(255,255,255,0.65);"
           >
-            Tu partner técnico en LATAM para Web Apps,
-            Mobile, IoT, UX/UI y SaaS.
-            Transformamos ideas en productos que escalan.
+            {h.hero_subline}
           </p>
 
           <!-- Slide dots -->
           <div id="hero-dots" class="flex items-center gap-2">
-            {slides.map((_, i) => (
+            {h.hero_slides.map((_, i) => (
               <button
                 class="hero-dot rounded-full transition-all duration-400 cursor-pointer"
                 data-dot={i}
@@ -109,7 +116,6 @@ const slides = [
 
       </div>
     </div>
-
   </div>
 
   <!-- ── Flecha scroll ── -->
@@ -119,17 +125,8 @@ const slides = [
     style="bottom: 32px; transform: translateX(-50%);"
     aria-hidden="true"
   >
-    <svg
-      width="28" height="28" viewBox="0 0 28 28" fill="none"
-      style="color: var(--z-lime-400);"
-    >
-      <path
-        d="M14 4v20M6 16l8 8 8-8"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="color: var(--z-lime-400);">
+      <path d="M14 4v20M6 16l8 8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -140,9 +137,7 @@ const slides = [
     0%, 100% { transform: translateX(-50%) translateY(0);   }
     50%       { transform: translateX(-50%) translateY(8px); }
   }
-  #hero-scroll-arrow {
-    animation: arrow-bounce 1.6s ease-in-out infinite;
-  }
+  #hero-scroll-arrow { animation: arrow-bounce 1.6s ease-in-out infinite; }
 </style>
 
 <script>
@@ -150,18 +145,16 @@ const slides = [
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── Entrada de texto
   if (!prefersReduced) {
     const tl = gsap.timeline({ delay: 0.2 });
-    tl.to('#hero-headline', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-      .to('#hero-subline',  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
-      .to('#hero-ctas',     { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+    tl.to('#hero-headline',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+      .to('#hero-subline',      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      .to('#hero-ctas',         { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
       .to('#hero-scroll-arrow', { opacity: 0.75, duration: 0.4 }, '-=0.1');
   } else {
     gsap.set(['#hero-headline','#hero-subline','#hero-ctas','#hero-scroll-arrow'], { opacity: 1 });
   }
 
-  // ── Slider auto-advance
   const SLIDES = document.querySelectorAll<HTMLElement>('.hero-slide');
   const DOTS   = document.querySelectorAll<HTMLButtonElement>('.hero-dot');
   let current  = 0;
@@ -172,30 +165,14 @@ const slides = [
     DOTS[current].style.width      = '6px';
     DOTS[current].style.height     = '6px';
     DOTS[current].style.background = 'rgba(255,255,255,0.3)';
-
     current = index;
-
     SLIDES[current].style.opacity  = '1';
     DOTS[current].style.width      = '24px';
     DOTS[current].style.height     = '6px';
     DOTS[current].style.background = 'var(--z-lime-400)';
   }
 
-  function next() {
-    goTo((current + 1) % SLIDES.length);
-  }
-
-  function startTimer() {
-    timer = setInterval(next, 4500);
-  }
-
+  function startTimer() { timer = setInterval(() => goTo((current + 1) % SLIDES.length), 4500); }
   startTimer();
-
-  DOTS.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      clearInterval(timer);
-      goTo(i);
-      startTimer();
-    });
-  });
+  DOTS.forEach((dot, i) => dot.addEventListener('click', () => { clearInterval(timer); goTo(i); startTimer(); }));
 </script>

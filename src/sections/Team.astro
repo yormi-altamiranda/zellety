@@ -1,11 +1,17 @@
 ---
-const team = [
+import { getTeamMembers } from '../lib/storyblok';
+
+const BG_COLORS = ['var(--z-lime-400)', '#7c3aed', '#0ea5e9', '#f59e0b', '#10b981'];
+
+const FALLBACK_TEAM = [
   {
     name: 'Nombre Apellido',
     role: 'CEO & Co-founder',
     bio: 'Nuestro equipo de liderazgo está impulsado por una visión clara y un compromiso inquebrantable con la misión.',
     img: 'https://picsum.photos/seed/team-ceo/600/700',
     bg: 'var(--z-lime-400)',
+    linkedin: undefined as string | undefined,
+    github: undefined as string | undefined,
   },
   {
     name: 'Nombre Apellido',
@@ -13,6 +19,8 @@ const team = [
     bio: 'Arquitecto de soluciones con más de 8 años construyendo plataformas para startups y empresas en LATAM.',
     img: 'https://picsum.photos/seed/team-cto/600/700',
     bg: '#7c3aed',
+    linkedin: undefined as string | undefined,
+    github: undefined as string | undefined,
   },
   {
     name: 'Nombre Apellido',
@@ -20,8 +28,31 @@ const team = [
     bio: 'Diseñando experiencias que convierten. Research, prototipos y design systems que hablan el idioma del usuario.',
     img: 'https://picsum.photos/seed/team-design/600/700',
     bg: '#0ea5e9',
+    linkedin: undefined as string | undefined,
+    github: undefined as string | undefined,
   },
 ];
+
+let team: typeof FALLBACK_TEAM;
+
+try {
+  const members = await getTeamMembers();
+  if (members.length > 0) {
+    team = members.map((m, i) => ({
+      name: m.content.name,
+      role: m.content.role,
+      bio: m.content.bio,
+      img: m.content.photo.filename,
+      bg: BG_COLORS[i % BG_COLORS.length],
+      linkedin: m.content.linkedin?.url,
+      github: m.content.github?.url,
+    }));
+  } else {
+    throw new Error('empty');
+  }
+} catch {
+  team = FALLBACK_TEAM;
+}
 ---
 
 <section id="equipo" class="section-padding bg-[var(--z-midnight-950)] overflow-hidden">
@@ -92,6 +123,24 @@ const team = [
                     {member.role}
                   </p>
                 </div>
+                {(member.linkedin || member.github) && (
+                  <div class="flex gap-4">
+                    {member.linkedin && (
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                        class="font-mono text-[var(--z-slate-500)] hover:text-[var(--z-lime-400)] transition-colors"
+                        style="font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;">
+                        LinkedIn ↗
+                      </a>
+                    )}
+                    {member.github && (
+                      <a href={member.github} target="_blank" rel="noopener noreferrer"
+                        class="font-mono text-[var(--z-slate-500)] hover:text-[var(--z-lime-400)] transition-colors"
+                        style="font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;">
+                        GitHub ↗
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
 
             </div>

@@ -1,42 +1,40 @@
 ---
-const services = [
-  {
-    number: '/01',
-    title: 'Web App',
-    subtitle: 'Sites que convierten.',
-    description: 'Corporativos, e-commerce y plataformas con Nuxt, Next y AstroJS. Rápidos, accesibles y optimizados.',
-    href: '/services#web-app',
-  },
-  {
-    number: '/02',
-    title: 'App Móvil',
-    subtitle: 'iOS y Android, un solo código.',
-    description: 'Aplicaciones nativas con Flutter. Del prototipo al store en el menor tiempo posible.',
-    href: '/services#mobile',
-  },
-  {
-    number: '/03',
-    title: 'IoT',
-    subtitle: 'Hogares y oficinas inteligentes.',
-    description: 'Automatización con sensores, dashboards y control remoto. Conectamos el mundo físico al digital.',
-    href: '/services#iot',
-  },
-  {
-    number: '/04',
-    title: 'UX/UI',
-    subtitle: 'Diseño que comunica.',
-    description: 'Research, wireframes, prototipos y design systems en Figma. Cada pixel tiene un propósito.',
-    href: '/services#ux-ui',
-  },
-  {
-    number: '/05',
-    title: 'SaaS',
-    subtitle: 'Plataformas que escalan.',
-    description: 'Multi-tenant con billing, autenticación y dashboards. Del MVP al producto que crece.',
-    href: '/services#saas',
-  },
+import { getServices } from '../lib/storyblok';
+
+interface DisplayService {
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  href: string;
+}
+
+const FALLBACK_SERVICES: DisplayService[] = [
+  { number: '/01', title: 'Web App', subtitle: 'Sites que convierten.', description: 'Corporativos, e-commerce y plataformas con Nuxt, Next y AstroJS. Rápidos, accesibles y optimizados.', href: '/services#web-app' },
+  { number: '/02', title: 'App Móvil', subtitle: 'iOS y Android, un solo código.', description: 'Aplicaciones nativas con Flutter. Del prototipo al store en el menor tiempo posible.', href: '/services#mobile' },
+  { number: '/03', title: 'IoT', subtitle: 'Hogares y oficinas inteligentes.', description: 'Automatización con sensores, dashboards y control remoto. Conectamos el mundo físico al digital.', href: '/services#iot' },
+  { number: '/04', title: 'UX/UI', subtitle: 'Diseño que comunica.', description: 'Research, wireframes, prototipos y design systems en Figma. Cada pixel tiene un propósito.', href: '/services#ux-ui' },
+  { number: '/05', title: 'SaaS', subtitle: 'Plataformas que escalan.', description: 'Multi-tenant con billing, autenticación y dashboards. Del MVP al producto que crece.', href: '/services#saas' },
 ];
 
+let services: DisplayService[];
+
+try {
+  const stories = await getServices();
+  if (stories.length > 0) {
+    services = stories.map((s, i) => ({
+      number: `/${String(i + 1).padStart(2, '0')}`,
+      title: s.content.title,
+      subtitle: '',
+      description: s.content.short_desc,
+      href: `/services#${s.content.slug}`,
+    }));
+  } else {
+    throw new Error('empty');
+  }
+} catch {
+  services = FALLBACK_SERVICES;
+}
 ---
 
 <section id="servicios" class="section-padding bg-[var(--z-midnight-950)]">

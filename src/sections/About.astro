@@ -1,11 +1,25 @@
 ---
-// About — Quiénes somos
-// Counters animados con GSAP (ver CLAUDE.md §9.9)
+import { getHomeSettings } from '../lib/storyblok';
+
+const FALLBACK = {
+  about_title_line1:  'Expertos en',
+  about_title_line2:  'lo que importa.',
+  about_text_1:       'Somos un equipo de diseñadores y desarrolladores en LATAM apasionados por construir productos digitales que resuelven problemas reales. Trabajamos como una extensión de tu equipo, desde el concepto hasta el deployment.',
+  about_text_2:       'No solo escribimos código; entendemos tu negocio, tu audiencia y tus objetivos para construir soluciones que escalan.',
+  about_cta_text:     'Trabajemos juntos',
+  about_cta_url:      '/#contacto',
+  about_stat_1_value: 5,  about_stat_1_suffix: '+', about_stat_1_label: 'Años de experiencia',
+  about_stat_2_value: 30, about_stat_2_suffix: '+', about_stat_2_label: 'Proyectos entregados',
+  about_stat_3_value: 20, about_stat_3_suffix: '+', about_stat_3_label: 'Clientes satisfechos',
+};
+
+const story = await getHomeSettings();
+const a = { ...FALLBACK, ...(story?.content ?? {}) };
 
 const stats = [
-  { value: 5,   suffix: '+', label: 'Años de experiencia' },
-  { value: 30,  suffix: '+', label: 'Proyectos entregados' },
-  { value: 20,  suffix: '+', label: 'Clientes satisfechos' },
+  { value: a.about_stat_1_value, suffix: a.about_stat_1_suffix, label: a.about_stat_1_label },
+  { value: a.about_stat_2_value, suffix: a.about_stat_2_suffix, label: a.about_stat_2_label },
+  { value: a.about_stat_3_value, suffix: a.about_stat_3_suffix, label: a.about_stat_3_label },
 ];
 ---
 
@@ -26,22 +40,19 @@ const stats = [
           class="about-title font-display font-bold text-[var(--z-white)] mb-6"
           style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.08;"
         >
-          Expertos en<br />
-          <span class="text-[var(--z-lime-400)]">lo que importa.</span>
+          {a.about_title_line1}<br />
+          <span class="text-[var(--z-lime-400)]">{a.about_title_line2}</span>
         </h2>
 
         <p class="font-body text-[var(--z-slate-300)] mb-6 max-w-lg" style="line-height: 1.7;">
-          Somos un equipo de diseñadores y desarrolladores en LATAM apasionados por construir
-          productos digitales que resuelven problemas reales. Trabajamos como una extensión
-          de tu equipo, desde el concepto hasta el deployment.
+          {a.about_text_1}
         </p>
         <p class="font-body text-[var(--z-slate-300)] mb-10 max-w-lg" style="line-height: 1.7;">
-          No solo escribimos código; entendemos tu negocio, tu audiencia y tus objetivos
-          para construir soluciones que escalan.
+          {a.about_text_2}
         </p>
 
-        <a href="/#contacto" class="btn-primary">
-          Trabajemos juntos <span aria-hidden="true">→</span>
+        <a href={a.about_cta_url} class="btn-primary">
+          {a.about_cta_text} <span aria-hidden="true">→</span>
         </a>
       </div>
 

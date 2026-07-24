@@ -9,8 +9,8 @@ export default defineConfig({
   // Los colores no se definen aquí, van en tokens.css como custom properties
   theme: {
     fontFamily: {
-      display: "'Clash Display', sans-serif",
-      body:    "'Inter', sans-serif",
+      display: "'Geist', sans-serif",
+      body:    "'Geist', sans-serif",
       mono:    "'Geist Mono', monospace",
     },
     breakpoints: {
@@ -33,9 +33,9 @@ export default defineConfig({
 
     // Botones
     'btn-primary':
-      'inline-flex items-center gap-2 px-6 py-3 bg-[var(--z-lime-400)] text-[var(--z-black)] font-semibold rounded-full cursor-pointer transition-colors duration-200 hover:bg-[var(--z-lime-500)] active:bg-[var(--z-lime-600)]',
+      'inline-flex items-center gap-2 px-6 py-3 bg-[var(--z-lime-400)] text-white font-semibold cursor-pointer transition-colors duration-200 hover:bg-[var(--z-lime-500)] active:bg-[var(--z-lime-600)]',
     'btn-ghost':
-      'inline-flex items-center gap-2 px-6 py-3 border border-[var(--z-midnight-800)] text-[var(--z-white)] rounded-full cursor-pointer transition-colors duration-200 hover:border-[var(--z-lime-400)] hover:text-[var(--z-lime-400)]',
+      'inline-flex items-center gap-2 px-6 py-3 border border-[var(--z-midnight-800)] text-white cursor-pointer transition-colors duration-200 hover:border-[var(--z-lime-400)] hover:text-[var(--z-lime-400)]',
     'btn-link':
       'inline-flex items-center gap-1 text-[var(--z-lime-400)] hover:text-[var(--z-lime-500)] transition-colors duration-200',
 
@@ -61,15 +61,15 @@ export default defineConfig({
 
     // Cards
     'card-dark':
-      'bg-[var(--z-midnight-900)] border border-[var(--z-midnight-800)] rounded-[var(--border-radius-lg)] overflow-hidden',
+      'bg-[var(--z-midnight-900)] border border-[var(--z-midnight-800)] overflow-hidden',
     'card-light':
-      'bg-[var(--z-slate-100)] rounded-[var(--border-radius-lg)] overflow-hidden',
+      'bg-[var(--z-slate-100)] overflow-hidden',
 
     // Badge / pill
     'badge':
-      'inline-flex items-center px-3 py-1 bg-[var(--z-midnight-800)] text-[var(--z-slate-300)] text-[0.75rem] font-medium rounded-full',
+      'inline-flex items-center px-3 py-1 bg-[var(--z-midnight-800)] text-[var(--z-slate-300)] text-[0.75rem] font-medium',
     'badge-lime':
-      'inline-flex items-center px-3 py-1 bg-[var(--z-lime-400)] text-[var(--z-black)] text-[0.75rem] font-semibold rounded-full',
+      'inline-flex items-center px-3 py-1 bg-[var(--z-lime-400)] text-[var(--z-black)] text-[0.75rem] font-semibold',
 
     // Divisor
     'divider':

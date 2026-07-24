@@ -15,11 +15,8 @@ const navLinks = [
   <div class="container-site flex items-center justify-between h-16 md:h-20">
 
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 focus-ring rounded-sm" aria-label="Zellety — inicio">
-      <div class="w-8 h-8 bg-[var(--z-lime-400)] rounded-sm flex items-center justify-center">
-        <span class="font-display font-bold text-[var(--z-black)] text-sm leading-none">Z</span>
-      </div>
-      <span class="font-display font-bold text-lg tracking-wide hdr-text">ZELLETY</span>
+    <a href="/" class="focus-ring rounded-sm" aria-label="Zellety — inicio">
+      <span class="font-display font-bold hdr-text" style="font-size: 1.5rem; letter-spacing: -0.01em;">Zellety</span>
     </a>
 
     <!-- Desktop Nav -->
@@ -27,7 +24,8 @@ const navLinks = [
       {navLinks.map(link => (
         <a
           href={link.href}
-          class="font-body text-sm hover:opacity-70 transition-opacity duration-200 focus-ring rounded-sm hdr-text"
+          class="font-body hover:opacity-70 transition-opacity duration-200 focus-ring rounded-sm hdr-text"
+          style="font-size: 1rem;"
         >
           {link.label}
         </a>
@@ -67,28 +65,45 @@ const navLinks = [
 </script>
 
 <style>
+  /* ── Default (light / white background) ─────────────── */
   #site-header {
     background: transparent;
+    --hdr-color: #191919;
+  }
+
+  /* ── Home: hero oscuro → texto blanco inicial ────────── */
+  :global(body.dark-hero) #site-header {
     --hdr-color: #ffffff;
+  }
+  :global(body.dark-hero) #site-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e5e5;
+    --hdr-color: #191919;
   }
   #site-header .hdr-text {
     color: var(--hdr-color);
     transition: color 0.3s ease;
   }
-  /* Dark theme scrolled — fondo oscuro, texto blanco */
   #site-header.is-scrolled {
-    background: rgba(15, 15, 15, 0.96);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid #242424;
+    border-bottom: 1px solid #e5e5e5;
+    --hdr-color: #191919;
+  }
+
+  /* ── Dark mode ───────────────────────────────────────── */
+  :global([data-theme="dark"]) #site-header {
     --hdr-color: #ffffff;
   }
-  /* Light theme scrolled — fondo claro, texto negro */
-  :global([data-theme="light"]) #site-header.is-scrolled {
-    background: rgba(239, 239, 239, 0.96);
-    border-bottom-color: #e0e0e0;
-    --hdr-color: #0A0F1E;
+  :global([data-theme="dark"]) #site-header.is-scrolled {
+    background: rgba(28, 24, 20, 0.96);
+    border-bottom-color: #322d26;
+    --hdr-color: #ffffff;
   }
+
   /* ThemeToggle hereda el color */
   #site-header .hdr-toggle {
     color: var(--hdr-color) !important;

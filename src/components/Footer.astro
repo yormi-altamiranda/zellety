@@ -2,42 +2,43 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--z-midnight-950)] overflow-hidden">
+<footer class="bg-[var(--z-midnight-950)]" style="border-top: 1px solid var(--z-midnight-800); overflow: hidden;">
 
-  <!-- Wordmark grande -->
-  <div class="footer-wordmark select-none" aria-hidden="true">
-    <span class="font-display font-bold text-[var(--z-white)]">ZELLETY</span>
+  <!-- Info bar -->
+  <div
+    class="container-site"
+    style="display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; padding-top: 1.5rem; padding-bottom: 1.5rem;"
+  >
+    <p class="font-body text-[var(--z-slate-500)]" style="font-size: 0.8rem;">
+      Diseñado por <a href="https://zellety.com" class="underline hover:text-[var(--z-white)] transition-colors">Zellety</a>
+    </p>
+    <p class="font-body text-[var(--z-slate-500)] text-center" style="font-size: 0.8rem;">
+      Copyright &copy; {year} Zellety. Todos los derechos reservados.
+    </p>
+    <p class="font-body text-[var(--z-slate-500)] text-right" style="font-size: 0.8rem;">
+      Powered by <a href="https://astro.build" target="_blank" rel="noopener" class="underline hover:text-[var(--z-white)] transition-colors">Astro</a>
+    </p>
   </div>
 
-  <!-- Bottom bar -->
-  <div class="container-site flex items-center justify-between pb-8">
-    <p class="label-mono text-[var(--z-slate-500)]">
-      &copy;{year} Todos los derechos reservados Zellety
-    </p>
-    <a
-      href="#"
-      class="label-mono text-[var(--z-slate-500)] hover:text-[var(--z-white)] transition-colors duration-200"
-      aria-label="Volver arriba"
-    >
-      Volver Arriba ↑
-    </a>
+  <!-- Wordmark gigante — llena el ancho, recortado abajo -->
+  <div class="footer-wordmark" aria-hidden="true">
+    <span class="font-display font-bold text-[var(--z-white)] select-none">ZELLETY</span>
   </div>
 
 </footer>
 
 <style>
   .footer-wordmark {
-    display: flex;
-    align-items: flex-end;
-    padding: 0 clamp(0.5rem, 2vw, 1rem);
-    line-height: 0.85;
     overflow: hidden;
+    line-height: 1;
+    /* Muestra casi toda la letra, recorta solo la base */
+    height: 17vw;
   }
   .footer-wordmark span {
-    font-size: clamp(5rem, 20vw, 18rem);
-    letter-spacing: -0.03em;
     display: block;
-    width: 100%;
+    white-space: nowrap;
+    font-size: 19.5vw;
+    letter-spacing: -0.02em;
     text-align: center;
   }
 </style>

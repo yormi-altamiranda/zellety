@@ -4,43 +4,34 @@
  * Referenciar siempre como var(--z-*) en estilos y clases UnoCSS.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import '@fontsource-variable/geist';
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
 
-@font-face {
-  font-family: 'Clash Display';
-  src: url('../assets/fonts/ClashDisplay-Variable.woff2') format('woff2');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── Dark mode (default) ─────────────────────────────────── */
-:root,
-[data-theme="dark"] {
+/* ── Default (cream/warm — light first) ──────────────────── */
+:root {
   /* ── Colores ─────────────────────────────────────────── */
 
-  /* Dark background */
-  --z-midnight-950: #0f0f0f;   /* fondo principal dark */
-  --z-midnight-900: #1a1a1a;   /* fondo cards dark */
-  --z-midnight-800: #242424;   /* bordes dark */
-  --z-midnight-700: #383838;   /* texto secundario dark */
+  /* Fondos — Warm cream */
+  --z-midnight-950: #ffffff;   /* fondo principal */
+  --z-midnight-900: #f5f5f5;   /* fondo cards */
+  --z-midnight-800: #e5e5e5;   /* bordes */
+  --z-midnight-700: #c8c8c8;   /* bordes secundarios / muted */
 
-  /* Primary — Rojo */
-  --z-lime-400: #f53a06;       /* primary: CTAs, badges, highlights, subtítulos */
-  --z-lime-500: #e03306;       /* hover sobre primary */
-  --z-lime-600: #c42d05;       /* active/pressed */
-  --z-lime-700: #a02604;       /* texto sobre fondo primary */
+  /* Primary — Terracota */
+  --z-lime-400: #cc6949;       /* primary: CTAs, badges, highlights */
+  --z-lime-500: #b85e40;       /* hover sobre primary */
+  --z-lime-600: #a35337;       /* active/pressed */
+  --z-lime-700: #7a3e29;       /* texto sobre fondo primary */
 
-  /* Light surface */
-  --z-slate-50:  #efefef;      /* fondo claro general */
-  --z-slate-100: #e0e0e0;      /* fondo tarjetas light */
-  --z-slate-300: #a0a0a0;      /* texto muted */
-  --z-slate-500: #6b6b6b;      /* texto secundario */
+  /* Texto muted */
+  --z-slate-50:  #f7f3ea;      /* igual al fondo */
+  --z-slate-100: #ede9de;      /* superficies secundarias */
+  --z-slate-300: #8a8478;      /* texto muted */
+  --z-slate-500: #5a5549;      /* texto secundario */
 
-  /* Texto */
-  --z-white: #ffffff;           /* texto sobre fondo dark */
-  --z-black: #0f0f0f;          /* texto sobre fondo light */
+  /* Texto principal */
+  --z-white: #191919;          /* texto sobre fondo cream */
+  --z-black: #191919;          /* texto sobre primary */
 
   /* Semánticos */
   --z-success: #10b981;
@@ -50,8 +41,8 @@
 
   /* ── Tipografía ──────────────────────────────────────── */
 
-  --font-display: 'Clash Display', sans-serif;  /* títulos y subtítulos */
-  --font-body: 'Inter', sans-serif;             /* body, botones, links */
+  --font-display: 'Geist', sans-serif;           /* títulos y subtítulos */
+  --font-body: 'Geist', sans-serif;             /* body, botones, links */
   --font-mono: 'Geist Mono', monospace;         /* labels, counters, metadata */
 
   /* Escala tipográfica (clamp: mobile → desktop) */
@@ -67,8 +58,8 @@
   --text-h3-size: clamp(1.25rem, 2vw, 1.5rem);
   --text-h3-lh: 1.3;
 
-  --text-body-size: 1rem;
-  --text-body-lh: 1.6;
+  --text-body-size: 1.125rem;   /* 18px */
+  --text-body-lh: 1.65;
 
   --text-small-size: 0.875rem;
   --text-small-lh: 1.5;
@@ -94,10 +85,10 @@
   --max-width: 1280px;
   --container-padding: clamp(1rem, 4vw, 2rem);
 
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 16px;
-  --border-radius-full: 9999px;
+  --border-radius-sm: 0px;
+  --border-radius-md: 0px;
+  --border-radius-lg: 0px;
+  --border-radius-full: 0px;
 
   /* ── Motion ──────────────────────────────────────────── */
 
@@ -109,23 +100,23 @@
   --duration-slower: 0.8s;
 }
 
-/* ── Light mode ──────────────────────────────────────────── */
-[data-theme="light"] {
-  /* Fondos */
-  --z-midnight-950: #efefef;   /* fondo principal */
-  --z-midnight-900: #ffffff;   /* fondo tarjetas */
-  --z-midnight-800: #e0e0e0;   /* bordes */
-  --z-midnight-700: #cccccc;   /* bordes secundarios */
+/* ── Dark mode ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  /* Fondos — Warm dark */
+  --z-midnight-950: #1c1814;   /* fondo principal dark */
+  --z-midnight-900: #252018;   /* fondo cards dark */
+  --z-midnight-800: #322d26;   /* bordes dark */
+  --z-midnight-700: #4a4438;   /* bordes secundarios dark */
 
-  /* Primary se mantiene igual en ambos modos */
+  /* Primary se mantiene igual */
 
-  /* Superficies */
-  --z-slate-50:  #0f0f0f;
-  --z-slate-100: #1a1a1a;
-  --z-slate-300: #444444;      /* texto muted */
-  --z-slate-500: #666666;      /* texto secundario */
+  /* Texto muted */
+  --z-slate-50:  #f7f3ea;      /* cream invertido como accent surface */
+  --z-slate-100: #ede9de;
+  --z-slate-300: #9a9488;      /* texto muted sobre dark */
+  --z-slate-500: #6a6459;      /* texto secundario sobre dark */
 
-  /* Texto */
-  --z-white: #0f0f0f;          /* texto principal → oscuro */
-  --z-black: #0f0f0f;          /* texto sobre primary → oscuro */
+  /* Texto principal */
+  --z-white: #f7f3ea;          /* texto sobre dark — cream */
+  --z-black: #191919;          /* texto sobre primary */
 }

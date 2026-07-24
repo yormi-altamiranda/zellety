@@ -1,0 +1,140 @@
+---
+import astroUrl        from '../assets/icons/astro-icon-dark.svg?url';
+import nextjsUrl       from '../assets/icons/nextjs_icon_dark.svg?url';
+import nuxtUrl         from '../assets/icons/nuxt.svg?url';
+import figmaUrl        from '../assets/icons/figma.svg?url';
+import flutterUrl      from '../assets/icons/flutter.svg?url';
+import supabaseUrl     from '../assets/icons/supabase.svg?url';
+import firebaseUrl     from '../assets/icons/firebase.svg?url';
+import vercelUrl       from '../assets/icons/vercel_dark.svg?url';
+import awsUrl          from '../assets/icons/aws_dark.svg?url';
+import dockerUrl       from '../assets/icons/docker.svg?url';
+import githubUrl       from '../assets/icons/github_dark.svg?url';
+import framerUrl       from '../assets/icons/framer_dark.svg?url';
+import cloudflareUrl   from '../assets/icons/cloudflare.svg?url';
+import postgresUrl     from '../assets/icons/postgresql.svg?url';
+import netlifyUrl      from '../assets/icons/netlify.svg?url';
+import n8nUrl          from '../assets/icons/n8n.svg?url';
+
+const tools = [
+  { name: 'Next.js',     logo: nextjsUrl },
+  { name: 'Nuxt',        logo: nuxtUrl },
+  { name: 'Astro',       logo: astroUrl },
+  { name: 'Flutter',     logo: flutterUrl },
+  { name: 'Figma',       logo: figmaUrl },
+  { name: 'Supabase',    logo: supabaseUrl },
+  { name: 'Firebase',    logo: firebaseUrl },
+  { name: 'Docker',      logo: dockerUrl },
+  { name: 'GitHub',      logo: githubUrl },
+  { name: 'Vercel',      logo: vercelUrl },
+  { name: 'AWS',         logo: awsUrl },
+  { name: 'Cloudflare',  logo: cloudflareUrl },
+  { name: 'PostgreSQL',  logo: postgresUrl },
+  { name: 'Netlify',     logo: netlifyUrl },
+  { name: 'Framer',      logo: framerUrl },
+  { name: 'n8n',         logo: n8nUrl },
+];
+---
+
+<section id="herramientas" class="section-padding bg-[var(--z-midnight-950)]">
+  <div class="container-site">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+      <!-- Left: texto -->
+      <div>
+        <p class="label-mono mb-6" style="color: var(--z-lime-400);">//HERRAMIENTAS</p>
+
+        <h2
+          class="tools-title font-display font-bold text-[var(--z-white)]"
+          style="font-size: clamp(3.5rem, 7vw, 7rem); line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem;"
+        >
+          34+
+        </h2>
+
+        <p
+          class="font-display font-semibold text-[var(--z-white)]"
+          style="font-size: clamp(1.2rem, 2vw, 1.6rem); line-height: 1.3; margin-bottom: 1.25rem;"
+        >
+          Herramientas que dominamos
+        </p>
+
+        <p
+          class="font-body text-[var(--z-slate-300)]"
+          style="font-size: 1.125rem; line-height: 1.75; max-width: 380px;"
+        >
+          Trabajamos con el ecosistema moderno de desarrollo y diseño. Cada herramienta está elegida por su impacto, confiabilidad y velocidad de entrega.
+        </p>
+      </div>
+
+      <!-- Right: grid de logos con celdas -->
+      <div
+        class="tools-grid"
+        style="
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          border-top: 1px solid var(--z-midnight-800);
+          border-left: 1px solid var(--z-midnight-800);
+        "
+      >
+        {tools.map((tool) => (
+          <div
+            class="tool-cell group"
+            style="
+              border-right: 1px solid var(--z-midnight-800);
+              border-bottom: 1px solid var(--z-midnight-800);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              gap: 0.6rem;
+              padding: 1.5rem 1rem;
+              transition: background 0.2s ease;
+            "
+            onmouseover="this.style.background='var(--z-midnight-900)'"
+            onmouseout="this.style.background='transparent'"
+          >
+            <img
+              src={tool.logo}
+              alt={tool.name}
+              style="width: 32px; height: 32px; object-fit: contain;"
+              loading="lazy"
+              decoding="async"
+            />
+            <span
+              class="font-mono text-[var(--z-slate-500)]"
+              style="font-size: 0.6rem; letter-spacing: 0.1em; text-align: center;"
+            >
+              {tool.name}
+            </span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.tools-title', {
+      opacity: 0,
+      y: 30,
+      duration: 0.7,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.tools-title', start: 'top 85%' },
+    });
+    gsap.from('.tool-cell', {
+      opacity: 0,
+      scale: 0.9,
+      stagger: 0.04,
+      duration: 0.4,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.tools-grid', start: 'top 85%' },
+    });
+  }
+</script>

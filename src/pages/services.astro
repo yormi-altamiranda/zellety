@@ -1,0 +1,280 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllProjects } from '../lib/mock-data';
+
+const recentProjects = getAllProjects().slice(0, 4);
+
+const SERVICE_LABELS: Record<string, string> = {
+  web_app: 'Web App',
+  mobile:  'App Móvil',
+  iot:     'IoT',
+  ux_ui:   'UX/UI',
+  saas:    'SaaS',
+};
+
+const services = [
+  {
+    number: '/01',
+    title: 'Web App',
+    slug: 'web-app',
+    tagline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    stack: ['Next.js', 'Nuxt', 'AstroJS', 'TypeScript', 'Tailwind', 'Vercel'],
+    deliverables: ['Lorem ipsum dolor sit amet', 'Consectetur adipiscing elit', 'Sed do eiusmod tempor', 'Ut enim ad minim veniam'],
+    cover: 'https://picsum.photos/seed/srv-web/1920/900',
+  },
+  {
+    number: '/02',
+    title: 'App Móvil',
+    slug: 'mobile',
+    tagline: 'Sed ut perspiciatis unde omnis iste natus error sit.',
+    description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.',
+    stack: ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'App Store', 'Google Play'],
+    deliverables: ['Nemo enim ipsam voluptatem', 'Quia voluptas sit aspernatur', 'Aut odit aut fugit sed', 'Consequuntur magni dolores'],
+    cover: 'https://picsum.photos/seed/srv-mobile/1920/900',
+  },
+  {
+    number: '/03',
+    title: 'IoT / Domótica',
+    slug: 'iot',
+    tagline: 'At vero eos et accusamus et iusto odio dignissimos.',
+    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident. Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
+    stack: ['MQTT', 'Node.js', 'Flutter', 'InfluxDB', 'Grafana', 'AWS IoT'],
+    deliverables: ['Similique sunt in culpa', 'Qui officia deserunt mollitia', 'Animi id est laborum', 'Et dolorum fuga explicabo'],
+    cover: 'https://picsum.photos/seed/srv-iot/1920/900',
+  },
+  {
+    number: '/04',
+    title: 'UX/UI',
+    slug: 'ux-ui',
+    tagline: 'Nam libero tempore cum soluta nobis est eligendi.',
+    description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet.',
+    stack: ['Figma', 'FigJam', 'Framer', 'Maze', 'Lottie', 'Zeroheight'],
+    deliverables: ['Temporibus autem quibusdam', 'Aut officiis debitis rerum', 'Necessitatibus saepe eveniet', 'Omnis dolor repellendus'],
+    cover: 'https://picsum.photos/seed/srv-uxui/1920/900',
+  },
+  {
+    number: '/05',
+    title: 'SaaS',
+    slug: 'saas',
+    tagline: 'Quis autem vel eum iure reprehenderit qui voluptate.',
+    description: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    stack: ['Next.js', 'Supabase', 'Stripe', 'PostgreSQL', 'TypeScript', 'Vercel'],
+    deliverables: ['Quis autem vel eum iure', 'Reprehenderit qui voluptate', 'Vel illum qui dolorem', 'Fugiat quo voluptas nulla'],
+    cover: 'https://picsum.photos/seed/srv-saas/1920/900',
+  },
+];
+---
+
+<BaseLayout
+  title="Servicios — Zellety"
+  description="Web Apps, App Móvil, IoT, UX/UI y SaaS. Diseño y desarrollo tech para founders y equipos de producto en LATAM."
+>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section style="padding: 140px 0 0; background: var(--z-midnight-950);">
+    <div class="container-site">
+
+      <h1
+        class="services-page-title font-display font-bold text-[var(--z-white)] uppercase text-center"
+        style="font-size: clamp(3rem, 10vw, 9rem); line-height: 0.92; letter-spacing: -0.03em; margin-bottom: 2rem;"
+      >
+        Servicios
+      </h1>
+
+      <div style="height: 1px; background: var(--z-midnight-800);"></div>
+
+      <!-- 3 columnas metadata -->
+      <div class="grid grid-cols-1 md:grid-cols-3">
+        <div style="padding: 1.5rem 0; border-right: 1px solid var(--z-midnight-800);">
+          <p class="font-mono uppercase text-[var(--z-slate-500)]" style="font-size: 0.6rem; letter-spacing: 0.25em; margin-bottom: 0.5rem;">Disciplinas</p>
+          <p class="font-display font-semibold text-[var(--z-white)] uppercase" style="font-size: clamp(1rem, 2vw, 1.25rem);">5 Servicios</p>
+        </div>
+        <div style="padding: 1.5rem 2rem; border-right: 1px solid var(--z-midnight-800);">
+          <p class="font-mono uppercase text-[var(--z-slate-500)]" style="font-size: 0.6rem; letter-spacing: 0.25em; margin-bottom: 0.5rem;">Experiencia</p>
+          <p class="font-display font-semibold text-[var(--z-white)] uppercase" style="font-size: clamp(1rem, 2vw, 1.25rem);">5+ Años</p>
+        </div>
+        <div style="padding: 1.5rem 2rem;">
+          <p class="font-mono uppercase text-[var(--z-slate-500)]" style="font-size: 0.6rem; letter-spacing: 0.25em; margin-bottom: 0.5rem;">Proyectos</p>
+          <p class="font-display font-semibold text-[var(--z-white)] uppercase" style="font-size: clamp(1rem, 2vw, 1.25rem);">30+ Entregados</p>
+        </div>
+      </div>
+
+      <div style="height: 1px; background: var(--z-midnight-800);"></div>
+
+      <!-- Descripción grande centrada -->
+      <div style="padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 7rem);">
+        <p
+          class="font-display font-bold text-[var(--z-white)] text-center mx-auto"
+          style="font-size: clamp(1.5rem, 3.5vw, 2.75rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 900px;"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim veniam.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Banner ───────────────────────────────────────────── -->
+  <div class="w-full overflow-hidden" style="max-height: 60vh;">
+    <img
+      src="https://picsum.photos/seed/services-cover/1920/900"
+      alt="Servicios Zellety"
+      class="w-full object-cover"
+      style="height: 60vh;"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+
+  <!-- ── Lista de servicios ─────────────────────────────── -->
+  <div style="background: var(--z-midnight-950);">
+    {services.map((service) => (
+      <div id={service.slug} style="border-bottom: 1px solid var(--z-midnight-800);">
+
+        <!-- Cabecera del servicio -->
+        <div class="container-site" style="padding-top: 4rem; padding-bottom: 2rem;">
+          <div class="flex items-baseline gap-6 mb-2">
+            <span class="font-mono text-[var(--z-lime-400)]" style="font-size: 0.7rem; letter-spacing: 0.2em;">{service.number}</span>
+            <h2
+              class="font-display font-bold text-[var(--z-white)] uppercase"
+              style="font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: 0.95; letter-spacing: -0.02em;"
+            >
+              {service.title}
+            </h2>
+          </div>
+          <p class="font-display font-semibold text-[var(--z-lime-400)]" style="font-size: clamp(1rem, 1.8vw, 1.3rem); padding-left: calc(1.5rem + 2em);">
+            {service.tagline}
+          </p>
+        </div>
+
+        <div style="height: 1px; background: var(--z-midnight-800);"></div>
+
+        <!-- Descripción -->
+        <div class="grid grid-cols-1 lg:grid-cols-4" style="border-bottom: 1px solid var(--z-midnight-800);">
+          <div style="padding: 2rem 2.5rem; border-right: 1px solid var(--z-midnight-800);">
+            <p class="font-mono font-bold text-[var(--z-white)] uppercase tracking-[0.2em]" style="font-size: 0.7rem;">Descripción</p>
+          </div>
+          <div class="lg:col-span-3" style="padding: 2rem 2.5rem;">
+            <p class="font-body text-[var(--z-slate-300)]" style="font-size: 1.125rem; line-height: 1.8; max-width: 680px;">
+              {service.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- Entregables -->
+        <div class="grid grid-cols-1 lg:grid-cols-4" style="border-bottom: 1px solid var(--z-midnight-800);">
+          <div style="padding: 2rem 2.5rem; border-right: 1px solid var(--z-midnight-800);">
+            <p class="font-mono font-bold text-[var(--z-white)] uppercase tracking-[0.2em]" style="font-size: 0.7rem;">Entregables</p>
+          </div>
+          <div class="lg:col-span-3 flex flex-col gap-3" style="padding: 2rem 2.5rem;">
+            {service.deliverables.map((d) => (
+              <div class="flex items-center gap-3">
+                <span style="width: 6px; height: 6px; background: var(--z-lime-400); flex-shrink: 0; display: block;"></span>
+                <p class="font-body text-[var(--z-slate-300)]" style="font-size: 1.125rem;">{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Stack -->
+        <div class="grid grid-cols-1 lg:grid-cols-4" style="padding-bottom: 4rem;">
+          <div style="padding: 2rem 2.5rem; border-right: 1px solid var(--z-midnight-800);">
+            <p class="font-mono font-bold text-[var(--z-white)] uppercase tracking-[0.2em]" style="font-size: 0.7rem;">Stack</p>
+          </div>
+          <div class="lg:col-span-3 flex flex-wrap gap-3" style="padding: 2rem 2.5rem;">
+            {service.stack.map((t) => (
+              <span
+                class="font-mono font-semibold text-sm px-4 py-2"
+                style="background: var(--z-lime-400); color: #ffffff;"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    ))}
+  </div>
+
+  <!-- ── Proyectos recientes ───────────────────────────── -->
+  <div style="background: var(--z-midnight-950); padding-top: 5rem; overflow: hidden;">
+
+    <!-- Marquee -->
+    <div
+      class="overflow-hidden mb-14"
+      style="mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);"
+    >
+      <div class="recent-marquee flex whitespace-nowrap">
+        {[0, 1, 2].map(() => (
+          <span
+            class="font-display font-bold shrink-0 text-[var(--z-white)] uppercase"
+            style="font-size: clamp(3rem, 7vw, 6.5rem); line-height: 1; letter-spacing: -0.02em; padding-right: 2rem;"
+          >
+            PROYECTOS RECIENTES&nbsp;&nbsp;·&nbsp;&nbsp;
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Grid 2 columnas -->
+    <div class="container-site pb-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12">
+        {recentProjects.map((p) => (
+          <a href={p.link} class="block group" aria-label={p.title}>
+            <div class="overflow-hidden mb-4" style="aspect-ratio: 4/3;">
+              <img
+                src={p.cover_image.filename}
+                alt={p.cover_image.alt}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="flex items-start justify-between gap-6" style="padding-top: 0.75rem; border-top: 1px solid var(--z-midnight-800);">
+              <h4
+                class="font-display font-bold text-[var(--z-white)] group-hover:text-[var(--z-lime-400)] transition-colors"
+                style="font-size: clamp(1rem, 2vw, 1.25rem); letter-spacing: -0.01em;"
+              >
+                {p.title}
+              </h4>
+              <p class="font-body font-medium text-[var(--z-lime-400)] uppercase shrink-0 text-right" style="font-size: 0.65rem; letter-spacing: 0.12em; line-height: 1.6;">
+                {p.services.map((s: string) => SERVICE_LABELS[s] ?? s).join(' | ')}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+  </div>
+
+</BaseLayout>
+
+<style>
+  .recent-marquee {
+    animation: recent-scroll 28s linear infinite;
+  }
+  @keyframes recent-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-33.333%); }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    gsap.from('.services-page-title', {
+      opacity: 0,
+      y: 60,
+      duration: 0.9,
+      ease: 'power3.out',
+      delay: 0.15,
+    });
+  }
+</script>

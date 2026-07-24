@@ -9,6 +9,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
+  darkHero?: boolean;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   description = 'Zellety — Diseño y desarrollo tech para founders y equipos de producto en LATAM.',
   ogImage = '/og-default.jpg',
   canonical,
+  darkHero = false,
 } = Astro.props;
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://zellety.com';
@@ -57,12 +59,14 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('zellety-theme');
-        const theme = saved === 'light' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = theme;
+        if (saved === 'dark') {
+          document.documentElement.dataset.theme = 'dark';
+        }
+        // default: no attribute → :root cream styles apply
       })();
     </script>
   </head>
-  <body>
+  <body class={darkHero ? 'dark-hero' : ''}>
     <Header />
     <slot />
     <Footer />

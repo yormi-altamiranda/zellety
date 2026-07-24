@@ -7,16 +7,13 @@ const year = new Date().getFullYear();
   <!-- Info bar -->
   <div
     class="container-site"
-    style="display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; padding-top: 1.5rem; padding-bottom: 1.5rem;"
+    style="display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; padding-bottom: 1.5rem;"
   >
     <p class="font-body text-[var(--z-slate-500)]" style="font-size: 0.8rem;">
       Diseñado por <a href="https://zellety.com" class="underline hover:text-[var(--z-white)] transition-colors">Zellety</a>
     </p>
-    <p class="font-body text-[var(--z-slate-500)] text-center" style="font-size: 0.8rem;">
+    <p class="font-body text-[var(--z-slate-500)]" style="font-size: 0.8rem;">
       Copyright &copy; {year} Zellety. Todos los derechos reservados.
-    </p>
-    <p class="font-body text-[var(--z-slate-500)] text-right" style="font-size: 0.8rem;">
-      Powered by <a href="https://astro.build" target="_blank" rel="noopener" class="underline hover:text-[var(--z-white)] transition-colors">Astro</a>
     </p>
   </div>
 

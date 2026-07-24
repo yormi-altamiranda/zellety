@@ -132,7 +132,11 @@ ol {
   color: var(--z-black);
 }
 
-/* ── Focus visible ───────────────────────────────────────── */
+/* ── Focus ───────────────────────────────────────────────── */
+/* Elimina outline en click/tap, lo mantiene solo en teclado  */
+:focus {
+  outline: none;
+}
 :focus-visible {
   outline: 2px solid var(--z-lime-400);
   outline-offset: 3px;

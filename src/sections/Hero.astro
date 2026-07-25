@@ -104,16 +104,15 @@ const slides: HeroSlide[] = (story?.content?.slides?.length > 0)
             </div>
           </div>
 
-          <!-- Derecha: subline + dots (solo en slide 0) -->
-          {i === 0 && (
-            <div class="flex flex-col items-start lg:items-end gap-6 lg:max-w-xs">
-              <p
-                id="hero-subline"
-                class="font-body opacity-0 lg:text-right"
-                style="font-size: 1.25rem; line-height: 1.65; color: rgba(255,255,255,0.65);"
-              >
-                {slide.subline}
-              </p>
+          <!-- Derecha: subline (en todos los slides) + dots (solo slide 0) -->
+          <div class="flex flex-col items-start lg:items-end gap-6 lg:max-w-xs">
+            <p
+              class={`hero-subline font-body lg:text-right${i === 0 ? ' opacity-0' : ''}`}
+              style="font-size: 1.25rem; line-height: 1.65; color: rgba(255,255,255,0.65);"
+            >
+              {slide.subline}
+            </p>
+            {i === 0 && (
               <div id="hero-dots" class="flex items-center gap-2">
                 {slides.map((_, j) => (
                   <button
@@ -126,18 +125,13 @@ const slides: HeroSlide[] = (story?.content?.slides?.length > 0)
                   ></button>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
         </div>
       </div>
     </div>
   ))}
-
-  <!-- ── Subline dinámica (sincronizada con slide activo) ── -->
-  <div id="hero-subline-wrap" class="absolute z-30 opacity-0" style="bottom: 80px; right: clamp(1rem,4vw,2rem); max-width: 280px; text-align: right; display: none;">
-    <p class="font-body" style="font-size: 1.1rem; line-height: 1.65; color: rgba(255,255,255,0.65);"></p>
-  </div>
 
   <!-- ── Flecha scroll ── -->
   <div id="hero-scroll-arrow" class="absolute z-20 left-1/2 opacity-0" style="bottom: 32px; transform: translateX(-50%);" aria-hidden="true">
@@ -165,11 +159,11 @@ const slides: HeroSlide[] = (story?.content?.slides?.length > 0)
   if (!prefersReduced) {
     const tl = gsap.timeline({ delay: 0.2 });
     tl.to('.hero-headline', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-      .to('#hero-subline',  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      .to('.hero-content[data-content="0"] .hero-subline', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
       .to('.hero-ctas',     { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
       .to('#hero-scroll-arrow', { opacity: 0.75, duration: 0.4 }, '-=0.1');
   } else {
-    gsap.set(['.hero-headline', '#hero-subline', '.hero-ctas', '#hero-scroll-arrow'], { opacity: 1 });
+    gsap.set(['.hero-headline', '.hero-subline', '.hero-ctas', '#hero-scroll-arrow'], { opacity: 1 });
   }
 
   // Slider

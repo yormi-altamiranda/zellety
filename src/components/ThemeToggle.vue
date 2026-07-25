@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-const isDark = ref(true)
+const isDark = ref(false)
 
 onMounted(() => {
-  isDark.value = document.documentElement.dataset.theme !== 'light'
+  isDark.value = document.documentElement.dataset.theme === 'dark'
 })
 
 function toggle() {
@@ -19,7 +19,7 @@ function toggle() {
   <button
     @click="toggle"
     :aria-label="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
-    class="w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-200 focus-ring"
+    class="w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-200"
     style="color: inherit;"
   >
     <!-- Sun (modo claro activo → click = pasar a dark) -->

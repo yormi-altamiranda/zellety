@@ -15,7 +15,7 @@ const navLinks = [
   <div id="site-header-inner" class="container-site flex items-center justify-between h-16 md:h-20 transition-all duration-300">
 
     <!-- Logo -->
-    <a href="/" class="focus-ring rounded-sm" aria-label="Zellety — inicio">
+    <a href="/" aria-label="Zellety — inicio">
       <span class="font-display font-bold hdr-text" style="font-size: 1.5rem; letter-spacing: -0.01em;">Zellety</span>
     </a>
 
@@ -24,7 +24,7 @@ const navLinks = [
       {navLinks.map(link => (
         <a
           href={link.href}
-          class="font-body hover:opacity-70 transition-opacity duration-200 focus-ring rounded-sm hdr-text"
+          class="font-body hover:opacity-70 transition-opacity duration-200 hdr-text"
           style="font-size: 1rem;"
         >
           {link.label}

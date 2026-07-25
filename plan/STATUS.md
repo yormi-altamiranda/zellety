@@ -91,18 +91,27 @@
 
 ---
 
-## Archivos clave
+## Documentación
 
-| Archivo | Rol |
-|---------|-----|
-| `plan/storyblok-integration.md` | Plan conexión Storyblok |
+| Archivo | Descripción |
+|---------|-------------|
+| `README.md` | Visión general, estructura de carpetas, comandos |
+| `plan/STATUS.md` | Este archivo — estado y checklist |
+| `plan/apis-libraries.md` | Storyblok, GSAP, Lenis, SwiperJS, UnoCSS, Netlify Forms |
+| `plan/config-sb.md` | Config completa `@storyblok/astro` y content types |
 | `plan/netlify-deploy.md` | Checklist deploy + Netlify Forms |
-| `plan/config-sb.md` | Config completa `@storyblok/astro` |
-| `src/lib/storyblok.ts` | Cliente CMS + tipos TS |
-| `src/lib/mock-data.ts` | Datos temporales (reemplazar con Storyblok) |
-| `src/styles/tokens.css` | Design tokens del proyecto |
-| `scripts/seed-section-headers.mjs` | Seed campos de texto de secciones en home-settings |
-| `scripts/seed-tools-block.mjs` | Seed block `tool_item` en home-settings |
+| `plan/storyblok-integration.md` | Plan integración CMS |
+| `plan/components/README.md` | Índice de todos los componentes |
+| `plan/components/header.md` | Header.astro — comportamiento scroll, CSS vars |
+| `plan/components/theme-toggle.md` | ThemeToggle.vue — dark/light, anti-FOUC |
+| `plan/components/nav-mobile.md` | NavMobile.vue — hamburguesa, props, estado |
+| `plan/components/contact-form.md` | ContactForm.vue — validación, Netlify Forms |
+| `plan/components/testimonials-slider.md` | TestimonialsSlider.vue — SwiperJS, card types |
+| `plan/components/tools-slider.md` | ToolsSlider.vue — carrusel infinito, 34 íconos |
+| `plan/components/footer.md` | Footer.astro — wordmark, año dinámico |
+| `plan/components/sections.md` | Todas las secciones Astro — datos, layout, GSAP |
+| `plan/components/layouts.md` | BaseLayout y PageLayout — SEO, Lenis, GSAP |
+| `plan/components/lib.md` | storyblok.ts y mock-data.ts — tipos y funciones |
 
 ---
 

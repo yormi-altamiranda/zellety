@@ -12,7 +12,7 @@ const navLinks = [
 ---
 
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div class="container-site flex items-center justify-between h-16 md:h-20">
+  <div id="site-header-inner" class="container-site flex items-center justify-between h-16 md:h-20 transition-all duration-300">
 
     <!-- Logo -->
     <a href="/" class="focus-ring rounded-sm" aria-label="Zellety — inicio">
@@ -94,13 +94,20 @@ const navLinks = [
     --hdr-color: #ffffff;
   }
 
+  /* ── Shrink on scroll ────────────────────────────────── */
+  #site-header.is-scrolled #site-header-inner {
+    height: 3rem;
+  }
+
   /* ── Dark mode ───────────────────────────────────────── */
   :global([data-theme="dark"]) #site-header {
     --hdr-color: #ffffff;
   }
   :global([data-theme="dark"]) #site-header.is-scrolled {
-    background: rgba(28, 24, 20, 0.96);
-    border-bottom-color: #322d26;
+    background: rgba(204, 105, 73, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     --hdr-color: #ffffff;
   }
 

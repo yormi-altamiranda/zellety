@@ -1,31 +1,44 @@
 ---
 import { getHomeSettings } from '../lib/storyblok';
 
-const FALLBACK = {
-  hero_headline:        'Diseñamos y construimos',
-  hero_headline_accent: 'lo que imaginas.',
-  hero_subline:         'Tu partner técnico en LATAM para Web Apps, Mobile, IoT, UX/UI y SaaS. Transformamos ideas en productos que escalan.',
-  hero_slides: [
-    { filename: 'https://picsum.photos/seed/zellety-slide-1/1920/1080', alt: 'Diseño y Desarrollo Zellety — Web Apps' },
-    { filename: 'https://picsum.photos/seed/zellety-slide-2/1920/1080', alt: 'Mobile y IoT LATAM' },
-    { filename: 'https://picsum.photos/seed/zellety-slide-3/1920/1080', alt: 'UX/UI y SaaS' },
-  ],
-  hero_cta_1_text: 'Hablemos',
-  hero_cta_1_url:  '/#contacto',
-  hero_cta_2_text: 'Ver Trabajos',
-  hero_cta_2_url:  '/#works',
-};
+interface HeroSlide {
+  image?: { filename: string; alt?: string };
+  headline: string;
+  headline_accent: string;
+  subline: string;
+  cta_1_text?: string;
+  cta_1_url?: string;
+  cta_2_text?: string;
+  cta_2_url?: string;
+}
 
-const story = await getHomeSettings();
-// Merge: story overrides FALLBACK, pero campos vacíos/undefined usan el fallback
-const h = {
-  ...FALLBACK,
-  ...(story?.content ?? {}),
-  // hero_slides necesita tener elementos reales o cae al fallback
-  hero_slides: (story?.content?.hero_slides?.length > 0)
-    ? story.content.hero_slides
-    : FALLBACK.hero_slides,
-};
+const FALLBACK_SLIDES: HeroSlide[] = [
+  {
+    image:           { filename: 'https://picsum.photos/seed/zellety-slide-1/1920/1080', alt: 'Diseño y Desarrollo Zellety' },
+    headline:        'Diseñamos y construimos',
+    headline_accent: 'lo que imaginas.',
+    subline:         'Tu partner técnico en LATAM para Web Apps, Mobile, IoT, UX/UI y SaaS. Transformamos ideas en productos que escalan.',
+    cta_1_text:      'Hablemos',
+    cta_1_url:       '/#contacto',
+    cta_2_text:      'Ver Trabajos',
+    cta_2_url:       '/#works',
+  },
+  {
+    image:           { filename: 'https://picsum.photos/seed/zellety-slide-2/1920/1080', alt: 'Mobile y IoT LATAM' },
+    headline:        'Del concepto al',
+    headline_accent: 'producto final.',
+    subline:         'Desarrollamos apps móviles, plataformas SaaS y soluciones IoT que resuelven problemas reales.',
+    cta_1_text:      'Nuestros proyectos',
+    cta_1_url:       '/projects',
+    cta_2_text:      '',
+    cta_2_url:       '',
+  },
+];
+
+const story  = await getHomeSettings();
+const slides: HeroSlide[] = (story?.content?.slides?.length > 0)
+  ? story.content.slides
+  : FALLBACK_SLIDES;
 ---
 
 <section
@@ -34,97 +47,100 @@ const h = {
   style="height: 100svh; min-height: 600px; background: var(--z-midnight-950);"
 >
 
-  <!-- ── Slides de fondo ── -->
-  {h.hero_slides.map((slide, i) => (
+  <!-- ── Imágenes de fondo ── -->
+  {slides.map((slide, i) => (
     <div
       class="hero-slide absolute inset-0"
       data-slide={i}
       style={`opacity: ${i === 0 ? '1' : '0'}; transition: opacity 1s ease;`}
     >
-      <img
-        src={slide.filename}
-        alt={slide.alt ?? ''}
-        class="w-full h-full object-cover"
-        loading={i === 0 ? 'eager' : 'lazy'}
-        decoding="async"
-      />
+      {slide.image?.filename && (
+        <img
+          src={slide.image.filename}
+          alt={slide.image.alt ?? ''}
+          class="w-full h-full object-cover"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      )}
     </div>
   ))}
 
-  <!-- Overlay oscuro -->
-  <div
-    class="absolute inset-0 z-10 pointer-events-none"
-    style="background: rgba(10,15,30,0.62);"
-  ></div>
-  <div
-    class="absolute inset-0 z-10 pointer-events-none"
-    style="background: linear-gradient(to top, rgba(10,15,30,0.95) 0%, rgba(10,15,30,0.3) 45%, transparent 100%);"
-  ></div>
+  <!-- Overlays -->
+  <div class="absolute inset-0 z-10 pointer-events-none" style="background: rgba(10,15,30,0.62);"></div>
+  <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(10,15,30,0.95) 0%, rgba(10,15,30,0.3) 45%, transparent 100%);"></div>
 
-  <!-- ── Contenido ── -->
-  <div class="absolute inset-0 z-20 flex flex-col justify-end" style="padding-bottom: 80px;">
-    <div class="container-site">
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+  <!-- ── Contenido por slide ── -->
+  {slides.map((slide, i) => (
+    <div
+      class="hero-content absolute inset-0 z-20 flex flex-col justify-end"
+      data-content={i}
+      style={`opacity: ${i === 0 ? '1' : '0'}; transition: opacity 1s ease; padding-bottom: 80px;`}
+    >
+      <div class="container-site">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
 
-        <!-- Izquierda: headline + CTAs -->
-        <div class="flex flex-col gap-5">
-          <h1
-            id="hero-headline"
-            class="font-display font-bold opacity-0"
-            style="font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.95; letter-spacing: -0.03em; color: #ffffff;"
-          >
-            {h.hero_headline}<br />
-            <span style="color: var(--z-lime-400);">{h.hero_headline_accent}</span>
-          </h1>
+          <!-- Izquierda: headline + CTAs -->
+          <div class="flex flex-col gap-5">
+            <h1
+              class={`hero-headline font-display font-bold${i === 0 ? ' opacity-0' : ''}`}
+              style="font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.95; letter-spacing: -0.03em; color: #ffffff;"
+            >
+              {slide.headline}<br />
+              <span style="color: var(--z-lime-400);">{slide.headline_accent}</span>
+            </h1>
 
-          <div id="hero-ctas" class="flex flex-wrap gap-3 opacity-0">
-            <a href={h.hero_cta_1_url} class="btn-primary">
-              {h.hero_cta_1_text} <span aria-hidden="true">→</span>
-            </a>
-            <a href={h.hero_cta_2_url} class="btn-ghost">
-              {h.hero_cta_2_text}
-            </a>
+            <div class={`hero-ctas flex flex-wrap gap-3${i === 0 ? ' opacity-0' : ''}`}>
+              {slide.cta_1_text && (
+                <a href={slide.cta_1_url ?? '/#contacto'} class="btn-primary">
+                  {slide.cta_1_text} <span aria-hidden="true">→</span>
+                </a>
+              )}
+              {slide.cta_2_text && (
+                <a href={slide.cta_2_url ?? '/#works'} class="btn-ghost">
+                  {slide.cta_2_text}
+                </a>
+              )}
+            </div>
           </div>
+
+          <!-- Derecha: subline + dots (solo en slide 0) -->
+          {i === 0 && (
+            <div class="flex flex-col items-start lg:items-end gap-6 lg:max-w-xs">
+              <p
+                id="hero-subline"
+                class="font-body opacity-0 lg:text-right"
+                style="font-size: 1.25rem; line-height: 1.65; color: rgba(255,255,255,0.65);"
+              >
+                {slide.subline}
+              </p>
+              <div id="hero-dots" class="flex items-center gap-2">
+                {slides.map((_, j) => (
+                  <button
+                    class="hero-dot rounded-full transition-all duration-400 cursor-pointer"
+                    data-dot={j}
+                    style={j === 0
+                      ? 'width:24px; height:6px; background:var(--z-lime-400);'
+                      : 'width:6px; height:6px; background:rgba(255,255,255,0.3);'}
+                    aria-label={`Slide ${j + 1}`}
+                  ></button>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
-
-        <!-- Derecha: subline + dots -->
-        <div class="flex flex-col items-start lg:items-end gap-6 lg:max-w-xs">
-          <p
-            id="hero-subline"
-            class="font-body opacity-0 lg:text-right"
-            style="font-size: 1.25rem; line-height: 1.65; color: rgba(255,255,255,0.65);"
-          >
-            {h.hero_subline}
-          </p>
-
-          <!-- Slide dots -->
-          <div id="hero-dots" class="flex items-center gap-2">
-            {h.hero_slides.map((_, i) => (
-              <button
-                class="hero-dot rounded-full transition-all duration-400 cursor-pointer"
-                data-dot={i}
-                style={
-                  i === 0
-                    ? 'width:24px; height:6px; background:var(--z-lime-400);'
-                    : 'width:6px; height:6px; background:rgba(255,255,255,0.3);'
-                }
-                aria-label={`Slide ${i + 1}`}
-              ></button>
-            ))}
-          </div>
-        </div>
-
       </div>
     </div>
+  ))}
+
+  <!-- ── Subline dinámica (sincronizada con slide activo) ── -->
+  <div id="hero-subline-wrap" class="absolute z-30 opacity-0" style="bottom: 80px; right: clamp(1rem,4vw,2rem); max-width: 280px; text-align: right; display: none;">
+    <p class="font-body" style="font-size: 1.1rem; line-height: 1.65; color: rgba(255,255,255,0.65);"></p>
   </div>
 
   <!-- ── Flecha scroll ── -->
-  <div
-    id="hero-scroll-arrow"
-    class="absolute z-20 left-1/2 opacity-0"
-    style="bottom: 32px; transform: translateX(-50%);"
-    aria-hidden="true"
-  >
+  <div id="hero-scroll-arrow" class="absolute z-20 left-1/2 opacity-0" style="bottom: 32px; transform: translateX(-50%);" aria-hidden="true">
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="color: var(--z-lime-400);">
       <path d="M14 4v20M6 16l8 8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -134,7 +150,7 @@ const h = {
 
 <style>
   @keyframes arrow-bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0);   }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
     50%       { transform: translateX(-50%) translateY(8px); }
   }
   #hero-scroll-arrow { animation: arrow-bounce 1.6s ease-in-out infinite; }
@@ -145,28 +161,35 @@ const h = {
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Entrada inicial
   if (!prefersReduced) {
     const tl = gsap.timeline({ delay: 0.2 });
-    tl.to('#hero-headline',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-      .to('#hero-subline',      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
-      .to('#hero-ctas',         { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+    tl.to('.hero-headline', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+      .to('#hero-subline',  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      .to('.hero-ctas',     { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
       .to('#hero-scroll-arrow', { opacity: 0.75, duration: 0.4 }, '-=0.1');
   } else {
-    gsap.set(['#hero-headline','#hero-subline','#hero-ctas','#hero-scroll-arrow'], { opacity: 1 });
+    gsap.set(['.hero-headline', '#hero-subline', '.hero-ctas', '#hero-scroll-arrow'], { opacity: 1 });
   }
 
-  const SLIDES = document.querySelectorAll<HTMLElement>('.hero-slide');
-  const DOTS   = document.querySelectorAll<HTMLButtonElement>('.hero-dot');
-  let current  = 0;
+  // Slider
+  const SLIDES   = document.querySelectorAll<HTMLElement>('.hero-slide');
+  const CONTENTS = document.querySelectorAll<HTMLElement>('.hero-content');
+  const DOTS     = document.querySelectorAll<HTMLButtonElement>('.hero-dot');
+  let current = 0;
   let timer: ReturnType<typeof setInterval>;
 
   function goTo(index: number) {
-    SLIDES[current].style.opacity = '0';
+    SLIDES[current].style.opacity   = '0';
+    CONTENTS[current].style.opacity = '0';
     DOTS[current].style.width      = '6px';
     DOTS[current].style.height     = '6px';
     DOTS[current].style.background = 'rgba(255,255,255,0.3)';
+
     current = index;
-    SLIDES[current].style.opacity  = '1';
+
+    SLIDES[current].style.opacity   = '1';
+    CONTENTS[current].style.opacity = '1';
     DOTS[current].style.width      = '24px';
     DOTS[current].style.height     = '6px';
     DOTS[current].style.background = 'var(--z-lime-400)';

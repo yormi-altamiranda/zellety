@@ -1,6 +1,6 @@
 ---
 import TestimonialsSlider from '../components/TestimonialsSlider.vue';
-import { getTestimonials } from '../lib/storyblok';
+import { getTestimonials, getHomeSettings } from '../lib/storyblok';
 
 interface TestimonialItem {
   card_type: 'quote' | 'photo';
@@ -10,6 +10,14 @@ interface TestimonialItem {
   avatar?: string;
   photo?: string;
 }
+
+const FALLBACK_TESTIMONIALS_HEADER = {
+  testimonials_label: '//TESTIMONIOS',
+  testimonials_title: 'Confiado por expertos.',
+};
+
+const homeStory = await getHomeSettings();
+const tsh = { ...FALLBACK_TESTIMONIALS_HEADER, ...(homeStory?.content ?? {}) };
 
 const FALLBACK: TestimonialItem[] = [
   { card_type: 'quote', name: 'Carlos Mendoza',  role: 'CEO · FinTech Andina',          avatar: 'https://picsum.photos/seed/av1/80/80', quote: 'Zellety transformó nuestra plataforma por completo. El equipo entendió nuestras necesidades desde el día uno y entregó un producto que superó todas las expectativas.' },
@@ -46,12 +54,12 @@ try {
 
   <!-- Header -->
   <div class="container-site mb-16">
-    <p class="label-mono mb-5" style="color: var(--z-lime-400);">//TESTIMONIOS</p>
+    <p class="label-mono mb-5" style="color: var(--z-lime-400);">{tsh.testimonials_label}</p>
     <h2
       class="testimonials-title font-display font-bold text-[var(--z-white)]"
       style="font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.02em; max-width: 560px;"
     >
-      Confiado por expertos.
+      {tsh.testimonials_title}
     </h2>
   </div>
 

@@ -1,5 +1,5 @@
 ---
-import { getServices } from '../lib/storyblok';
+import { getServices, getHomeSettings } from '../lib/storyblok';
 
 interface DisplayService {
   number: string;
@@ -16,6 +16,15 @@ const FALLBACK_SERVICES: DisplayService[] = [
   { number: '/04', title: 'UX/UI', subtitle: 'Diseño que comunica.', description: 'Research, wireframes, prototipos y design systems en Figma. Cada pixel tiene un propósito.', href: '/services#ux-ui' },
   { number: '/05', title: 'SaaS', subtitle: 'Plataformas que escalan.', description: 'Multi-tenant con billing, autenticación y dashboards. Del MVP al producto que crece.', href: '/services#saas' },
 ];
+
+const FALLBACK_HEADER = {
+  services_label:       '//SERVICIOS',
+  services_title_line1: 'Nuestros',
+  services_title_line2: 'servicios',
+};
+
+const homeStory = await getHomeSettings();
+const h = { ...FALLBACK_HEADER, ...(homeStory?.content ?? {}) };
 
 let services: DisplayService[];
 
@@ -42,12 +51,12 @@ try {
 
     <!-- Header -->
     <div class="mb-16">
-      <p class="label-mono mb-4" style="color: var(--z-lime-400);">//SERVICIOS</p>
+      <p class="label-mono mb-4" style="color: var(--z-lime-400);">{h.services_label}</p>
       <h2
         class="services-title font-display font-bold text-[var(--z-white)]"
         style="font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05;"
       >
-        Nuestros<br />servicios
+        {h.services_title_line1}<br />{h.services_title_line2}
       </h2>
     </div>
 

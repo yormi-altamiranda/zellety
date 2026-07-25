@@ -25,7 +25,8 @@ const t = {
   ...(story?.content ?? {}),
 };
 
-const tools = [
+// Fallback local (se usa hasta que el usuario cargue las herramientas en Storyblok)
+const FALLBACK_TOOLS = [
   { name: 'Next.js',     logo: nextjsUrl },
   { name: 'Nuxt',        logo: nuxtUrl },
   { name: 'Astro',       logo: astroUrl },
@@ -43,6 +44,12 @@ const tools = [
   { name: 'Framer',      logo: framerUrl },
   { name: 'n8n',         logo: n8nUrl },
 ];
+
+// Si hay tool_list en Storyblok, úsalo; si no, usa el fallback local
+const sbTools = story?.content?.tool_list;
+const tools: { name: string; logo: string }[] = (sbTools && sbTools.length > 0)
+  ? sbTools.map(item => ({ name: item.name, logo: item.logo.filename }))
+  : FALLBACK_TOOLS;
 ---
 
 <section id="herramientas" class="section-padding bg-[var(--z-midnight-950)]">

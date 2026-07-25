@@ -1,5 +1,23 @@
 ---
 import ContactForm from '../components/ContactForm.vue';
+import { getHomeSettings } from '../lib/storyblok';
+
+const FALLBACK_CONTACT = {
+  contact_label:    '//CONTACTO',
+  contact_title:    'Hablemos.',
+  contact_subtitle: '¿Tienes un proyecto en mente? Escríbenos y te respondemos en menos de 24 horas.',
+  contact_email:    'hola@zellety.com',
+  contact_zone:     'UTC-3 a UTC-6 · LATAM',
+  marquee_items:    [
+    { label: 'Email:',     value: 'info@zellety.com',    url: 'mailto:info@zellety.com' },
+    { label: 'Llámanos:', value: '+58 000 000 000',      url: 'tel:+58000000000' },
+    { label: 'WhatsApp:', value: '+58 000 000 000',      url: 'https://wa.me/580000000000' },
+  ],
+};
+
+const story = await getHomeSettings();
+const c = { ...FALLBACK_CONTACT, ...(story?.content ?? {}) };
+const marqueeItems = (c.marquee_items?.length > 0) ? c.marquee_items : FALLBACK_CONTACT.marquee_items;
 ---
 
 <section id="contacto" class="bg-[var(--z-midnight-950)] pt-[var(--space-24)]">
@@ -11,26 +29,26 @@ import ContactForm from '../components/ContactForm.vue';
 
       <!-- Left: copy -->
       <div>
-        <p class="label-mono mb-5" style="color: var(--z-lime-400);">//CONTACTO</p>
+        <p class="label-mono mb-5" style="color: var(--z-lime-400);">{c.contact_label}</p>
         <h2
           class="contact-title font-display font-bold text-[var(--z-white)] mb-6"
           style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.02;"
         >
-          Hablemos.
+          {c.contact_title}
         </h2>
         <p class="font-body text-[var(--z-slate-300)] mb-10 max-w-sm" style="line-height: 1.7;">
-          ¿Tienes un proyecto en mente? Escríbenos y te respondemos en menos de 24 horas.
+          {c.contact_subtitle}
         </p>
         <div class="flex flex-col gap-3">
           <div class="flex items-center gap-3">
             <span class="label-mono text-[var(--z-lime-400)]">EMAIL</span>
-            <a href="mailto:hola@zellety.com" class="font-body text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors" style="font-size: 1.125rem;">
-              hola@zellety.com
+            <a href={`mailto:${c.contact_email}`} class="font-body text-[var(--z-slate-300)] hover:text-[var(--z-white)] transition-colors" style="font-size: 1.125rem;">
+              {c.contact_email}
             </a>
           </div>
           <div class="flex items-center gap-3">
             <span class="label-mono text-[var(--z-lime-400)]">ZONA</span>
-            <span class="font-body text-[var(--z-slate-300)]" style="font-size: 1.125rem;">UTC-3 a UTC-6 · LATAM</span>
+            <span class="font-body text-[var(--z-slate-300)]" style="font-size: 1.125rem;">{c.contact_zone}</span>
           </div>
         </div>
       </div>
@@ -48,18 +66,20 @@ import ContactForm from '../components/ContactForm.vue';
     <div class="contact-marquee flex items-center whitespace-nowrap">
       {[0, 1, 2].map((_, i) => (
         <span class="flex items-center shrink-0 gap-10" aria-hidden={i > 0 ? 'true' : undefined}>
-          <a href="mailto:info@zellety.com" class="contact-marquee-item font-display font-bold uppercase" style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;">
-            Email: info@zellety.com
-          </a>
-          <span class="font-display font-bold select-none" style="font-size: 60px; color: var(--z-lime-400); opacity: 0.4;">·</span>
-          <a href="tel:+58000000000" class="contact-marquee-item font-display font-bold uppercase" style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;">
-            Llámanos: +58 000 000 000
-          </a>
-          <span class="font-display font-bold select-none" style="font-size: 60px; color: var(--z-lime-400); opacity: 0.4;">·</span>
-          <a href="https://wa.me/580000000000" target="_blank" rel="noopener noreferrer" class="contact-marquee-item font-display font-bold uppercase" style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;">
-            WhatsApp: +58 000 000 000
-          </a>
-          <span class="font-display font-bold select-none" style="font-size: 60px; color: var(--z-lime-400); opacity: 0.4; padding-right: 2.5rem;">·</span>
+          {marqueeItems.map((item, j) => (
+            <>
+              <a
+                href={item.url}
+                target={item.url.startsWith('http') ? '_blank' : undefined}
+                rel={item.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="contact-marquee-item font-display font-bold uppercase"
+                style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;"
+              >
+                {item.label} {item.value}
+              </a>
+              <span class="font-display font-bold select-none" style={`font-size: 60px; color: var(--z-lime-400); opacity: 0.4;${j === marqueeItems.length - 1 ? ' padding-right: 2.5rem;' : ''}`}>·</span>
+            </>
+          ))}
         </span>
       ))}
     </div>

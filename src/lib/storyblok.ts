@@ -89,15 +89,77 @@ export interface StoryblokStory<T> {
   tag_list: string[];
 }
 
+export interface ToolItem {
+  _uid: string;
+  component: 'tool_item';
+  name: string;
+  logo: AssetStoryblok;
+}
+
+export interface ContactMarqueeItem {
+  _uid: string;
+  component: 'contact_marquee_item';
+  label: string;
+  value: string;
+  url: string;
+}
+
+export interface HeroSlide {
+  _uid: string;
+  component: 'hero_slide';
+  image?: AssetStoryblok;
+  headline: string;
+  headline_accent: string;
+  subline: string;
+  cta_1_text?: string;
+  cta_1_url?: string;
+  cta_2_text?: string;
+  cta_2_url?: string;
+}
+
 export interface HomeSettings {
-  hero_headline: string;
-  hero_headline_accent: string;
-  hero_subline: string;
-  hero_slides: AssetStoryblok[];
-  hero_cta_1_text: string;
-  hero_cta_1_url: string;
-  hero_cta_2_text: string;
-  hero_cta_2_url: string;
+  // Hero
+  slides?: HeroSlide[];
+  // About
+  about_title_line1: string;
+  about_title_line2: string;
+  about_text_1: string;
+  about_text_2: string;
+  about_cta_text: string;
+  about_cta_url: string;
+  about_stat_1_value: number; about_stat_1_suffix: string; about_stat_1_label: string;
+  about_stat_2_value: number; about_stat_2_suffix: string; about_stat_2_label: string;
+  about_stat_3_value: number; about_stat_3_suffix: string; about_stat_3_label: string;
+  // Tools
+  tools_count: string;
+  tools_subtitle: string;
+  tools_description: string;
+  // Services
+  services_label: string;
+  services_title_line1: string;
+  services_title_line2: string;
+  // Work
+  work_label: string;
+  work_title: string;
+  work_subtitle: string;
+  work_cta_text: string;
+  work_cta_url: string;
+  // Team
+  team_label: string;
+  team_title_line1: string;
+  team_title_line2: string;
+  // Testimonials
+  testimonials_label: string;
+  testimonials_title: string;
+  // Contact
+  contact_label: string;
+  contact_title: string;
+  contact_subtitle: string;
+  contact_email: string;
+  contact_zone: string;
+  marquee_items: ContactMarqueeItem[];
+  // Tools grid
+  tool_list?: ToolItem[];
   component: 'home_settings';
 }
 

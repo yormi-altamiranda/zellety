@@ -1,5 +1,14 @@
 ---
-import { getTeamMembers } from '../lib/storyblok';
+import { getTeamMembers, getHomeSettings } from '../lib/storyblok';
+
+const FALLBACK_TEAM_HEADER = {
+  team_label:       '//Nuestro equipo',
+  team_title_line1: 'Team',
+  team_title_line2: 'members',
+};
+
+const homeStory = await getHomeSettings();
+const th = { ...FALLBACK_TEAM_HEADER, ...(homeStory?.content ?? {}) };
 
 const BG_COLORS = ['var(--z-lime-400)', '#7c3aed', '#0ea5e9', '#f59e0b', '#10b981'];
 
@@ -60,12 +69,12 @@ try {
 
     <!-- Header -->
     <div class="mb-16">
-      <p class="label-mono mb-4" style="color: var(--z-lime-400);">//Nuestro equipo</p>
+      <p class="label-mono mb-4" style="color: var(--z-lime-400);">{th.team_label}</p>
       <h2
         class="team-title font-display font-bold text-[var(--z-white)]"
         style="font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05;"
       >
-        Team<br />members
+        {th.team_title_line1}<br />{th.team_title_line2}
       </h2>
     </div>
 

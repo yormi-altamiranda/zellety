@@ -1,5 +1,5 @@
 ---
-import { getProjects } from '../lib/storyblok';
+import { getProjects, getHomeSettings } from '../lib/storyblok';
 import { getAllProjects } from '../lib/mock-data';
 
 interface DisplayProject {
@@ -8,6 +8,17 @@ interface DisplayProject {
   cover_image: { filename: string; alt: string };
   services: string[];
 }
+
+const FALLBACK_WORK_HEADER = {
+  work_label:    '//TRABAJOS',
+  work_title:    'Proyectos Seleccionados',
+  work_subtitle: 'Una selección de trabajos que reflejan nuestro proceso, criterio y capacidad técnica.',
+  work_cta_text: 'Ver todos los proyectos →',
+  work_cta_url:  '/projects',
+};
+
+const homeStory = await getHomeSettings();
+const wh = { ...FALLBACK_WORK_HEADER, ...(homeStory?.content ?? {}) };
 
 const SERVICE_LABELS: Record<string, string> = {
   web_app: 'Web App',
@@ -46,22 +57,22 @@ const right = projects.filter((_, i) => i % 2 !== 0);
 
   <!-- Header centrado -->
   <div class="container-site text-center mb-20">
-    <p class="label-mono mb-5" style="color: var(--z-lime-400);">//TRABAJOS</p>
+    <p class="label-mono mb-5" style="color: var(--z-lime-400);">{wh.work_label}</p>
     <h2
       class="works-title font-display font-bold text-[var(--z-white)]"
       style="font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1rem;"
     >
-      Proyectos Seleccionados
+      {wh.work_title}
     </h2>
     <p class="font-body text-[var(--z-slate-300)] mx-auto mb-8" style="font-size: 1.125rem; line-height: 1.7; max-width: 480px;">
-      Una selección de trabajos que reflejan nuestro proceso, criterio y capacidad técnica.
+      {wh.work_subtitle}
     </p>
     <a
-      href="/projects"
+      href={wh.work_cta_url}
       class="font-mono text-[var(--z-slate-400)] hover:text-[var(--z-lime-400)] transition-colors"
       style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;"
     >
-      Ver todos los proyectos →
+      {wh.work_cta_text}
     </a>
   </div>
 

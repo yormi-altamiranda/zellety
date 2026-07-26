@@ -25,110 +25,194 @@ const t = {
   ...(story?.content ?? {}),
 };
 
-// Fallback local (se usa hasta que el usuario cargue las herramientas en Storyblok)
 const FALLBACK_TOOLS = [
-  { name: 'Next.js',     logo: nextjsUrl },
-  { name: 'Nuxt',        logo: nuxtUrl },
-  { name: 'Astro',       logo: astroUrl },
-  { name: 'Flutter',     logo: flutterUrl },
-  { name: 'Figma',       logo: figmaUrl },
-  { name: 'Supabase',    logo: supabaseUrl },
-  { name: 'Firebase',    logo: firebaseUrl },
-  { name: 'Docker',      logo: dockerUrl },
-  { name: 'GitHub',      logo: githubUrl },
-  { name: 'Vercel',      logo: vercelUrl },
-  { name: 'AWS',         logo: awsUrl },
-  { name: 'Cloudflare',  logo: cloudflareUrl },
-  { name: 'PostgreSQL',  logo: postgresUrl },
-  { name: 'Netlify',     logo: netlifyUrl },
-  { name: 'Framer',      logo: framerUrl },
-  { name: 'n8n',         logo: n8nUrl },
+  { name: 'Next.js',    logo: nextjsUrl },
+  { name: 'Nuxt',       logo: nuxtUrl },
+  { name: 'Astro',      logo: astroUrl },
+  { name: 'Flutter',    logo: flutterUrl },
+  { name: 'Figma',      logo: figmaUrl },
+  { name: 'Supabase',   logo: supabaseUrl },
+  { name: 'Firebase',   logo: firebaseUrl },
+  { name: 'Docker',     logo: dockerUrl },
+  { name: 'GitHub',     logo: githubUrl },
+  { name: 'Vercel',     logo: vercelUrl },
+  { name: 'AWS',        logo: awsUrl },
+  { name: 'Cloudflare', logo: cloudflareUrl },
+  { name: 'PostgreSQL', logo: postgresUrl },
+  { name: 'Netlify',    logo: netlifyUrl },
+  { name: 'Framer',     logo: framerUrl },
+  { name: 'n8n',        logo: n8nUrl },
 ];
 
-// Si hay tool_list en Storyblok, úsalo; si no, usa el fallback local
 const sbTools = story?.content?.tool_list;
 const tools: { name: string; logo: string }[] = (sbTools && sbTools.length > 0)
-  ? sbTools.map(item => ({ name: item.name, logo: item.logo.filename }))
+  ? sbTools.map((item: any) => ({ name: item.name, logo: item.logo.filename }))
   : FALLBACK_TOOLS;
+
+// Duplicar para loop infinito
+const tickerItems = [...tools, ...tools];
 ---
 
-<section id="herramientas" class="section-padding bg-[var(--z-midnight-950)]">
+<section id="herramientas" class="section-padding" style="background: #0A0F1E;">
   <div class="container-site">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-      <!-- Left: texto -->
+      <!-- Left: texto estático -->
       <div>
-        <p class="label-mono mb-6" style="color: var(--z-lime-400);">//HERRAMIENTAS</p>
+        <p class="label-mono mb-6" style="color: #cc6949;">//HERRAMIENTAS</p>
 
         <h2
-          class="tools-title font-display font-bold text-[var(--z-white)]"
-          style="font-size: clamp(3.5rem, 7vw, 7rem); line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem;"
+          class="tools-title font-display font-bold"
+          style="font-size: clamp(3.5rem, 7vw, 7rem); line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem; color: #ffffff;"
         >
           {t.tools_count}
         </h2>
 
         <p
-          class="font-display font-semibold text-[var(--z-white)]"
-          style="font-size: clamp(1.2rem, 2vw, 1.6rem); line-height: 1.3; margin-bottom: 1.25rem;"
+          class="font-display font-semibold"
+          style="font-size: clamp(1.2rem, 2vw, 1.6rem); line-height: 1.3; margin-bottom: 1.25rem; color: #cc6949;"
         >
           {t.tools_subtitle}
         </p>
 
         <p
-          class="font-body text-[var(--z-slate-300)]"
-          style="font-size: 1.125rem; line-height: 1.75; max-width: 380px;"
+          class="font-body"
+          style="font-size: 1.125rem; line-height: 1.75; max-width: 380px; color: #C9CED8;"
         >
           {t.tools_description}
         </p>
       </div>
 
-      <!-- Right: grid de logos con celdas -->
-      <div
-        class="tools-grid"
-        style="
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          border-top: 1px solid var(--z-midnight-800);
-          border-left: 1px solid var(--z-midnight-800);
-        "
-      >
-        {tools.map((tool) => (
-          <div
-            class="tool-cell group"
-            style="
-              border-right: 1px solid var(--z-midnight-800);
-              border-bottom: 1px solid var(--z-midnight-800);
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              gap: 0.6rem;
-              padding: 1.5rem 1rem;
-              transition: background 0.2s ease;
-            "
-            onmouseover="this.style.background='var(--z-midnight-900)'"
-            onmouseout="this.style.background='transparent'"
-          >
-            <img
-              src={tool.logo}
-              alt={tool.name}
-              style="width: 32px; height: 32px; object-fit: contain;"
-              loading="lazy"
-              decoding="async"
-            />
-            <span
-              class="font-mono text-[var(--z-slate-500)]"
-              style="font-size: 0.6rem; letter-spacing: 0.1em; text-align: center;"
-            >
-              {tool.name}
-            </span>
+      <!-- Right: ticker horizontal con borde primary -->
+      <div class="ticker-outer">
+        <!-- Fila 1 → izquierda -->
+        <div class="ticker-row">
+          <div class="ticker-track track-left">
+            {tickerItems.map(tool => (
+              <div class="ticker-item">
+                <img src={tool.logo} alt={tool.name} class="ticker-logo" loading="lazy" decoding="async" />
+                <span class="ticker-name">{tool.name}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <!-- Fila 2 → derecha -->
+        <div class="ticker-row">
+          <div class="ticker-track track-right">
+            {tickerItems.map(tool => (
+              <div class="ticker-item">
+                <img src={tool.logo} alt={tool.name} class="ticker-logo" loading="lazy" decoding="async" />
+                <span class="ticker-name">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Fila 3 → izquierda -->
+        <div class="ticker-row">
+          <div class="ticker-track track-left" style="animation-duration: 28s;">
+            {tickerItems.map(tool => (
+              <div class="ticker-item">
+                <img src={tool.logo} alt={tool.name} class="ticker-logo" loading="lazy" decoding="async" />
+                <span class="ticker-name">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
+
+<style>
+  .ticker-outer {
+    border: 2px solid var(--z-primary);
+    background: #0A0F1E;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 0;
+  }
+
+  .ticker-row {
+    overflow: hidden;
+    padding: 0.75rem 0;
+    /* fade edges */
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .track-left {
+    animation: ticker-left 22s linear infinite;
+  }
+  .track-right {
+    animation: ticker-right 25s linear infinite;
+  }
+
+  .ticker-outer:hover .ticker-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes ticker-left {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes ticker-right {
+    0%   { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 2rem;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    white-space: nowrap;
+  }
+
+  .ticker-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+
+  .ticker-name {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+</style>
 
 <script>
   import gsap from 'gsap';
@@ -144,13 +228,12 @@ const tools: { name: string; logo: string }[] = (sbTools && sbTools.length > 0)
       ease: 'power3.out',
       scrollTrigger: { trigger: '.tools-title', start: 'top 85%' },
     });
-    gsap.from('.tool-cell', {
+    gsap.from('.ticker-outer', {
       opacity: 0,
-      scale: 0.9,
-      stagger: 0.04,
-      duration: 0.4,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.tools-grid', start: 'top 85%' },
+      x: 40,
+      duration: 0.7,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.ticker-outer', start: 'top 85%' },
     });
   }
 </script>

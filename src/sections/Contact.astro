@@ -73,11 +73,11 @@ const marqueeItems = (c.marquee_items?.length > 0) ? c.marquee_items : FALLBACK_
                 target={item.url.startsWith('http') ? '_blank' : undefined}
                 rel={item.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                 class="contact-marquee-item font-display font-bold uppercase"
-                style="font-size: 60px; color: var(--z-lime-400); letter-spacing: -0.01em;"
+                style="font-size: clamp(2rem, 10vw, 60px); color: var(--z-lime-400); letter-spacing: -0.01em;"
               >
                 {item.label} {item.value}
               </a>
-              <span class="font-display font-bold select-none" style={`font-size: 60px; color: var(--z-lime-400); opacity: 0.4;${j === marqueeItems.length - 1 ? ' padding-right: 2.5rem;' : ''}`}>·</span>
+              <span class="font-display font-bold select-none" style={`font-size: clamp(2rem, 10vw, 60px); color: var(--z-lime-400); opacity: 0.4;${j === marqueeItems.length - 1 ? ' padding-right: 2.5rem;' : ''}`}>·</span>
             </>
           ))}
         </span>

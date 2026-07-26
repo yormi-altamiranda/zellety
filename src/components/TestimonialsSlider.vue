@@ -24,12 +24,16 @@ defineProps<{ testimonials: TestimonialItem[] }>()
       :loop="true"
       :autoplay="{ delay: 3500, disableOnInteraction: false }"
       :grab-cursor="true"
+      :breakpoints="{
+        0:   { slidesPerView: 1, spaceBetween: 12 },
+        640: { slidesPerView: 'auto', spaceBetween: 12 },
+      }"
       style="padding: 0 clamp(1rem, 4vw, 2rem); overflow: visible;"
     >
       <SwiperSlide
         v-for="(t, i) in testimonials"
         :key="i"
-        style="width: 300px; height: 420px;"
+        class="testimonial-slide"
       >
         <!-- QUOTE CARD -->
         <div
@@ -68,3 +72,17 @@ defineProps<{ testimonials: TestimonialItem[] }>()
     </Swiper>
   </div>
 </template>
+
+<style scoped>
+.testimonial-slide {
+  width: 300px;
+  height: 420px;
+}
+
+@media (max-width: 639px) {
+  .testimonial-slide {
+    width: 100%;
+    height: 380px;
+  }
+}
+</style>

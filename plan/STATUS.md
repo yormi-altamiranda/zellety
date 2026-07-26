@@ -50,16 +50,22 @@
 - [x] Seeds disponibles: `seed-section-headers.mjs`, `seed-tools-block.mjs`
 - [x] Webhook manual: configurar en Storyblok Settings → `https://api.netlify.com/build_hooks/6a63f25b916759b5691e06e2`
 
-### Animaciones
+### Animaciones y Motion
 - [x] GSAP scroll reveals en todas las secciones
 - [x] Lenis smooth scroll
 - [x] Marquees (Contact, Project detail, Services)
 - [x] Animación de entrada Hero (título)
+- [x] Footer wordmark ZELLETY — `yPercent 110→0` con ScrollTrigger (fix pixel/percent conflict)
+- [x] Botones CTA — slide overlay con gradient 200% + `background-position` transition
+- [x] Custom cursor — punto 20px terracota, expande 72px en links, `GSAP.quickTo` suavizado
+- [x] Tools — banda inclinada `rotateZ(-4deg)`, 3 filas CSS ticker, siempre visible
 
 ### Responsive / móvil
 - [x] Grids de 3 columnas (metadata hero) correctos en móvil
 - [x] Footer info bar apilado en móvil
 - [x] Card footer (label + título) apilado vertical en móvil
+- [x] Work cards — `aspect-ratio: 4/5` en móvil (portrait) vs `4/3` en desktop
+- [x] Tools band — `rotateZ(-3deg)` y menor ancho extra en móvil
 
 ---
 
@@ -122,3 +128,8 @@
 | Testimonials no aparecían | `:testimonials="testimonials"` en Astro → string literal | Cambiar a `testimonials={testimonials}` (JSX) |
 | Dark mode icono incorrecto | `ref(true)` + `!== 'light'` siempre true | `ref(false)` + `=== 'dark'` |
 | Borde azul en nav links | Clase `focus-ring` UnoCSS genera ring azul en `:focus` | Quitar `focus-ring` del header |
+| Footer wordmark invisible | `gsap.to(yPercent:0)` lee CSS `translateY(110%)` como `y:257px` (matrix), anima 0→0 | `gsap.set({y:0,yPercent:110})` + `gsap.to({yPercent:0})` |
+| Cursor congelado al click | `overwrite:true` en mousedown mataba tweens `x`/`y` del quickTo | Cambiar a `overwrite:'auto'` |
+| Tools band invisible | `gsap.fromTo` iniciaba con `opacity:0`; race condition con Lenis hacía que ScrollTrigger no disparara | Eliminar fromTo — banda siempre visible |
+| Work cards comprimidas en móvil | `aspect-ratio: 4/3` inline sin breakpoint | Clase CSS con `4/3` desktop → `4/5` móvil |
+| Team header en inglés | Fallback hardcoded con `'Team'` + `'members'` | Cambiar a `'Nuestro'` + `'Equipo'` |

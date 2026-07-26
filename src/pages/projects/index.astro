@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import ProjectFilter from '@components/ProjectFilter.vue';
 import { getProjects } from '../../lib/storyblok';
 import { getAllProjects } from '../../lib/mock-data';
 
@@ -11,14 +12,6 @@ interface DisplayProject {
   services: string[];
   tech_stack: string[];
 }
-
-const SERVICE_LABELS: Record<string, string> = {
-  web_app: 'Web App',
-  mobile: 'App Móvil',
-  iot: 'IoT',
-  ux_ui: 'UX/UI',
-  saas: 'SaaS',
-};
 
 let projects: DisplayProject[];
 
@@ -72,43 +65,10 @@ try {
   <!-- Divider -->
   <div style="height: 1px; background: var(--z-midnight-800);"></div>
 
-  <!-- Grid -->
+  <!-- Filter + Grid (Vue island) -->
   <section style="background: var(--z-midnight-950); padding: 5rem 0 8rem;">
     <div class="container-site">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-16">
-        {projects.map((p, i) => (
-          <a href={p.link} class="project-card block group" aria-label={p.title}>
-            <!-- Imagen -->
-            <div class="overflow-hidden mb-4" style="aspect-ratio: 4/3;">
-              <img
-                src={p.cover_image.filename}
-                alt={p.cover_image.alt}
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading={i < 2 ? 'eager' : 'lazy'}
-                decoding="async"
-              />
-            </div>
-            <!-- Info -->
-            <div style="border-top: 1px solid var(--z-midnight-800); padding-top: 1rem;">
-              <p
-                class="font-body font-medium text-[var(--z-lime-400)] mb-2"
-                style="font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;"
-              >
-                {p.services.map(s => SERVICE_LABELS[s] ?? s).join(' | ')}
-              </p>
-              <h2
-                class="font-display font-bold text-[var(--z-white)] group-hover:text-[var(--z-lime-400)] transition-colors mb-2"
-                style="font-size: clamp(1.25rem, 2.5vw, 1.6rem); letter-spacing: -0.01em; line-height: 1.2;"
-              >
-                {p.title}
-              </h2>
-              <p class="font-body text-[var(--z-slate-300)]" style="font-size: 0.9rem; line-height: 1.6;">
-                {p.summary}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div>
+      <ProjectFilter projects={projects} client:idle />
     </div>
   </section>
 
@@ -127,14 +87,6 @@ try {
       duration: 0.9,
       ease: 'power3.out',
       delay: 0.1,
-    });
-    gsap.from('.project-card', {
-      opacity: 0,
-      y: 40,
-      stagger: 0.1,
-      duration: 0.6,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.project-card', start: 'top 90%' },
     });
   }
 </script>

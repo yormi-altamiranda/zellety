@@ -112,7 +112,30 @@ const meta = [
 ];
 ---
 
-<BaseLayout title={`${project.title} — Zellety`} description={project.summary}>
+<BaseLayout
+  title={`${project.title} — Zellety`}
+  description={project.summary}
+  ogImage={project.cover_image.filename}
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": project.title,
+      "description": project.summary,
+      "image": project.cover_image.filename,
+      "dateCreated": project.published_at,
+      "creator": {
+        "@type": "Organization",
+        "name": "Zellety",
+        "url": "https://zellety.com"
+      },
+      ...(project.url ? { "url": project.url } : {}),
+      ...(project.client_name ? { "producer": { "@type": "Organization", "name": project.client_name } } : {})
+    })}
+  />
 
   <!-- ── Hero ─────────────────────────────────────────── -->
   <section class="project-hero" style="padding: 140px 0 0; background: var(--z-midnight-950);">

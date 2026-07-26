@@ -37,7 +37,7 @@
 ### Páginas
 - [x] `/services` — 5 servicios detallados
 - [x] `/projects/[slug]` — detalle de proyecto, conectado a Storyblok con fallback
-- [ ] `/projects` — grid completo con filtro por servicio (Vue island) ← **pendiente**
+- [x] `/projects` — grid completo con filtro por servicio (Vue island `ProjectFilter.vue`)
 
 ### CMS — Storyblok
 - [x] `lib/storyblok.ts` — cliente API + tipos TS + helpers
@@ -78,13 +78,13 @@
 - [ ] Copy real en servicios
 
 ### Páginas pendientes
-- [ ] `/projects` — grid completo con filtro por servicio (Vue island)
+- [x] `/projects` — grid completo con filtro por servicio (Vue island `ProjectFilter.vue`)
 
 ### Antes del launch
 - [ ] Formulario de contacto verificado en Netlify dashboard
-- [ ] Favicon + apple-touch-icon reales
-- [ ] `og:image` real por página (1200×630)
-- [ ] Schema.org: `Organization` en home + `CreativeWork` en proyectos
+- [ ] Favicon + apple-touch-icon reales (favicon.svg creado, apple-touch-icon.png pendiente)
+- [ ] `og:image` real por página — infraestructura lista, proyectos usan cover_image, falta imagen default real
+- [x] Schema.org: `Organization` en home + `CreativeWork` en proyectos
 - [ ] Test completo en móvil real (iOS + Android)
 - [ ] `pnpm run build` limpio en producción
 - [ ] Verificar `/sitemap-index.xml` y `robots.txt` en el build

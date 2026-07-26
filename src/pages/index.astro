@@ -11,6 +11,22 @@ import Contact from '../sections/Contact.astro';
 ---
 
 <BaseLayout title="Zellety — Diseño y Desarrollo Tech en LATAM" darkHero={true}>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Zellety",
+      "url": "https://zellety.com",
+      "logo": "https://zellety.com/favicon.svg",
+      "description": "Startup de diseño y desarrollo tech en Latinoamérica. Servicios de Web App, App Móvil, IoT, UX/UI y SaaS para founders y equipos de producto.",
+      "areaServed": "LATAM",
+      "foundingLocation": "Latinoamérica",
+      "serviceType": ["Web App Development", "Mobile App Development", "IoT", "UX/UI Design", "SaaS Development"],
+      "sameAs": []
+    })}
+  />
   <Hero />
   <About />
   <Services />

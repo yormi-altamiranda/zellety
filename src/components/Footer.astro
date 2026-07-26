@@ -37,5 +37,37 @@ const year = new Date().getFullYear();
     font-size: 19.5vw;
     letter-spacing: -0.02em;
     text-align: center;
+    /* GSAP controla el transform inicial vía fromTo — no CSS aquí */
   }
 </style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const span = document.querySelector<HTMLElement>('.footer-wordmark span');
+  if (!prefersReduced && span) {
+    // Set initial state so no CSS-vs-GSAP pixel conflict
+    gsap.set(span, { y: 0, yPercent: 110 });
+
+    gsap.to(span, {
+      yPercent: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.footer-wordmark',
+        start: 'top 95%',
+        once: true,
+      },
+      onComplete() {
+        span.style.willChange = 'auto';
+      },
+    });
+  } else if (span) {
+    // No animation — show text immediately
+    gsap.set(span, { y: 0, yPercent: 0 });
+  }
+</script>

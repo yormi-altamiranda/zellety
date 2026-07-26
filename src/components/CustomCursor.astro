@@ -1,0 +1,93 @@
+<!-- CustomCursor — solo desktop (hover: hover) -->
+<div id="z-cursor" aria-hidden="true"></div>
+
+<style is:global>
+  /* Ocultar cursor nativo en desktop */
+  @media (hover: hover) {
+    body { cursor: none; }
+    input, textarea, select { cursor: none; }
+  }
+</style>
+
+<style>
+  #z-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #cc6949;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition:
+      width  0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.25s ease;
+    will-change: transform;
+  }
+
+  /* Visible — pequeño punto */
+  #z-cursor.is-visible {
+    opacity: 1;
+  }
+
+  /* Sobre link / botón — círculo grande */
+  #z-cursor.is-link {
+    width: 72px;
+    height: 72px;
+    opacity: 0.82;
+  }
+
+  /* Solo desktop */
+  @media (hover: none) {
+    #z-cursor { display: none; }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  const cursor = document.getElementById('z-cursor');
+
+  // No hacer nada en touch
+  if (cursor && !window.matchMedia('(hover: none)').matches) {
+    // Centrar el cursor en el mouse con xPercent/yPercent
+    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.45, ease: 'power3' });
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.45, ease: 'power3' });
+
+    // Seguir el mouse
+    window.addEventListener('mousemove', (e) => {
+      cursor.classList.add('is-visible');
+      xTo(e.clientX);
+      yTo(e.clientY);
+    });
+
+    // Ocultar al salir de la ventana
+    document.documentElement.addEventListener('mouseleave', () => {
+      cursor.classList.remove('is-visible', 'is-link');
+    });
+
+    // Crecer al entrar en elemento interactivo
+    document.addEventListener('mouseover', (e) => {
+      const el = (e.target as Element).closest('a, button, [role="button"], [data-cursor]');
+      if (el) cursor.classList.add('is-link');
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const el = (e.target as Element).closest('a, button, [role="button"], [data-cursor]');
+      if (el) cursor.classList.remove('is-link');
+    });
+
+    // Pulso en click
+    document.addEventListener('mousedown', () => {
+      gsap.to(cursor, { scale: 0.72, duration: 0.1, ease: 'power2.in', overwrite: 'auto' });
+    });
+    document.addEventListener('mouseup', () => {
+      gsap.to(cursor, { scale: 1, duration: 0.3, ease: 'elastic.out(1, 0.5)', overwrite: 'auto' });
+    });
+  }
+</script>

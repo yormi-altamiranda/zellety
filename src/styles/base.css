@@ -170,6 +170,67 @@ ol {
    as base.css loads after UnoCSS and would override responsive
    variants like lg:block and md:flex via cascade order. */
 
+/* ── Botones — CTA slide overlay (derecha → izquierda) ──── */
+/*
+  Técnica: gradient 200% de ancho + background-position.
+  Default → muestra mitad izquierda (color base).
+  Hover   → desplaza a mitad derecha (color overlay), que "entra desde la derecha".
+*/
+
+.btn-primary,
+.btn-ghost {
+  position: relative;
+  overflow: hidden;
+  /* background-position anima el slide; color/border para consistencia */
+  transition:
+    background-position 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* filled — terracota de base, negro entra por la derecha */
+.btn-primary {
+  background-image: linear-gradient(
+    to right,
+    var(--z-lime-400) 50%,
+    #191919           50%
+  );
+  background-size: 200% 100%;
+  background-position: left center;
+}
+.btn-primary:hover {
+  background-position: right center;
+}
+.btn-primary:active {
+  filter: brightness(0.88);
+}
+
+/* ghost — transparente de base, terracota entra por la derecha */
+.btn-ghost {
+  background-image: linear-gradient(
+    to right,
+    transparent      50%,
+    var(--z-lime-400) 50%
+  );
+  background-size: 200% 100%;
+  background-position: left center;
+}
+.btn-ghost:hover {
+  background-position: right center;
+  border-color: var(--z-lime-400);
+}
+
+/* Flecha/icono dentro del botón — desliza leve al hacer hover */
+.btn-primary span[aria-hidden="true"],
+.btn-ghost   span[aria-hidden="true"] {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover span[aria-hidden="true"],
+.btn-ghost:hover   span[aria-hidden="true"] {
+  transform: translateX(5px);
+}
+
 /* ── Marquee (sección 9.6 del CLAUDE.md) ────────────────── */
 .marquee-track {
   display: flex;

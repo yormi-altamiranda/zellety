@@ -31,11 +31,11 @@ export default defineConfig({
     'section-padding-sm':
       'py-[var(--space-16)]',
 
-    // Botones
+    // Botones — hover styles handled by base.css (gradient slide overlay)
     'btn-primary':
-      'inline-flex items-center gap-2 px-6 py-3 bg-[var(--z-lime-400)] text-white font-semibold cursor-pointer transition-colors duration-200 hover:bg-[var(--z-lime-500)] active:bg-[var(--z-lime-600)]',
+      'inline-flex items-center gap-2 px-6 py-3 text-white font-semibold cursor-pointer',
     'btn-ghost':
-      'inline-flex items-center gap-2 px-6 py-3 border border-[var(--z-midnight-800)] text-white cursor-pointer transition-colors duration-200 hover:border-[var(--z-lime-400)] hover:text-[var(--z-lime-400)]',
+      'inline-flex items-center gap-2 px-6 py-3 border border-[rgba(255,255,255,0.25)] text-white font-semibold cursor-pointer',
     'btn-link':
       'inline-flex items-center gap-1 text-[var(--z-lime-400)] hover:text-[var(--z-lime-500)] transition-colors duration-200',
 

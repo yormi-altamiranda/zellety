@@ -85,7 +85,7 @@ const right = projects.filter((_, i) => i % 2 !== 0);
         {left.map((p) => (
           <a href={p.link} class="work-card block group" aria-label={p.title}>
             <!-- Imagen -->
-            <div class="overflow-hidden" style="aspect-ratio: 4/3;">
+            <div class="work-card-img overflow-hidden">
               <img
                 src={p.cover_image.filename}
                 alt={p.cover_image.alt}
@@ -118,7 +118,7 @@ const right = projects.filter((_, i) => i % 2 !== 0);
         {right.map((p) => (
           <a href={p.link} class="work-card block group" aria-label={p.title}>
             <!-- Imagen -->
-            <div class="overflow-hidden" style="aspect-ratio: 4/3;">
+            <div class="work-card-img overflow-hidden">
               <img
                 src={p.cover_image.filename}
                 alt={p.cover_image.alt}
@@ -150,6 +150,18 @@ const right = projects.filter((_, i) => i % 2 !== 0);
   </div>
 
 </section>
+
+<style>
+  .work-card-img {
+    aspect-ratio: 4/3;
+  }
+  @media (max-width: 767px) {
+    /* Portrait-ish on mobile — more visual impact in single-column layout */
+    .work-card-img {
+      aspect-ratio: 4/5;
+    }
+  }
+</style>
 
 <script>
   import gsap from 'gsap';

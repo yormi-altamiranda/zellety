@@ -209,6 +209,23 @@ const tickerItems = [...tools, ...tools];
     text-transform: uppercase;
   }
 
+  @media (max-width: 640px) {
+    .ticker-item {
+      gap: 0.5rem;
+      padding: 0 1.25rem;
+    }
+    .ticker-logo {
+      width: 24px;
+      height: 24px;
+    }
+    .ticker-name {
+      font-size: 0.65rem;
+    }
+    .ticker-row {
+      padding: 0.6rem 0;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .ticker-track { animation: none; }
   }

@@ -147,23 +147,32 @@ Grid vertical del equipo con fotos y bios.
 
 **Ruta:** `src/sections/Tools.astro`
 
-Grid 4×4 de logos de herramientas con celdas y hover.
+Sección de herramientas con texto estadístico y banda inclinada de logos en movimiento continuo.
 
 ### Datos (Storyblok)
 - Textos: `getHomeSettings()` → `tools_count`, `tools_subtitle`, `tools_description`
-- Grid: `getHomeSettings()` → `tool_list[]` (array de `tool_item`)
+- Logos: `getHomeSettings()` → `tool_list[]` (array de `tool_item`)
 - Fallback: 16 SVGs locales de `src/assets/icons/`
 
 ### Layout
-- 2 columnas: izquierda texto (label, "34+", subtítulo, descripción), derecha grid
-- Grid: `repeat(4, 1fr)`, bordes `var(--z-midnight-800)`, celdas con hover bg
+- Texto en `container-site`: label, "34+" (grande), subtítulo terracota, descripción
+- Banda inclinada **full-width** fuera del container: `rotateZ(-4deg)`, `width: calc(100% + 12vw)`, `margin-left: -6vw`
+- Sección con `overflow: hidden` para recortar los extremos de la rotación
 
-### Hover de celdas
-`onmouseover/onmouseout` vanilla JS inline (no Vue necesario).
+### Banda ticker (CSS puro)
+- 3 filas: fila 1 y 3 → izquierda (22s/32s), fila 2 → derecha (28s)
+- Items triplicados (`[...tools, ...tools, ...tools]`) para loop seamless
+- `@keyframes ticker-left`: `translateX(0 → -33.333%)`
+- Pause on hover: `.tools-band:hover .ticker-track { animation-play-state: paused }`
+- Sin bordes primary — bordes sutiles entre filas con `rgba(255,255,255,0.05)`
+
+### Mobile
+- Rotación reducida: `rotateZ(-3deg)`, ancho `calc(100% + 8vw)`
+- Logos e iconos más pequeños (22px vs 32px desktop)
 
 ### GSAP
-- Número "34+": `opacity 0→1, translateY 30→0`
-- Celdas: `opacity 0→1, scale 0.9→1`, stagger 0.04s
+- Solo anima el título "34+": `opacity 0→1, translateY 30→0` con ScrollTrigger
+- La banda NO usa GSAP para entrada (siempre visible — evita race condition con Lenis)
 
 ---
 

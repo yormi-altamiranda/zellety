@@ -4,17 +4,24 @@
 
 ---
 
-## Componentes Vue (islands interactivos)
+## Componentes Astro (UI global)
 
 | Archivo | Descripción |
 |---------|-------------|
 | [`Header.astro`](./header.md) | Header fijo con nav, ThemeToggle y NavMobile |
-| [`Footer.astro`](./footer.md) | Footer con wordmark gigante ZELLETY |
+| [`Footer.astro`](./footer.md) | Footer con wordmark gigante ZELLETY animado |
+| [`CustomCursor.astro`](./custom-cursor.md) | Cursor personalizado desktop — punto terracota con GSAP |
+
+## Componentes Vue (islands interactivos)
+
+| Archivo | Descripción |
+|---------|-------------|
 | [`ThemeToggle.vue`](./theme-toggle.md) | Toggle dark/light mode |
 | [`NavMobile.vue`](./nav-mobile.md) | Menú hamburguesa para móvil |
 | [`ContactForm.vue`](./contact-form.md) | Formulario de contacto con validación |
 | [`TestimonialsSlider.vue`](./testimonials-slider.md) | Carousel SwiperJS de testimonios |
 | [`ToolsSlider.vue`](./tools-slider.md) | Carrusel infinito de logos de herramientas |
+| [`ProjectFilter.vue`](./project-filter.md) | Filtro de proyectos por servicio (`/projects`) |
 
 ## Secciones Astro (zero JS cliente)
 
